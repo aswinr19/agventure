@@ -122,6 +122,10 @@ Route::get('/admin/create-product',function(){
     return view('createProduct',['title'=>'Create product page']);
 });
 
+Route::post('/admin/create-product',function(){
+    
+});
+
 Route::get('/user/auctions',function(){
         return view('auctions',['title'=>'Auctions page']);
 });
@@ -135,6 +139,16 @@ Route::get('/farmer/create-item',function(){
         return view('createItem',['title'=>'Create item page']);
 });
 
+Route::post('/farmer/create-item',function(){
+
+});
+
+
 Route::get('/farmer/create-auction',function(){
     return view('createAuction',['title'=>'Create auction page']);
+});
+
+
+Route::post('/farmer/create-auction',function(){
+    
 });
