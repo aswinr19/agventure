@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Product;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -111,7 +113,10 @@ Route::post('/auth/signin',function(Request $request){
 
 
 Route::get("/products",function(){
-    return view('products',['title'=>'Products page']);
+
+    $products = Product::all();
+
+    return view('products',['title'=>'Products page','products'=>$products]);
 });
 
 Route::get('/product/{id}',function($id){
@@ -122,8 +127,46 @@ Route::get('/admin/create-product',function(){
     return view('createProduct',['title'=>'Create product page']);
 });
 
-Route::post('/admin/create-product',function(){
-    
+Route::post('/admin/create-product',function(Request $request){
+
+        // dd($request->input());
+        
+        $validatedData = $request->validate([
+
+            'product_name' => 'required|min:2',
+            'product_description' => 'required',
+            'product_price' => 'required',
+            'category' => 'required',
+            'quantity' => 'required',
+            // 'product_image' => 'required|max:5048',
+            'suitable_crops' => 'required',
+            'recommended_crops' => 'required',
+            'composition' => 'required',
+            'product_image' => 'required|mimes:jpg,png,jpeg|max:5048',
+
+
+        ]);
+        //  dd($validatedData);
+        $newImageName = time().'-'. $request->product_name.'.'. 
+        $request->product_image->extension();
+
+        // dd($newImageName);
+
+        $request->product_image->move(public_path('images'),$newImageName);
+
+
+        $product = new Product();
+        $product->name = $request->product_name;
+        $product->description = $request->product_description;
+        $product->category = $request->category;
+        $product->quantity = $request->quantity;
+        $product->price = $request->product_price;
+        $product->image = $newImageName;
+        $product->suitable_crops = $request->suitable_crops;
+        $product->reccomended_crops = $request->recommended_crops;
+        $product->composition = $request->composition;
+
+        $product->save();
 });
 
 Route::get('/user/auctions',function(){
@@ -139,7 +182,7 @@ Route::get('/farmer/create-item',function(){
         return view('createItem',['title'=>'Create item page']);
 });
 
-Route::post('/farmer/create-item',function(){
+Route::post('/farmer/create-item',function(Request $request){
 
 });
 
@@ -149,6 +192,6 @@ Route::get('/farmer/create-auction',function(){
 });
 
 
-Route::post('/farmer/create-auction',function(){
+Route::post('/farmer/create-auction',function(Request $request){
     
 });

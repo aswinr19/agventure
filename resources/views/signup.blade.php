@@ -45,7 +45,9 @@
     {{ $message }}
 
     @enderror</span> <br>
+   
     <select name="role">
+        <option value="role" selected disabled >Role</option>
         <option value="user">User</option>
         <option value="farmer">Farmer</option>
     </select><br>
