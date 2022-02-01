@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ItemController;
 use Illuminate\Http\Request;
 
 /*
@@ -35,6 +36,11 @@ Route::get('/user',function(){
     return view('userHomePage',['title'=>'User Page']);
 });
 
+
+
+
+//auth routes
+
 Route::get('/auth/signup',[UserController::class,'create']);
 
 Route::post('/auth/signup',[UserController::class,'store']);
@@ -44,6 +50,8 @@ Route::get('/auth/signin',[UserController::class,'login']);
 Route::post('/auth/signin',[UserController::class,'check']);
 
 
+//product routes
+
 Route::get("/products",[ProductController::class,'index']);
 
 Route::get('/product/{id}',[ProductController::class,'show']);
@@ -52,29 +60,21 @@ Route::get('/admin/create-product',[ProductController::class,'create']);
 
 Route::post('/admin/create-product',[ProductController::class,'store']);
 
-Route::get('/user/auctions',function(){
-        return view('auctions',['title'=>'Auctions page']);
-});
+
+//auction routes
+
+Route::get('/user/auctions',[AuctionController::class,'index']);
+
+Route::get('/user/auction/{id}',[AuctionController::class,'show']);
+
+Route::get('/farmer/create-auction',[AuctionController::class,'create']);
+
+Route::post('/farmer/create-auction',[AuctionController::class,'store']);
 
 
-Route::get('/user/auction/{id}',function($id){
-    return view('auction',['title'=>'Auction page']);
-});
 
-Route::get('/farmer/create-item',function(){
-        return view('createItem',['title'=>'Create item page']);
-});
+//item routes
 
-Route::post('/farmer/create-item',function(Request $request){
+Route::get('/farmer/create-item',[ItemController::class,'create']);
 
-});
-
-
-Route::get('/farmer/create-auction',function(){
-    return view('createAuction',['title'=>'Create auction page']);
-});
-
-
-Route::post('/farmer/create-auction',function(Request $request){
-    
-});
+Route::post('/farmer/create-item',[ItemController::class,'store']);
