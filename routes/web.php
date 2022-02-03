@@ -52,13 +52,20 @@ Route::post('/auth/signin',[UserController::class,'check']);
 
 //product routes
 
-Route::get("/products",[ProductController::class,'index']);
+Route::get("/admin/products",[ProductController::class,'index']);
 
-Route::get('/product/{id}',[ProductController::class,'show']);
+Route::get('/admin/product/{id}',[ProductController::class,'show']);
 
 Route::get('/admin/create-product',[ProductController::class,'create']);
 
 Route::post('/admin/create-product',[ProductController::class,'store']);
+
+Route::get('/admin/update-product/{id}',[ProductController::class,'update']);
+
+Route::post('/admin/update-product',[ProductController::class,'change']);
+
+Route::get('/admin/delete-product/{id}',[ProductController::class,'destroy']);
+
 
 
 //auction routes
