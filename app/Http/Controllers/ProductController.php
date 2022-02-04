@@ -69,6 +69,7 @@ class ProductController extends Controller
         $product->composition = $request->composition;
 
         $product->save();
+        return redirect('/admin/products');
 
     }
     public function update($id){

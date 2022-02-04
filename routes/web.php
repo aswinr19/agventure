@@ -85,3 +85,13 @@ Route::post('/farmer/create-auction',[AuctionController::class,'store']);
 Route::get('/farmer/create-item',[ItemController::class,'create']);
 
 Route::post('/farmer/create-item',[ItemController::class,'store']);
+
+Route::get('/farmer/items',[ItemController::class,'index']);
+
+Route::get('/farmer/item/{id}',[ItemController::class,'show']);
+
+Route::get('/farmer/update-item/{id}',[ItemController::class,'update']);
+
+Route::post('/farmer/update-item',[ItemController::class,'change']);
+
+Route::get('/farmer/delete-item/{id}',[ItemController::class,'destroy']);
