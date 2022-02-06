@@ -13,10 +13,8 @@
         <th>Delete</th>
     </tr>
     
-
 @foreach($items as $item)
-
-
+@if($item->user_id == session('loggedUser'))
 <tr>
    
 <td>
@@ -46,13 +44,13 @@
         </td>
         <td>
             {{
-                $item->user_id
+                $item->user->user_name
+
             }}
         </td>
         <td>
         <img src="{{
-    asset('images/'. $item->image)
-}}" alt="{{ $item->image }} " height="40px">
+           asset('images/'. $item->image)}}" alt="{{ $item->image }} " height="40px">
 
         </td>
         <td>
@@ -63,7 +61,7 @@
         </td>
         
     </tr>
-
+    @endif
 @endforeach
 </table>
 @endsection

@@ -14,6 +14,10 @@
         $item->quantity
     }}<br>
     {{
+                $item->user->user_name
+
+            }} <br>
+    {{
         $item->price
     }}<br>
     <img src="{{

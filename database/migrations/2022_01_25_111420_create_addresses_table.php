@@ -15,12 +15,12 @@ class CreateAddressesTable extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->string('house_name');
             $table->string('street');
             $table->integer('pincode');
             $table->string('district');
             $table->string('state');
-            $table->foreignId('user_id');
             $table->timestamps();
         });
     }

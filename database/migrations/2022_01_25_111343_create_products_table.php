@@ -17,16 +17,16 @@ class CreateProductsTable extends Migration
         //fertilizer , pesticides , seeds
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->string('name');
             $table->text('description');
             $table->string('category');
             $table->integer('quantity');
             $table->bigInteger('price');
             $table->string('image');
-            $table->text('suitable_crops');
-            $table->text('reccomended_crops');
-            $table->text('composition');
-            
+            $table->text('suitable_crops')->nullable();
+            $table->text('recommended_crops')->nullable();
+            $table->text('composition')->nullable();
             $table->timestamps();
         });
     }

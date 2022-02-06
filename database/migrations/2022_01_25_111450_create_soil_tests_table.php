@@ -15,10 +15,11 @@ class CreateSoilTestsTable extends Migration
     {
         Schema::create('soil_tests', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
-            $table->time('time');
             $table->foreignId('user_id');
             $table->foreignId('payment_id');
+            $table->foreignId('address_id');
+            $table->date('date');
+            $table->time('time');
             $table->timestamps();
         });
     }

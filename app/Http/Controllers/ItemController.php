@@ -15,31 +15,14 @@ class ItemController extends Controller
         return view('items.index',['title'=>'Items page','items'=>$items]); 
     }
 
-
-
-
-
-
     public function show($id){
         $item = Item::findOrFail($id);
         return view('items.show',['title'=>'Item page','item'=>$item]);
     }
 
-
-
-
-
-
     public function create(){
-
         return view('items.create',['title'=>'Create item page']);
-
     }
-
-
-
-
-
 
     public function store(Request $request){
 
@@ -69,19 +52,13 @@ class ItemController extends Controller
         $item->save();
 
         return redirect('/farmer/items');
-
-
         
     }
-
-
 
     public function update($id){
         $item = Item::findOrFail($id);
         return view('items.update',['title' => 'Update item Page','item'=>$item]);
     }
-
-
 
     public function change(Request $request){
         $validatedData = $request->validate([
@@ -107,16 +84,12 @@ class ItemController extends Controller
         $item->price = $request->item_price;
          $item->image = $request->item_image;
         $item->save();
-
         return redirect('/farmer/items');
-
     }
 
     public function destroy($id){
-     
         $item = Item::findOrFail($id);
         $item->delete();
         return redirect('/farmer/items');
-
     }
 }

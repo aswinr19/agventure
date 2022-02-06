@@ -15,10 +15,12 @@ class CreateAuctionsTable extends Migration
     {
         Schema::create('auctions', function (Blueprint $table) {
             $table->id();
-            $table->integer('starting_amount');
-            $table->integer('max_amount');
             $table->foreignId('user_id');
-            $table->foreignId('product_id');
+            $table->foreignId('item_id');
+            $table->string('status');
+            $table->integer('starting_amount');
+            $table->dateTime('started_at')->nullable();
+            $table->time('duration');
             $table->timestamps();
         });
     }

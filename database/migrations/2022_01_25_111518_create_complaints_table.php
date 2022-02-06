@@ -15,10 +15,10 @@ class CreateComplaintsTable extends Migration
     {
         Schema::create('complaints', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->string('subject');
             $table->text('complaint');
-            $table->string('proof');
-            $table->foreignId('user_id');
+            $table->string('proof')->nullable();
             $table->timestamps();
         });
     }

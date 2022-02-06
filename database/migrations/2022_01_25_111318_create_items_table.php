@@ -17,12 +17,12 @@ class CreateItemsTable extends Migration
         //auction items
         Schema::create('items', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->string('name');
-            $table->bigInteger('price');
             $table->text('description');
             $table->integer('quantity');
+            $table->bigInteger('price');
             $table->string('image');
-            $table->foreignId('user_id');
             $table->timestamps();
         });
     }
