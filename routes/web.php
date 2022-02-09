@@ -4,18 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
-use Illuminate\Http\Request;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\AuctionController;
 
 Route::get('/', function () {
     return view('index',['title'=>'Welcome Page']);
@@ -70,13 +59,19 @@ Route::get('/admin/delete-product/{id}',[ProductController::class,'destroy']);
 
 //auction routes
 
-Route::get('/user/auctions',[AuctionController::class,'index']);
+Route::get('/farmer/auctions',[AuctionController::class,'index']);
 
-Route::get('/user/auction/{id}',[AuctionController::class,'show']);
+Route::get('/farmer/auction/{id}',[AuctionController::class,'show']);
 
 Route::get('/farmer/create-auction',[AuctionController::class,'create']);
 
 Route::post('/farmer/create-auction',[AuctionController::class,'store']);
+
+Route::get('/farmer/update-auction/{id}',[AuctionController::class,'update']);
+
+Route::post('/farmer/update-auction',[AuctionController::class,'change']);
+
+Route::get('farmer/delete-auction',[AuctionController::class,'destroy']);
 
 
 
@@ -95,3 +90,5 @@ Route::get('/farmer/update-item/{id}',[ItemController::class,'update']);
 Route::post('/farmer/update-item',[ItemController::class,'change']);
 
 Route::get('/farmer/delete-item/{id}',[ItemController::class,'destroy']);
+
+

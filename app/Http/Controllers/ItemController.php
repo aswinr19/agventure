@@ -31,7 +31,6 @@ class ItemController extends Controller
 
             'item_name' => 'required|min:2',
             'item_description' => 'required',
-            'item_price' => 'required',
             'quantity' => 'required',
             'item_image' => 'required|mimes:jpg,png,jpeg|max:5048',
         ]);
@@ -47,11 +46,10 @@ class ItemController extends Controller
         $item->description = $request->item_description;
         $item->user_id = $request->session()->get('loggedUser');
         $item->quantity = $request->quantity;
-        $item->price = $request->item_price;
         $item->image = $newImageName;
         $item->save();
 
-        return redirect('/farmer/items');
+        return redirect('/farmer/create-auction');
         
     }
 
@@ -65,7 +63,6 @@ class ItemController extends Controller
 
             'item_name' => 'required|min:2',
             'item_description' => 'required',
-            'item_price' => 'required',
             'quantity' => 'required',
             // 'item_image' => 'required|mimes:jpg,png,jpeg|max:5048',
         ]);
@@ -81,7 +78,6 @@ class ItemController extends Controller
         $item->description = $request->item_description;
         $item->user_id = $request->session()->get('loggedUser');
         $item->quantity = $request->quantity;
-        $item->price = $request->item_price;
          $item->image = $request->item_image;
         $item->save();
         return redirect('/farmer/items');

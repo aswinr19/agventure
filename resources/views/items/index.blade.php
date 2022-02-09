@@ -5,7 +5,6 @@
     <tr>
         <th>Item Name</th>
         <th>Item Description</th>
-        <th>Price</th>
         <th>Quantity</th>
         <th>Created By</th>
         <th>Image</th>
@@ -31,12 +30,6 @@
 }}
 
         </td>
-       
-        <td>
-            {{
-                $item->price
-            }}
-        </td>
         <td>
             {{
                 $item->quantity
@@ -44,7 +37,7 @@
         </td>
         <td>
             {{
-                $item->user->user_name
+                $item->user->name
 
             }}
         </td>

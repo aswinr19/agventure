@@ -59,13 +59,14 @@ class ProductController extends Controller
 
         $product = new Product();
         $product->name = $request->product_name;
+        $product->user_id = $request->session()->get('loggedUser');
         $product->description = $request->product_description;
         $product->category = $request->category;
         $product->quantity = $request->quantity;
         $product->price = $request->product_price;
         $product->image = $newImageName;
         $product->suitable_crops = $request->suitable_crops;
-        $product->reccomended_crops = $request->recommended_crops;
+        $product->recommended_crops = $request->recommended_crops;
         $product->composition = $request->composition;
 
         $product->save();
@@ -102,6 +103,7 @@ class ProductController extends Controller
         // $request->product_image->move(public_path('images'),$newImageName);
 
         $product = Product::findOrFail($request->id);
+        $product->user_id = $request->session()->get('loggedUser');
         $product->name = $request->product_name;
         $product->description = $request->product_description;
         $product->category = $request->category;

@@ -32,7 +32,7 @@ class UserController extends Controller
         ]);
             // saving data to database
               $user = new User;
-              $user->user_name = $request->first_name . " ". $request->last_name;
+              $user->name = $request->first_name . " ". $request->last_name;
               $user->email = $request->email;
               $user->phone = $request->phone;
               $user->password = Hash::make($request->password);

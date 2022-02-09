@@ -19,7 +19,7 @@
     
 
 @foreach($products as $product)
-
+@if($product->user_id == session('loggedUser'))
 
 <tr>
    
@@ -80,7 +80,7 @@
             <a href="/admin/delete-product/{{ $product-> id }}">Delete</a>
         </td>
     </tr>
-
+@endif
 @endforeach
 </table>
 @endsection

@@ -17,7 +17,7 @@ class CreateAuctionsTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('item_id');
-            $table->string('status');
+            $table->string('status')->default('pending');
             $table->integer('starting_amount');
             $table->dateTime('started_at')->nullable();
             $table->time('duration');
