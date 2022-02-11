@@ -5,6 +5,9 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AuctionController;
+use App\Http\Controllers\ComplaintController;
+
+
 
 Route::get('/', function () {
     return view('index',['title'=>'Welcome Page']);
@@ -56,6 +59,23 @@ Route::post('/admin/update-product',[ProductController::class,'change']);
 Route::get('/admin/delete-product/{id}',[ProductController::class,'destroy']);
 
 
+//item routes
+
+Route::get('/farmer/items',[ItemController::class,'index']);
+
+Route::get('/farmer/item/{id}',[ItemController::class,'show']);
+
+Route::get('/farmer/create-item',[ItemController::class,'create']);
+
+Route::post('/farmer/create-item',[ItemController::class,'store']);
+
+Route::get('/farmer/update-item/{id}',[ItemController::class,'update']);
+
+Route::post('/farmer/update-item',[ItemController::class,'change']);
+
+Route::get('/farmer/delete-item/{id}',[ItemController::class,'destroy']);
+
+
 
 //auction routes
 
@@ -71,24 +91,21 @@ Route::get('/farmer/update-auction/{id}',[AuctionController::class,'update']);
 
 Route::post('/farmer/update-auction',[AuctionController::class,'change']);
 
-Route::get('farmer/delete-auction',[AuctionController::class,'destroy']);
+Route::get('farmer/delete-auction/{id}',[AuctionController::class,'destroy']);
 
 
+//complaint routes
 
-//item routes
+Route::get('/user/complaints',[ComplaintController::class,'index']);
 
-Route::get('/farmer/create-item',[ItemController::class,'create']);
+Route::get('/user/complaint/{id}',[ComplaintController::class,'show']);
 
-Route::post('/farmer/create-item',[ItemController::class,'store']);
+Route::get('/user/create-complaint',[ComplaintController::class,'create']);
 
-Route::get('/farmer/items',[ItemController::class,'index']);
+Route::post('/user/create-complaint',[ComplaintController::class,'store']);
 
-Route::get('/farmer/item/{id}',[ItemController::class,'show']);
+Route::get('/user/update-complaint/{id}',[ComplaintController::class,'update']);
 
-Route::get('/farmer/update-item/{id}',[ItemController::class,'update']);
+Route::get('/user/update-complaint',[ComplaintController::class,'change']);
 
-Route::post('/farmer/update-item',[ItemController::class,'change']);
-
-Route::get('/farmer/delete-item/{id}',[ItemController::class,'destroy']);
-
-
+Route::get('/user/delete-complaint/{id}',[ComplaintController::class,'destroy']);

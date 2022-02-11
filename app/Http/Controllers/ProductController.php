@@ -33,7 +33,7 @@ class ProductController extends Controller
     }
     public function store(Request $request){
 
-        $validatedData = $request->validate([
+         $request->validate([
 
             'product_name' => 'required|min:2',
             'product_description' => 'required',
@@ -75,11 +75,11 @@ class ProductController extends Controller
     }
     public function update($id){
         $product = Product::findOrFail($id);
-        return view('products.update',['title' => 'Update product Page','product'=>$product]);
+        return view('products.update',['title' => 'Update product page','product'=>$product]);
     }
     public function change(Request $request){
  
-        $validatedData = $request->validate([
+         $request->validate([
 
             'product_name' => 'required|min:2',
             'product_description' => 'required',
