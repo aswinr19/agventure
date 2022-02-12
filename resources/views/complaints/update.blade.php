@@ -1,15 +1,23 @@
 @extends('layouts.layout')
 @section('content')
 <h2>Update Complaints</h2>
-<form action="" method="POST" enctype="multipart/form-data">
+<form action="/user/update-complaint" method="POST" enctype="multipart/form-data">
     @csrf
-    <input type="hidden" name="id" value="{{ $complaint->id }}">
-    <label for="subject">Subject</label>
+    <input type="hidden" name="id" value="{{ $complaint->id }}"> 
+    <label for="subject">Subject</label> <br>
     <input type="text" name="subject"><br>
-    <label for="complaint">Complaint</label>
+    <span>@error('subject') 
+        
+        {{ $message }}
+    
+        @enderror</span> <br>
+    <label for="complaint">Complaint</label> <br>
     <input type="text" name="complaint" ><br>
-    <label for="proof">Proof</label>
-    <input type="file" name="proof"> <br>
+    <span>@error('complaint') 
+        
+        {{ $message }}
+    
+        @enderror</span> <br>
     <input type="submit" value="submit" name="submit">
 </form>
 @endsection

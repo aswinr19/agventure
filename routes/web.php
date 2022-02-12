@@ -6,6 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\ComplaintController;
+use App\Http\Controllers\GuidelineController;
+
 
 
 
@@ -109,3 +111,32 @@ Route::get('/user/update-complaint/{id}',[ComplaintController::class,'update']);
 Route::get('/user/update-complaint',[ComplaintController::class,'change']);
 
 Route::get('/user/delete-complaint/{id}',[ComplaintController::class,'destroy']);
+
+
+//guideline routes
+
+Route::get('/admin/guidelines',[GuidelineController::class,'index']);
+
+Route::get('/admin/guideline/{id}',[GuidelineController::class,'show']);
+
+Route::get('/admin/create-guideline',[GuidelineController::class,'create']);
+
+Route::post('/admin/create-guideline',[GuidelineController::class,'store']);
+
+Route::get('/admin/update-guideline/{id}',[GuidelineController::class,'update']);
+
+Route::post('/admin/update-guideline',[GuidelineController::class,'change']);
+
+Route::get('/admin/delete-guideline',[GuidelineController::class,'destroy']);
+
+
+
+
+
+
+
+
+
+
+
+

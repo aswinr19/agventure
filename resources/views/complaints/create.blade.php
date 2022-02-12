@@ -1,14 +1,29 @@
 @extends('layouts.layout')
 @section('content')
 <h2>Create Complaints</h2>
-<form action="" method="POST" enctype="multipart/form-data">
+<form action="/user/create-complaint" method="POST" enctype="multipart/form-data">
     @csrf
-    <label for="subject">Subject</label>
+    <label for="subject">Subject</label> <br>
     <input type="text" name="subject"><br>
-    <label for="complaint">Complaint</label>
+    <span>@error('subject') 
+        
+        {{ $message }}
+    
+        @enderror</span> <br>
+    <label for="complaint">Complaint</label> <br>
     <input type="text" name="complaint" ><br>
-    <label for="proof">Proof</label>
+    <span>@error('complaint') 
+        
+        {{ $message }}
+    
+        @enderror</span> <br>
+    <label for="proof">Proof</label> <br>
     <input type="file" name="proof"> <br>
+    <span>@error('proof') 
+        
+        {{ $message }}
+    
+        @enderror</span> <br>
     <input type="submit" value="submit" name="submit">
 </form>
 @endsection
