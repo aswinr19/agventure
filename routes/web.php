@@ -7,6 +7,9 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\GuidelineController;
+use App\Http\Controllers\MachineController;
+
+
 
 
 
@@ -32,6 +35,22 @@ Route::get('/user',function(){
 
 
 
+//common routes
+
+
+Route::get('/products');
+
+Route::get('/product/{id}');
+
+Route::get('/auctions');
+
+Route::get('/auction/{id}');
+
+Route::get('/checkout/1');
+
+Route::get('/checkout/2');
+
+
 
 //auth routes
 
@@ -43,6 +62,8 @@ Route::get('/auth/signin',[UserController::class,'login']);
 
 Route::post('/auth/signin',[UserController::class,'check']);
 
+
+//specific routes 
 
 //product routes
 
@@ -130,13 +151,18 @@ Route::post('/admin/update-guideline',[GuidelineController::class,'change']);
 Route::get('/admin/delete-guideline',[GuidelineController::class,'destroy']);
 
 
+//machine routes
 
+Route::get('/admin/machines',[MachineController::class,'index']);
 
+Route::get('/admin/machine/{id}',[MachineController::class,'show']);
 
+Route::get('/admin/create-machine',[MachineController::class,'create']);
 
+Route::post('/admin/create-machine',[MachineController::class,'store']);
 
+Route::get('/admin/update-machine/{id}',[MachineController::class,'update']);
 
+Route::post('/admin/update-machine',[MachineController::class,'change']);
 
-
-
-
+Route::get('/admin/delete-machine/{id}',[MachineController::class,'destroy']);
