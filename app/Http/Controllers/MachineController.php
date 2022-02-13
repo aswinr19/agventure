@@ -47,6 +47,7 @@ public function store(Request $request){
     $request->image->move(public_path('images'),$newImageName);
 
     $machine = new Machine();
+    $machine->user_id = $request->session()->get('loggedUser');
     $machine->name = $request->name;
     $machine->description = $request->description;
     $machine->category  = $request->category;

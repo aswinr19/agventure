@@ -8,11 +8,8 @@ use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\GuidelineController;
 use App\Http\Controllers\MachineController;
-
-
-
-
-
+use App\Models\Address;
+use App\Models\Payment;
 
 Route::get('/', function () {
     return view('index',['title'=>'Welcome Page']);
@@ -46,10 +43,23 @@ Route::get('/auctions');
 
 Route::get('/auction/{id}');
 
-Route::get('/checkout/1');
+Route::get('/checkout',function(){
 
-Route::get('/checkout/2');
+    $addresses = Address::all();
+    $paymentDetails = Payment::all();
+    return view('checkout.index',['title'=>'Checkout page','addresses'=>$addresses,'payments'=>$paymentDetails]);
+    
+});
 
+Route::post('/checkout');
+
+Route::post('/checkout/create-address');
+
+Route::post('/checkout/update-address');
+
+Route::post('/checkout/create-payment-details');
+
+Route::post('/checkout/update-payment-details');
 
 
 //auth routes
