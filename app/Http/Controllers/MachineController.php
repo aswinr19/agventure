@@ -55,13 +55,14 @@ public function store(Request $request){
     $machine->price = $request->price;
     $machine->image = $newImageName;
     $machine->save();
+    
     return redirect('/admin/machines');
 }
 
 public function update($id){
 
     $machine = Machine::findOrFail($id);
-    return view('machines.update',['title'=>'Update machine page']);
+    return view('machines.update',['title'=>'Update machine page','machine'=>$machine]);
 }
 
 public function change(Request $request){

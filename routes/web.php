@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -8,8 +9,10 @@ use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\GuidelineController;
 use App\Http\Controllers\MachineController;
-use App\Models\Address;
-use App\Models\Payment;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PurchaseController;
+
+
 
 Route::get('/', function () {
     return view('index',['title'=>'Welcome Page']);
@@ -43,23 +46,21 @@ Route::get('/auctions');
 
 Route::get('/auction/{id}');
 
-Route::get('/checkout',function(){
+Route::get('/checkout',[PurchaseController::class,'create']);
 
-    $addresses = Address::all();
-    $paymentDetails = Payment::all();
-    return view('checkout.index',['title'=>'Checkout page','addresses'=>$addresses,'payments'=>$paymentDetails]);
-    
-});
+Route::post('/checkout',[PurchaseController::class,'store']);
 
-Route::post('/checkout');
+Route::post('/checkout/create-address',[AddressController::class,'create']);
 
-Route::post('/checkout/create-address');
+Route::post('/checkout/update-address',[AddressController::class,'create']);
 
-Route::post('/checkout/update-address');
+Route::post('/checkout/delete-address',[AddressController::class,'destroy']);
 
-Route::post('/checkout/create-payment-details');
+Route::post('/checkout/create-payment-details',[PaymentController::class,'create']);
 
-Route::post('/checkout/update-payment-details');
+Route::post('/checkout/update-payment-details',[PaymentController::class,'update']);
+
+Route::post('/checkout/delete-payment-details',[PaymentController::class,'destroy']);
 
 
 //auth routes

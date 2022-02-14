@@ -4,12 +4,15 @@
 <h2>Checkout</h2>
 <div>
     @foreach($addresses as $address)
-    <input type="radio" name="{{ $address->id }}" >  <span> {{ $address->house_name}},{{ $address->street}},{{ $address->district }},{{ $address->state }},{{ $address->pincode }}. </span>
+    <input type="radio" name="{{ $address->id }}" >  <span> {{ $address->house_name}},
+        {{ $address->street}},{{ $address->district }},{{ $address->state }},
+        {{ $address->pincode }}. </span>
     @endforeach
 </div>
 
 <h5>Add New Address</h5>
 <form action="/checkout/create-address" method="POST">
+    @csrf
     <label for="house_name">House Name</label> <br>
     <input type="text" name="house_name"><br>
     <span>@error('house_name') 
@@ -54,6 +57,7 @@
 </div>
 <h5>Add Payment Details</h5>
 <form action="/checkout/create-payment-details" method="POST">
+@csrf
 <label for="payment_method">Payment Method</label><br>
 Credit/Debit/ATM Card
 <input type="radio" name="payment_method" value="card">
@@ -70,6 +74,13 @@ COD
 <label for="upi_id"> UPI Id</label><br>
 <input type="text" name="upi_id"> <br>
 <input type="submit" value="add" name="submit">
+</form>
+<form action="/checkout" method="POST">
+@csrf
+    <input type="hidden" name="">
+    <input type="hidden" name="">
+    <input type="hidden" name="">
+    <input type="submit" value="continue" name="submit">
 </form>
 @endsection
 
