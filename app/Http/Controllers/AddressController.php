@@ -19,9 +19,12 @@ class AddressController extends Controller
 
         $address = new Address();
         $address->user_id = $request->session()->get('loggedUser');
+        $address->name = $request->name;
+        $address->phone = $request->phone;
         $address->house_name = $request->house_name;
         $address->street = $request->street;
         $address->pincode = $request->pincode;
+        $address->city = $request->city;
         $address->district = $request->district;
         $address->state = $request->state;
         $address->save();
@@ -38,9 +41,12 @@ class AddressController extends Controller
         ]);
 
         $address =  Address::findOrFail($request->id);
+        $address->name = $request->name;
+        $address->phone = $request->phone;
         $address->house_name = $request->house_name;
         $address->street = $request->street;
         $address->pincode = $request->pincode;
+        $address->city = $request->city;
         $address->district = $request->district;
         $address->state = $request->state;
         $address->save();

@@ -4,8 +4,8 @@
 <h2>Checkout</h2>
 <div>
     @foreach($addresses as $address)
-    <input type="radio" name="{{ $address->id }}" >  <span> {{ $address->house_name}},
-        {{ $address->street}},{{ $address->district }},{{ $address->state }},
+    <input type="radio" name="{{ $address->id }}" >  <span>{{ $address->name}},{{ $address->phone}}, {{ $address->house_name}},
+        {{ $address->street}},{{ $address->city}},{{ $address->district }},{{ $address->state }},
         {{ $address->pincode }}. </span>
     @endforeach
 </div>
@@ -13,6 +13,20 @@
 <h5>Add New Address</h5>
 <form action="/checkout/create-address" method="POST">
     @csrf
+    <label for="name">Full Name</label> <br>
+    <input type="text" name="name"><br>
+    <span>@error('name') 
+        
+        {{ $message }}
+    
+        @enderror</span> <br>
+        <label for="phone">Phone</label> <br>
+    <input type="text" name="phone"><br>
+    <span>@error('phone') 
+        
+        {{ $message }}
+    
+        @enderror</span> <br>
     <label for="house_name">House Name</label> <br>
     <input type="text" name="house_name"><br>
     <span>@error('house_name') 
@@ -30,6 +44,13 @@
         <label for="pincode">Pincode</label> <br>
         <input type="text" name="pincode"><br>
         <span>@error('pincode') 
+        
+        {{ $message }}
+    
+        @enderror</span> <br>
+        <label for="city">City</label> <br>
+        <input type="text" name="city"><br>
+        <span>@error('city') 
         
         {{ $message }}
     

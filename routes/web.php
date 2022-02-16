@@ -177,3 +177,7 @@ Route::get('/admin/update-machine/{id}',[MachineController::class,'update']);
 Route::post('/admin/update-machine',[MachineController::class,'change']);
 
 Route::get('/admin/delete-machine/{id}',[MachineController::class,'destroy']);
+
+
+//addresses table changed , change the corrosponding controller and views
+//added cart table , controller ,model add the fields in cart table
