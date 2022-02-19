@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AddressController;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -11,7 +11,7 @@ use App\Http\Controllers\GuidelineController;
 use App\Http\Controllers\MachineController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PurchaseController;
-
+use App\Http\Controllers\AddressController;
 
 
 Route::get('/', function () {
@@ -179,5 +179,3 @@ Route::post('/admin/update-machine',[MachineController::class,'change']);
 Route::get('/admin/delete-machine/{id}',[MachineController::class,'destroy']);
 
 
-//addresses table changed , change the corrosponding controller and views
-//added cart table , controller ,model add the fields in cart table

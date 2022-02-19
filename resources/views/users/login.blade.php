@@ -5,7 +5,7 @@
     @csrf
    
     <label for="email">Email </label> <br>
-    <input type="text" name="email" placeholder="Enter email address" value={{ old('email') }}> <br>
+    <input type="text" name="email" placeholder="Enter email address" value="{{ old('email') }}"> <br>
     <span>@error('email') 
         
     {{ $message }}
