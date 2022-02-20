@@ -12,7 +12,8 @@ use App\Http\Controllers\MachineController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AddressController;
-
+use App\Http\Controllers\TipController;
+use App\Models\Tip;
 
 Route::get('/', function () {
     return view('index',['title'=>'Welcome Page']);
@@ -178,4 +179,20 @@ Route::post('/admin/update-machine',[MachineController::class,'change']);
 
 Route::get('/admin/delete-machine/{id}',[MachineController::class,'destroy']);
 
+
+//tips
+
+Route::get('/admin/tips',[TipController::class,'index']);
+
+Route::get('/admin/tip/{id}',[TipController::class,'show']);
+
+Route::get('/admin/create-tip',[TipController::class,'create']);
+
+Route::Post('/admin/create-tip',[TipController::class,'store']);
+
+Route::get('/admin/update-tip/{id}',[TipController::class,'update']);
+
+Route::post('/admin/update-tip',[TipController::class,'change']);
+
+Route::get('/admin/delete-tip',[TipController::class,'destroy']);
 
