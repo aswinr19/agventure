@@ -53,7 +53,7 @@
     
         @enderror</span> <br>
     <label for="recommended_crops">Recommended Crops</label> <br>
-    <input type="text" name="recommended_crops" value="{{ $product->reccomended_crops }}"><br>
+    <input type="text" name="recommended_crops" value="{{ $product->recommended_crops }}"><br>
     <span>@error('recommended_crops') 
         
         {{ $message }}

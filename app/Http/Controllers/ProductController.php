@@ -111,7 +111,7 @@ class ProductController extends Controller
         $product->price = $request->product_price;
         $product->image = $request->product_image;
         $product->suitable_crops = $request->suitable_crops;
-        $product->reccomended_crops = $request->recommended_crops;
+        $product->recommended_crops = $request->recommended_crops;
         $product->composition = $request->composition;
         $product->save();
 

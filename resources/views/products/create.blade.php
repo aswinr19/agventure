@@ -58,7 +58,7 @@
     
         @enderror</span> <br>
     <label for="composition">Composition</label> <br>
-    <input type="text" name="compospition"><br>
+    <input type="text" name="composition"><br>
     <span>@error('composition') 
         
         {{ $message }}
