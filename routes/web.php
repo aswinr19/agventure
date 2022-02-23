@@ -13,7 +13,10 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\TipController;
-use App\Models\Tip;
+
+
+
+
 
 Route::get('/', function () {
     return view('index',['title'=>'Welcome Page']);
@@ -196,3 +199,12 @@ Route::post('/admin/update-tip',[TipController::class,'change']);
 
 Route::get('/admin/delete-tip',[TipController::class,'destroy']);
 
+
+
+
+//create user pages for auction , products , machines 
+//add many to many realtion to machines and purchases
+//add cart functionalities and logic to extract products id and machines id from cart 
+//add auction ending with change in status , when the time ends , etc
+//add search functionality to products and machines page (for users)
+//

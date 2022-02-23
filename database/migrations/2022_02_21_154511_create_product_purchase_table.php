@@ -17,7 +17,7 @@ class CreateProductPurchaseTable extends Migration
             $table->id();
             $table->foreignId('product_id');
             $table->foreignId('purchase_id');
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
 
