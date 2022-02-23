@@ -78,8 +78,13 @@ class UserController extends Controller
                         //if the password is correct store the user id in session  and
                         // redirect to corresponding home page
                         $request->session()->put('loggedUser',$userInfo->id);
-                      
-                        return redirect("/$userInfo->role");
+                        if($userInfo->role=='user'){
+                            return redirect('/');
+                        }
+                        else{
+                            return redirect("/$userInfo->role");
+
+                        }
     
                 }else{
     

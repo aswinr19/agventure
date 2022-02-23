@@ -27,13 +27,7 @@
         {{ $message }}
     
         @enderror</span> <br>
-    <label for="item_price">Item Price</label> <br>
-    <input type="text" name="item_price" value="{{$item->price}}"><br>
-    <span>@error('item_price') 
-        
-        {{ $message }}
-    
-        @enderror</span> <br>
+   
     <!-- <label for="item_image">Item Image </label> <br>
     <input type="file" src="" alt="" name="item_image"><br>
     <span>@error('item_image') 

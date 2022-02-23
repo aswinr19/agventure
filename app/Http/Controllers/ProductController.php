@@ -124,4 +124,23 @@ class ProductController extends Controller
         $product->delete();
         return redirect('/admin/products');
     }
+
+    public function display(Request $request){
+
+
+        $products = Product::latest();
+
+        if(request('search')){
+            $products->where('name','like','%'.request('search').'%');
+        }
+
+        return view('products.display',['title'=>'Products page','products'=>$products->get()]);
+    }
+
+    public function displayOne($id){
+
+        $product = Product::findOrFail($id);
+
+        return view('products.displayOne',['title'=>'Product page','product'=>$product]);
+    }
 }

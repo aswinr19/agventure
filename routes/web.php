@@ -33,36 +33,35 @@ Route::get('/farmer',function(){
 });
 
 
-Route::get('/user',function(){
-    return view('userHomePage',['title'=>'User Page']);
-});
-
-
 
 //common routes
 
 
-Route::get('/products');
+Route::get('/products',[ProductController::class,'display']);
 
-Route::get('/product/{id}');
+Route::get('/product/{id}',[ProductController::class,'displayOne']);
 
-Route::get('/auctions');
+Route::get('/auctions',[AuctionController::class,'display']);
 
-Route::get('/auction/{id}');
+Route::get('/auction/{id}',[AuctionController::class,'displayOne']);
+
+Route::get('/machines',[MachineController::class,'display']);
+
+Route::get('/machine/{id}',[MachineController::class,'displayOne']);
 
 Route::get('/checkout',[PurchaseController::class,'create']);
 
 Route::post('/checkout',[PurchaseController::class,'store']);
 
-Route::post('/checkout/create-address',[AddressController::class,'create']);
+Route::post('/checkout/create-address',[AddressController::class,'store']);
 
-Route::post('/checkout/update-address',[AddressController::class,'create']);
+Route::post('/checkout/update-address',[AddressController::class,'change']);
 
 Route::post('/checkout/delete-address',[AddressController::class,'destroy']);
 
-Route::post('/checkout/create-payment-details',[PaymentController::class,'create']);
+Route::post('/checkout/create-payment-details',[PaymentController::class,'store']);
 
-Route::post('/checkout/update-payment-details',[PaymentController::class,'update']);
+Route::post('/checkout/update-payment-details',[PaymentController::class,'change']);
 
 Route::post('/checkout/delete-payment-details',[PaymentController::class,'destroy']);
 
@@ -200,11 +199,22 @@ Route::post('/admin/update-tip',[TipController::class,'change']);
 Route::get('/admin/delete-tip',[TipController::class,'destroy']);
 
 
+//TODO
+
+//create user pages for auction , products , machines.
+//add many to many realtion to machines and purchases.
+//add cart functionalities and logic to extract products id and machines id from cart. 
+//add auction ending with change in status , when the time ends , etc.
+//add search functionality to products and machines page (for users).
+//crct the mistakes with showing individual results page.
+//add the rest of the relations.
+//add functionality to increase and decrease the count of the cart items.
+//add query to find the specific products, items of the the admin who added the product,item (currently using if to check that in view ).
+//add middlewares to check for authentication ,authorization(roles).
+//add styling elemnts to views.
+//test the code for errors ,bugs.
+//address the n-1 problem.
 
 
-//create user pages for auction , products , machines 
-//add many to many realtion to machines and purchases
-//add cart functionalities and logic to extract products id and machines id from cart 
-//add auction ending with change in status , when the time ends , etc
-//add search functionality to products and machines page (for users)
-//
+
+
