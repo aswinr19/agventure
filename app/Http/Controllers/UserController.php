@@ -93,6 +93,33 @@ class UserController extends Controller
         }
 
     }
+
+    public function change(Request $request){
+
+
+              $id = $request->session()->get('loggedUser');
+              $user = User::findOrFail($id);
+              $user->name = $request->name;
+              $user->email = $request->email;
+              $user->phone = $request->phone;
+              $user->password = Hash::make($request->password);
+              $save = $user->save();
+        
+             if($save){
+                     return back()->with('success','User has been successfuly updated');
+             }else{
+                     return back()->with('fail','Something went wrong, please try again later');
+             }
+    }
+
+    public function destroy($id){
+
+        $user = User::fincOrFail($id);
+        $user->delete();
+        
+        redirect('/');
+
+    }
    
     //
 }

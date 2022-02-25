@@ -19,26 +19,47 @@
                 justify-content: space-between;
                 list-style: none;
             }
+            div{
+               font-size: 16px;
+                background-color:grey;
+            }
+            
             
    </style>
     </head>
+   
+    <body class="content">
     <nav>
-        <h2>Agventure</h2>
+        <h2>
+            <a href="/">Agventure</a>
+        </h2>
         <ul>
-            <a href="">  <li>Seeds</li> </a>    <a href=""> <li>Fertilizers</li>  </a>    <a href=""> <li>Pesticides</li> </a>    <a href="">  <li>Machines</li> </a>
-           
-           
-            
-           
+            <a href="">  <li>Seeds</li> </a>  
+            <a href=""> <li>Fertilizers</li> </a>    
+            <a href=""> <li>Pesticides</li> </a>    
+            <a href="">  <li>Machines</li> </a>
             <form action="/products" method="GET">
             <input type="text" name="search" 
             placeholder="Find something"
             value="{{ request('search') }}"
             >
-            </form
+           </form>
+            <a href="/cart">
+            Cart
+            </a>
+            <a href="/auth/signup">
+                Signup
+                </a>
+                <a href="/auth/signin">
+                Signin
+                </a>
         </ul>
     </nav>
-    <body class="content">
     @yield('content')
+    <footer>
+        <div>
+            &copy; Agventure
+        </div>
+    </footer>
     </body>
 </html>

@@ -70,8 +70,30 @@ class AuctionController extends Controller
     }
 
     public function destroy($id){
+        
         $auction = Auction::findOrFail($id);
         $auction->delete();
         return redirect('/farmer/auction');
+    }
+
+    public function display(){
+
+        $auctions = Auction::latest();
+
+        // if(request('search')){
+        //     $auctions->where('item->name','like','%'.request('search').'%');
+        // }
+
+        $auctions->where('status','=','approved');
+
+        return view('auctions.display',['title'=>'Auctions page','auctions'=>$auctions->get()]);
+
+    }
+
+    public function displayOne($id){
+
+        $auction = Auction::findOrFail($id);
+        return view('auctions.displayOne',['title'=>'Auction page','auction'=>$auction]);
+
     }
 }

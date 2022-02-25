@@ -33,7 +33,6 @@ Route::get('/farmer',function(){
 });
 
 
-
 //common routes
 
 
@@ -57,13 +56,20 @@ Route::post('/checkout/create-address',[AddressController::class,'store']);
 
 Route::post('/checkout/update-address',[AddressController::class,'change']);
 
-Route::post('/checkout/delete-address',[AddressController::class,'destroy']);
+Route::get('/checkout/delete-address',[AddressController::class,'destroy']);
 
 Route::post('/checkout/create-payment-details',[PaymentController::class,'store']);
 
 Route::post('/checkout/update-payment-details',[PaymentController::class,'change']);
 
-Route::post('/checkout/delete-payment-details',[PaymentController::class,'destroy']);
+Route::get('/checkout/delete-payment-details',[PaymentController::class,'destroy']);
+
+Route::get('/profile/{id}',[UserController::class,'show']);
+
+Route::post('/profile/update-profile',[UserController::class,'change']);
+
+Route::get('/profile/delete-profile',[UserController::class,'destroy']);
+
 
 
 //auth routes
@@ -199,6 +205,11 @@ Route::post('/admin/update-tip',[TipController::class,'change']);
 Route::get('/admin/delete-tip',[TipController::class,'destroy']);
 
 
+//users
+
+Route::get('/admin/user-profiles',[UserController::class,'index']);
+
+
 //TODO
 
 //create user pages for auction , products , machines.
@@ -206,15 +217,20 @@ Route::get('/admin/delete-tip',[TipController::class,'destroy']);
 //add cart functionalities and logic to extract products id and machines id from cart. 
 //add auction ending with change in status , when the time ends , etc.
 //add search functionality to products and machines page (for users).
-//crct the mistakes with showing individual results page.
 //add the rest of the relations.
 //add functionality to increase and decrease the count of the cart items.
 //add query to find the specific products, items of the the admin who added the product,item (currently using if to check that in view ).
-//add middlewares to check for authentication ,authorization(roles).
+//add middlewares to check for authentication ,authorization(roles) ,and protect routes.
+//add functionality for rating prodcuts.
+//add stripe payments
 //add styling elemnts to views.
 //test the code for errors ,bugs.
 //address the n-1 problem.
+//add coupon code functionality.
+//add a product recommendation engine.
 
+//BUGS
 
-
-
+//bug in creating auctions - create() method , returns the last added item for creating auction , there isn't any check for the owner of the item.
+//crct the mistakes with showing individual results pages.
+//bug in deleting products , auctions , items etc .No check for owner!

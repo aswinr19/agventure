@@ -11,28 +11,28 @@
     @endif
     <br>
     <label for="first_name">First Name </label> <br>
-    <input type="text" name="first_name" placeholder="Enter  first name" value= {{ old('first_name') }}> <br>
+    <input type="text" name="first_name" placeholder="Enter  first name" value= "{{ old('first_name') }}"> <br>
     <span>@error('first_name') 
         
     {{ $message }}
 
     @enderror</span> <br>
     <label for="last_name">Last Name </label><br>
-    <input type="text" name="last_name" placeholder="Enter  last name" value= {{ old('last_name') }}> <br>
+    <input type="text" name="last_name" placeholder="Enter  last name" value= "{{ old('last_name') }}"> <br>
     <span>@error('last_name') 
         
     {{ $message }}
 
     @enderror</span> <br>
     <label for="email">Email </label><br>
-    <input type="text" name="email" placeholder="Enter email address" value= {{ old('email') }}>  <br>
+    <input type="text" name="email" placeholder="Enter email address" value= "{{ old('email') }}">  <br>
     <span>@error('email') 
         
     {{ $message }}
 
     @enderror</span> <br>
     <label for="phone">Phone </label><br>
-    <input type="text" name="phone" placeholder="Enter phone number" value= {{ old('phone') }}> <br>
+    <input type="text" name="phone" placeholder="Enter phone number" value= "{{ old('phone') }}"> <br>
     <span>@error('phone') 
         
     {{ $message }}

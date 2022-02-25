@@ -125,7 +125,7 @@ class ProductController extends Controller
         return redirect('/admin/products');
     }
 
-    public function display(Request $request){
+    public function display(){
 
 
         $products = Product::latest();

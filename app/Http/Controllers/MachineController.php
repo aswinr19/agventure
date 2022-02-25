@@ -90,7 +90,24 @@ public function destroy($id){
 
     $machine =  Machine::findOrFail($id);
     $machine->delete();
-
     return redirect('/admin/machines');
+}
+
+public function display(){
+
+    $machines = Machine::latest();
+
+    if(request('search')){
+        $machines->where('name','like','%'.request('search').'%');
+    }
+
+    return view('machines.display',['title'=>'Machines page','machines'=>$machines->get()]);
+}
+
+public function displayOne($id){
+
+    $machine = Machine::findOrFail($id);
+
+    return view('machines.displayOne',['title'=>'Machine page','machine'=>$machine]);
 }
 }
