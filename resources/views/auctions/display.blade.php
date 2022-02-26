@@ -1,7 +1,6 @@
 @extends('layouts.layout')
 @section('content')
 <h2>Auctions</h2>
-
 @if ($auctions->count())
     @foreach($auctions as $auction)
     <a href="/auction/{{ $auction->id }}">
@@ -9,7 +8,7 @@
     <span> {{ $auction->item->name }}</span> <br>
     </a>
     <span> ₹ {{ $auction->starting_amount}}</span> <br>
-    <span>{{ $aauction->item->description }}</span> <br>
+    <span>{{ $auction->item->description }}</span> <br>
     @endforeach
 @else
     <p>No auctions yet. Please check back later.</p>

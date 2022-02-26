@@ -39,6 +39,7 @@
             <a href=""> <li>Pesticides</li> </a>    
             <a href="">  <li>Machines</li> </a>
             <form action="/products" method="GET">
+            @csrf
             <input type="text" name="search" 
             placeholder="Find something"
             value="{{ request('search') }}"
@@ -47,12 +48,18 @@
             <a href="/cart">
             Cart
             </a>
-            <a href="/auth/signup">
+            @if(Session::get('loggedUser'))
+            Welocme , user {{ Session::get('loggedUser') }}
+            <a href="/auth/logout">Logout</a>
+                @else
+                <a href="/auth/signup">
                 Signup
                 </a>
                 <a href="/auth/signin">
                 Signin
                 </a>
+            @endif
+           
         </ul>
     </nav>
     @yield('content')

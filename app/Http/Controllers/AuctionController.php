@@ -13,13 +13,15 @@ class AuctionController extends Controller
     
 
     public function index(){
-        $auctions = Auction::latest()->get();
+
+        $auctions = Auction::latest();
         // dd($auctions);
         return view('auctions.index',['title'=>'Auctions page','auctions'=>$auctions]);
 
     }
 
     public function show($id){
+
         $auction = Auction::findOrfail($id);
         return view('auctions.show',['title'=>'Auction page','auction'=>$auction]);
 
@@ -78,13 +80,22 @@ class AuctionController extends Controller
 
     public function display(){
 
-        $auctions = Auction::latest();
+        $auctions = Auction::latest()
+        ->where('status','approved');
+        
+        // $auctions = Auction::with('item')
+        // ->where('status','approved');
+
+         // dd($auctions);
+
 
         // if(request('search')){
-        //     $auctions->where('item->name','like','%'.request('search').'%');
+            
+        //     $auctions
+        //     ->where('item.name','like','%'.request('search').'%')
+        //     ->orWhere('item.description','like','%'.request('search').'%');
         // }
 
-        $auctions->where('status','=','approved');
 
         return view('auctions.display',['title'=>'Auctions page','auctions'=>$auctions->get()]);
 

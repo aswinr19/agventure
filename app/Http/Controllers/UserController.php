@@ -120,6 +120,11 @@ class UserController extends Controller
         redirect('/');
 
     }
+    public function logout(Request $request){
+
+        $request->session()->forget('loggedUser');
+        return redirect('/');
+    }
    
     //
 }

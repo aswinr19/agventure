@@ -10,12 +10,14 @@ class CartController extends Controller
     public function index(Request $request){
 
          //find all cart items matching the user ids
-
+        
         $id = $request->session()->get('loggedUser');
-        $cartItems = Cart::where('user_id','LIKE',$id);
+        $cartItems = Cart::latest()->where('user_id',$id)->get();
 
-        return view('carItems.index',['title'=>'Cart items page','cartItems'=>$cartItems]);
-        //find all cart items matching the user ids
+        // dd($cartItems);
+
+        return view('cartItems.index',['title'=>'Cart items page','cartItems'=>$cartItems]);
+        
 
      
     }
@@ -26,6 +28,9 @@ class CartController extends Controller
         $cartItem->user_id =  $request->session()->get('loggedUser');
         $cartItem->product_id = $request->product_id;
         $cartItem->machine_id = $request->machine_id;
+        $cartItem->save();
+
+        return redirect('/cart');
 
     }
 
@@ -34,6 +39,40 @@ class CartController extends Controller
         $cartItem = Cart::findOrFail($id);
         $cartItem->delete();
 
+        return redirect('/cart');
+
     }
-    //
+
+    public function increment($id){
+
+
+        $cartItem  = Cart::findOrFail($id);
+
+        if($cartItem->count>0){
+
+            $cartItem->count = $cartItem->count + 1;
+            $cartItem->save();
+        }
+
+
+        return redirect('/cart');
+    }
+
+    public function decrement($id){
+
+        
+        $cartItem  = Cart::findOrFail($id);
+
+        if($cartItem->count>1){
+
+            $cartItem->count = $cartItem->count - 1;
+            $cartItem->save();
+        }
+
+       
+
+        return redirect('/cart');
+
+    }
+    
 }

@@ -11,7 +11,7 @@ class ProductController extends Controller
     //
     public function index(){
 
-        $products = Product::all();
+        $products = Product::latest()->get();
 
         return view('products.index',['title'=>'Products page','products'=>$products]);        
 
@@ -131,7 +131,10 @@ class ProductController extends Controller
         $products = Product::latest();
 
         if(request('search')){
-            $products->where('name','like','%'.request('search').'%');
+            
+            $products
+            ->where('name','like','%'.request('search').'%')
+            ->orWhere('description','like','%'.request('search').'%');
         }
 
         return view('products.display',['title'=>'Products page','products'=>$products->get()]);

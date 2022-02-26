@@ -12,6 +12,7 @@ use App\Http\Controllers\MachineController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\TipController;
 
 
@@ -70,6 +71,16 @@ Route::post('/profile/update-profile',[UserController::class,'change']);
 
 Route::get('/profile/delete-profile',[UserController::class,'destroy']);
 
+Route::get('/cart',[CartController::class,'index']);
+
+Route::post('/add-to-cart',[CartController::class,'store']);
+
+Route::get('cart/delete-cart-item/{id}',[CartController::class,'destroy']);
+
+Route::get('/cart/increment-cart-item-count/{id}',[CartController::class,'increment']);
+
+Route::get('/cart/decrement-cart-item-count/{id}',[CartController::class,'decrement']);
+
 
 
 //auth routes
@@ -81,6 +92,8 @@ Route::post('/auth/signup',[UserController::class,'store']);
 Route::get('/auth/signin',[UserController::class,'login']);
 
 Route::post('/auth/signin',[UserController::class,'check']);
+
+Route::get('auth/logout',[UserController::class,'logout']);
 
 
 //specific routes 
@@ -208,6 +221,8 @@ Route::get('/admin/delete-tip',[TipController::class,'destroy']);
 //users
 
 Route::get('/admin/user-profiles',[UserController::class,'index']);
+
+
 
 
 //TODO
