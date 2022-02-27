@@ -98,9 +98,9 @@ COD
 </form>
 <form action="/checkout" method="POST">
 @csrf
-    <input type="hidden" name="">
-    <input type="hidden" name="">
-    <input type="hidden" name="">
+    <input type="hidden" name="user_id" value="{{}}">
+    <input type="hidden" name="address_id" value="{{}}">
+    <input type="hidden" name="" name="payment_id" value="{{}}">
     <input type="submit" value="continue" name="submit">
 </form>
 @endsection
