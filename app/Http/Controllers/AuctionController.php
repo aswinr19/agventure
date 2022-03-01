@@ -46,7 +46,6 @@ class AuctionController extends Controller
             $auction->item_id = $request->item_id;
             $auction->starting_amount = $request->starting_price;
             $auction->duration = Carbon::createFromFormat('H',$request->duration)->format('H:i:s');
-            $auction->status = "pending";
             $auction->save();
             // return redirect('/farmer/auctions');
           
@@ -98,6 +97,7 @@ class AuctionController extends Controller
 
 
         return view('auctions.display',['title'=>'Auctions page','auctions'=>$auctions->get()]);
+        
 
     }
 
@@ -105,6 +105,6 @@ class AuctionController extends Controller
 
         $auction = Auction::findOrFail($id);
         return view('auctions.displayOne',['title'=>'Auction page','auction'=>$auction]);
-
+     
     }
 }

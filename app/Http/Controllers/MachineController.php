@@ -98,7 +98,9 @@ public function display(){
     $machines = Machine::latest();
 
     if(request('search')){
-        $machines->where('name','like','%'.request('search').'%');
+        $machines
+        ->where('name','like','%'.request('search').'%')
+        ->orWhere('description','like','%'.request('search').'%');
     }
 
     return view('machines.display',['title'=>'Machines page','machines'=>$machines->get()]);

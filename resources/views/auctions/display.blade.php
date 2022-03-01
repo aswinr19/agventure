@@ -9,6 +9,7 @@
     </a>
     <span> ₹ {{ $auction->starting_amount}}</span> <br>
     <span>{{ $auction->item->description }}</span> <br>
+    <span>{{ $auction->duration }}</span> <br>
     @endforeach
 @else
     <p>No auctions yet. Please check back later.</p>

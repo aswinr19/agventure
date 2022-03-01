@@ -147,3 +147,4 @@ class ProductController extends Controller
         return view('products.displayOne',['title'=>'Product page','product'=>$product]);
     }
 }
+ 
