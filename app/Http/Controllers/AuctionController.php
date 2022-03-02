@@ -107,4 +107,44 @@ class AuctionController extends Controller
         return view('auctions.displayOne',['title'=>'Auction page','auction'=>$auction]);
      
     }
+
+    public function indexAdmin(){
+
+
+        $auctions = Auction::all();
+
+        return view('auctions.indexAdmin',['title'=>'Auctions page','auctions'=>$auctions]);
+
+    }
+
+    public function showAdmin($id){
+
+        $auction = Auction::findOrFail($id);
+
+        return view('auctions.showAdmin',['title'=>'Auction page','auction'=>$auction]);
+
+    }
+
+    public function approve($id){
+
+        $auction = Auction::findOrFail($id);
+
+        $auction->status = "approved";
+        $auction->started_at = Carbon::now();
+        $auction->save();
+
+        return redirect('/admin/auctions');
+
+    }
+
+    public function reject($id){
+
+        $auction = Auction::findOrFail($id);
+
+        $auction->status = "rejected";
+        $auction->save();
+
+        return redirect('/admin/auctions');
+
+    }
 }

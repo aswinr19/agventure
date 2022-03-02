@@ -149,6 +149,14 @@ Route::post('/farmer/update-auction',[AuctionController::class,'change']);
 
 Route::get('farmer/delete-auction/{id}',[AuctionController::class,'destroy']);
 
+Route::get('/admin/auctions',[AuctionController::class,'indexAdmin']);
+
+Route::get('/admin/auction/{id}',[AuctionController::class,'showAdmin']);
+
+Route::post('/admin/auction/approve/{id}',[AuctionController::class,'approve']);
+
+Route::post('/admin/auction/reject/{id}',[AuctionController::class,'reject']);
+
 
 //complaint routes
 
@@ -244,7 +252,7 @@ Route::get('/admin/user-profiles',[UserController::class,'index']);
 //add coupon code functionality.
 //add a product recommendation engine.
 //add a task schedular to check update the remaining time fo acution 
-
+//show rejected auctions as dull in farmer view (auctions.index)
 //BUGS
 
 //bug in creating auctions - create() method , returns the last added item for creating auction , there isn't any check for the owner of the item.
