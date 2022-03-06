@@ -20,6 +20,7 @@ class CreateAuctionsTable extends Migration
             $table->string('status')->default('pending');
             $table->integer('starting_amount');
             $table->dateTime('started_at')->nullable();
+            $table->dateTime('ending_at')->nullable();
             $table->time('duration');
             $table->timestamps();
         });

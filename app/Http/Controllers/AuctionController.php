@@ -140,7 +140,6 @@ class AuctionController extends Controller
     public function reject($id){
 
         $auction = Auction::findOrFail($id);
-
         $auction->status = "rejected";
         $auction->save();
 

@@ -253,6 +253,12 @@ Route::get('/admin/user-profiles',[UserController::class,'index']);
 //add a product recommendation engine.
 //add a task schedular to check update the remaining time fo acution 
 //show rejected auctions as dull in farmer view (auctions.index)
+//add a field in auction table to specify the ending time of the auction and schedule a task to check for the curren time and auction ending time
+  //if ending time exceeded the current time then update the auction status to ended ( add logic to calculate the ending time in the admin approve action ).
+
+
+
+
 //BUGS
 
 //bug in creating auctions - create() method , returns the last added item for creating auction , there isn't any check for the owner of the item.
