@@ -11,7 +11,7 @@
     }}
     <br>
     {{
-        $product->category
+        $product->category->name
     }}<br>
     {{
         $product->quantity

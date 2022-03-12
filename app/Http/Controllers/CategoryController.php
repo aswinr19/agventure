@@ -25,10 +25,11 @@ class CategoryController extends Controller
 
 
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|min:2|max:20',
         ]);
 
         $category = new Category();
+        $category->user_id  =  $request->session()->get('loggedUser');
         $category->name = $request->name;
         $category->save();
 
@@ -48,10 +49,11 @@ class CategoryController extends Controller
         
 
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|min:2|max:20',
         ]);
 
         $category = Category::findOrFail($request->id);
+        $category->user_id = $request->session()->get('loggedUser');
         $category->name = $request->name;
         $category->save();
 

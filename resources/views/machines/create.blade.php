@@ -16,12 +16,12 @@
         {{ $message }}
     
         @enderror</span> <br>
-        <label for="category">Category</label><br>
-        <select name="category" id="">
+        <label for="category">Category</label> <br>
+    <select name="category" >
         <option value="category"  selected disabled>Category</option>
-        <option value=""></option>
-        <option value=""></option>
-        <option value=""></option>
+        @foreach($categories as $category)
+        <option value="{{ $category->id }}">{{ $category->name }}</option>        
+        @endforeach
     </select> <br>
     <span>@error('category') 
         

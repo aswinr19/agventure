@@ -39,7 +39,7 @@
         </td>
         <td>
         {{
-    $product->category
+    $product->category->name
 }}
         </td>
         <td>
@@ -83,4 +83,5 @@
 @endif
 @endforeach
 </table>
+<a href="/admin/create-product">Add a new product</a>
 @endsection

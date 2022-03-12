@@ -5,6 +5,7 @@
     <tr>
         <th>Id</th>
         <th>Name</th>
+        <th>Created By</th>
         <th>Update</th>
         <th>Delete</th>
     </tr>
@@ -12,11 +13,15 @@
 <tr>
     <td>{{ $category->id }}</td>
     <td>{{ $category->name }}</td>
-    <td><a href="/admin/update-category/{id}">Update</a></td>
-    <td><a href="/admin/delete-category/{id}">Delete</a></td>
+    <td>{{ $category->user->name }}</td>
+    <td><a href="/admin/update-category/{{ $category->id }}">Update</a></td>
+    <td><a href="/admin/delete-category/{{ $category->id }}">Delete</a></td>
 
 </tr>
 
 @endforeach
+
+
 </table>
+<a href="/admin/create-category">Add new category</a>
 @endsection

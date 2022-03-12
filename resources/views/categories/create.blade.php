@@ -3,6 +3,7 @@
 <h2>Create Category</h2>
 
 <form action="/admin/create-category" method="POST">
+@csrf
 <label for="name">Name</label><br>
 <input type="text" name="name"><br>
 <span>@error('name') 

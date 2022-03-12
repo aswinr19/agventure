@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Machine;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,8 @@ public function show($id){
 
 public function create(){
 
-    return view('machines.create',['title'=>'Create machine page']);
+    $categories  = Category::all();
+    return view('machines.create',['title'=>'Create machine page','categories'=>$categories]);
 }
 
 public function store(Request $request){
@@ -62,7 +64,8 @@ public function store(Request $request){
 public function update($id){
 
     $machine = Machine::findOrFail($id);
-    return view('machines.update',['title'=>'Update machine page','machine'=>$machine]);
+    $categories  = Category::all();
+    return view('machines.update',['title'=>'Update machine page','machine'=>$machine,'categories'=>$categories]);
 }
 
 public function change(Request $request){
@@ -89,6 +92,7 @@ public function change(Request $request){
 public function destroy($id){
 
     $machine =  Machine::findOrFail($id);
+
     $machine->delete();
     return redirect('/admin/machines');
 }

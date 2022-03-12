@@ -5,6 +5,7 @@
 <img src="{{ asset('images/'. $product->image) }}"" alt="{{ $product->name }}" height="250px"><br>
 <span> {{ $product->name }}</span> <br>
 <span>{{ $product->description }}</span> <br>
+<span>{{ $product->category->name }}</span> <br>
 <span> {{ $product->quantity }}</span> <br>
 <span> ₹ {{ $product->price }}</span> <br>
 <button>Buy Now</button>

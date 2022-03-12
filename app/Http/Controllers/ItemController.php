@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Category;
 use App\Models\Item;
 
 
@@ -21,7 +23,8 @@ class ItemController extends Controller
     }
 
     public function create(){
-        return view('items.create',['title'=>'Create item page']);
+        $categories  = Category::all();
+        return view('items.create',['title'=>'Create item page','categories'=>$categories]);
     }
 
     public function store(Request $request){
@@ -31,6 +34,7 @@ class ItemController extends Controller
 
             'item_name' => 'required|min:2',
             'item_description' => 'required',
+            'category' => 'required',
             'quantity' => 'required',
             'item_image' => 'required|mimes:jpg,png,jpeg|max:5048',
         ]);
@@ -45,6 +49,7 @@ class ItemController extends Controller
         $item->name = $request->item_name;
         $item->description = $request->item_description;
         $item->user_id = $request->session()->get('loggedUser');
+        $item->category = $request->category;
         $item->quantity = $request->quantity;
         $item->image = $newImageName;
         $item->save();
@@ -54,8 +59,11 @@ class ItemController extends Controller
     }
 
     public function update($id){
+
+        $categories  = Category::all();
         $item = Item::findOrFail($id);
-        return view('items.update',['title' => 'Update item Page','item'=>$item]);
+
+        return view('items.update',['title' => 'Update item Page','item'=>$item,'categories'=>$categories]);
     }
 
     public function change(Request $request){
@@ -63,6 +71,7 @@ class ItemController extends Controller
 
             'item_name' => 'required|min:2',
             'item_description' => 'required',
+            'category' => 'required',
             'quantity' => 'required',
             // 'item_image' => 'required|mimes:jpg,png,jpeg|max:5048',
         ]);
@@ -76,6 +85,7 @@ class ItemController extends Controller
         $item = Item::findOrFail($request->id);
         $item->name = $request->item_name;
         $item->description = $request->item_description;
+        $item->category = $request->category;
         $item->user_id = $request->session()->get('loggedUser');
         $item->quantity = $request->quantity;
          $item->image = $request->item_image;
