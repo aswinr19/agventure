@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -28,7 +29,8 @@ class ProductController extends Controller
 
     public function create(){
 
-        return view('products.create',['title'=>'Create product page']);
+        $categories  = Category::all();
+        return view('products.create',['title'=>'Create product page','categories'=>$categories]);
 
     }
     public function store(Request $request){
@@ -61,7 +63,7 @@ class ProductController extends Controller
         $product->name = $request->product_name;
         $product->user_id = $request->session()->get('loggedUser');
         $product->description = $request->product_description;
-        $product->category = $request->category;
+        $product->category_id = $request->category;
         $product->quantity = $request->quantity;
         $product->price = $request->product_price;
         $product->image = $newImageName;
@@ -75,7 +77,8 @@ class ProductController extends Controller
     }
     public function update($id){
         $product = Product::findOrFail($id);
-        return view('products.update',['title' => 'Update product page','product'=>$product]);
+        $categories  = Category::all();
+        return view('products.update',['title' => 'Update product page','product'=>$product,'categories'=>$categories]);
     }
     public function change(Request $request){
  
@@ -106,7 +109,7 @@ class ProductController extends Controller
         $product->user_id = $request->session()->get('loggedUser');
         $product->name = $request->product_name;
         $product->description = $request->product_description;
-        $product->category = $request->category;
+        $product->category_id = $request->category;
         $product->quantity = $request->quantity;
         $product->price = $request->product_price;
         $product->image = $request->product_image;

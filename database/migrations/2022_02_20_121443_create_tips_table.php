@@ -17,7 +17,7 @@ class CreateTipsTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->string('url');
             $table->timestamps();
         });

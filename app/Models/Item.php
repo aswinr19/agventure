@@ -17,8 +17,12 @@ class Item extends Model
         return $this->belongsTo(User::class);
 
     }
-// 
     public function auction(){
         return $this->hasOne(Auction::class);
+    }
+
+
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
 }

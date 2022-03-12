@@ -20,11 +20,11 @@
     
         @enderror</span> <br>
     <label for="category">Category</label> <br>
-    <select name="category" id="">
+    <select name="category" >
         <option value="category"  selected disabled>Category</option>
-        <option value="seed">Seed</option>
-        <option value="pesticide">Pesticide</option>
-        <option value="fertilizer">Fertilizer</option>
+        @foreach($categories as $category)
+        <option value="{{ $category->id }}">{{ $category->name }}</option>        
+        @endforeach
     </select> <br>
     <span>@error('category') 
         

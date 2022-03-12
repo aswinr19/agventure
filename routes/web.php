@@ -13,6 +13,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TipController;
 
 
@@ -98,9 +99,24 @@ Route::get('auth/logout',[UserController::class,'logout']);
 
 //specific routes 
 
+//category routes
+
+Route::get('/admin/categories',[CategoryController::class,'index']);
+
+Route::get('/admin/create-category',[CategoryController::class,'create']);
+
+Route::post('/admin/create-category',[CategoryController::class,'store']);
+
+Route::get('/admin/update-category/{id}',[CategoryController::class,'update']);
+
+Route::post('/admin/update-category',[CategoryController::class,'change']);
+
+Route::get('/admin/delete-category/{id}',[CategoryController::class,'destroy']);
+
+
 //product routes
 
-Route::get("/admin/products",[ProductController::class,'index']);
+Route::get('/admin/products',[ProductController::class,'index']);
 
 Route::get('/admin/product/{id}',[ProductController::class,'show']);
 
@@ -255,8 +271,8 @@ Route::get('/admin/user-profiles',[UserController::class,'index']);
 //show rejected auctions as dull in farmer view (auctions.index)
 //add a field in auction table to specify the ending time of the auction and schedule a task to check for the curren time and auction ending time
   //if ending time exceeded the current time then update the auction status to ended ( add logic to calculate the ending time in the admin approve action ).
-
-
+//make routes to add , delete , update categories and machanism to select category when adding products , items and machines and also add relations between categories and items,machines and products
+// add cascade on delete for necessary relations
 
 
 //BUGS
