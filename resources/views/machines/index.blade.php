@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 @section('content')
 <h2>Machines</h2>
+@if ($machines->count())
 <table>
     <tr>
         <th>Machine Name</th>
@@ -15,7 +16,6 @@
     
 
 @foreach($machines as $machine)
-@if($machine->user_id == session('loggedUser'))
 
 <tr>
    
@@ -76,7 +76,10 @@
             <a href="/admin/delete-machine/{{ $machine-> id }}">Delete</a>
         </td>
     </tr>
-@endif
+
 @endforeach
 </table>
+@else
+<p>No products yet. Please check back later.</p>
+@endif
 @endsection

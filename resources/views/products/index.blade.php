@@ -1,6 +1,8 @@
 @extends('layouts.layout')
 @section('content')
 <h2>Products</h2>
+@if ($products->count())
+
 <table>
     <tr>
         <th>Product Name</th>
@@ -19,7 +21,6 @@
     
 
 @foreach($products as $product)
-@if($product->user_id == session('loggedUser'))
 
 <tr>
    
@@ -80,8 +81,11 @@
             <a href="/admin/delete-product/{{ $product-> id }}">Delete</a>
         </td>
     </tr>
-@endif
+
 @endforeach
 </table>
+@else
+    <p>No products yet. Please check back later.</p>
+@endif
 <a href="/admin/create-product">Add a new product</a>
 @endsection

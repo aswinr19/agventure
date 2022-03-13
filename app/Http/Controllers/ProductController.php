@@ -10,9 +10,12 @@ use App\Models\Product;
 class ProductController extends Controller
 {
     //
-    public function index(){
+    public function index(Request $request){
 
-        $products = Product::latest()->get();
+        $id = $request->session()->get('loggedUser');    
+
+        $products = Product::latest()
+            ->where('user_id',$id)->get();
 
         return view('products.index',['title'=>'Products page','products'=>$products]);        
 

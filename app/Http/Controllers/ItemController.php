@@ -11,8 +11,12 @@ use Illuminate\Http\Request;
 class ItemController extends Controller
 {
     //
-    public function index(){
-        $items = Item::all();
+    public function index(Request $request){
+
+        $id = $request->session()->get('loggedUser');        
+        
+        $items = Item::latest()   
+           ->where('user_id',$id)->get();
 
         return view('items.index',['title'=>'Items page','items'=>$items]); 
     }

@@ -9,9 +9,13 @@ use Illuminate\Http\Request;
 class MachineController extends Controller
 {
 
-public function index(){
+public function index(Request $request){
+    
+    $id = $request->session()->get('loggedUser');
+    
+    $machines = Machine::latest()
+        ->where('user_id',$id)->get();
 
-    $machines = Machine::all();
     return view('machines.index',['title'=>'Machines page','machines'=>$machines]);
 
 }   

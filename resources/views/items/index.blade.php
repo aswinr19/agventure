@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 @section('content')
 <h2>Items</h2>
+@if ($items->count())
 <table>
     <tr>
         <th>Item Name</th>
@@ -13,7 +14,7 @@
     </tr>
     
 @foreach($items as $item)
-@if($item->user_id == session('loggedUser'))
+
 <tr>
    
 <td>
@@ -54,7 +55,10 @@
         </td>
         
     </tr>
-    @endif
+
 @endforeach
 </table>
+@else
+<p>No items yet. Please check back later.</p>
+@endif
 @endsection
