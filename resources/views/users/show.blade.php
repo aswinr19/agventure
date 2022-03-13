@@ -1,9 +1,9 @@
 @extends('layouts.layout')
-@section('section')
+@section('content')
 <h2>Profile</h2>
-{{ $user->name }}
-{{ $user->email }}
-{{ $user->phone }}
+{{ $user->name }} <br>
+{{ $user->email }} <br>
+{{ $user->phone }} <br>
 <button>Edit</button>
 
 <form action="/profile/update-profile" method="POST">

@@ -52,7 +52,7 @@
         </td>
         <td>
             {{
-                $auction->started_at
+                $auction->started_at->diffForHumans()
             }}
         </td>
         <td>

@@ -25,7 +25,7 @@
             }}<br>
         
             {{
-                $auction->started_at
+                $auction->started_at->diffForHumans()
             }}<br>
                    {{
                 $auction->status

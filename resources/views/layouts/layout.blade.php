@@ -34,12 +34,12 @@
             <a href="/">Agventure</a>
         </h2>
         <ul>
-            <a href="">  <li>Seeds</li> </a>  
-            <a href=""> <li>Fertilizers</li> </a>    
-            <a href=""> <li>Pesticides</li> </a>    
-            <a href="">  <li>Machines</li> </a>
+            <a href="/products?category=1">  <li>Seeds</li> </a>  
+            <a href="/products?category=2"> <li>Fertilizers</li> </a>    
+            <a href="/products?category=3"> <li>Pesticides</li> </a>    
+            <a href="/machines">  <li>Machines</li> </a>
             <form action="/products" method="GET">
-            @csrf
+            
             <input type="text" name="search" 
             placeholder="Find something"
             value="{{ request('search') }}"

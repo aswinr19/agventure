@@ -142,6 +142,11 @@ class ProductController extends Controller
             ->where('name','like','%'.request('search').'%')
             ->orWhere('description','like','%'.request('search').'%');
         }
+        if(request('category')){
+            
+            $products
+            ->where('category_id',request('category'));
+        }
 
         return view('products.display',['title'=>'Products page','products'=>$products->get()]);
     }

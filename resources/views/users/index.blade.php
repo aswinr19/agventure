@@ -10,12 +10,15 @@
 <th>Joined At</th>
 </tr>
 @foreach($users as $user)
+
 <tr>
+<a href="/profile/{{$user->id}}">
    <td> {{ $user->name }} </td>
+</a>
    <td> {{ $user->email }} </td>
    <td> {{ $user->phone }} </td>
-   <td> {{ $user->Role }} </td>
-   <td> {{ $user->created_at }} </td>
+   <td> {{ $user->role }} </td>
+   <td> {{ $user->created_at->diffForHumans() }} </td>
 </tr>
 @endforeach
 </table>
