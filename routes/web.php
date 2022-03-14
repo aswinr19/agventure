@@ -116,7 +116,7 @@ Route::get('/admin/delete-category/{id}',[CategoryController::class,'destroy']);
 
 //product routes
 
-Route::get('/admin/products',[ProductController::class,'index']);
+Route::get('/admin/products',[ProductController::class,'index'])->middleware('isAdmin');
 
 Route::get('/admin/product/{id}',[ProductController::class,'show']);
 
