@@ -66,7 +66,7 @@ Route::post('/checkout/update-payment-details',[PaymentController::class,'change
 
 Route::get('/checkout/delete-payment-details',[PaymentController::class,'destroy']);
 
-Route::get('/profile/{id}',[UserController::class,'show']);
+Route::get('/profile/{id}',[UserController::class,'show'])->middleware('customAuth');
 
 Route::post('/profile/update-profile',[UserController::class,'change']);
 
@@ -253,21 +253,18 @@ Route::get('/admin/user-profiles',[UserController::class,'index']);
 
 //add many to many realtion to machines and purchases.
 //add cart functionalities and logic to extract products id and machines id from cart. 
-//add auction ending with change in status , when the time ends , etc.
 //add the rest of the relations.
-//add query to find the specific products, items of the the admin who added the product,item (currently using if to check that in view ).
 //add middlewares to check for authentication ,authorization(roles) ,and protect routes.
-//show rejected auctions as dull in farmer view (auctions.index)
 //add a field in auction table to specify the ending time of the auction and schedule a task to check for the curren time and auction ending time
-  //if ending time exceeded the current time then update the auction status to ended ( add logic to calculate the ending time in the admin approve action ).
-//make routes to add , delete , update categories and machanism to select category when adding products , items and machines and also add relations between categories and items,machines and products
+    //if ending time exceeded the current time then update the auction status to ended ( add logic to calculate the ending time in the admin approve action ).
 //add a task schedular to check update the remaining time fo acution.
 // add cascade on delete for necessary relations.
-//add functionality for rating prodcuts.
 //add stripe payments
 //add styling elemnts to views.
+    //show rejected auctions as dull in farmer view (auctions.index)
 //test the code for errors ,bugs.
 //address the n-1 problem.
+//add functionality for rating prodcuts.
 //add coupon code functionality.
 //add a product recommendation engine.
 

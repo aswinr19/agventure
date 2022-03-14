@@ -12,9 +12,12 @@ class AuctionController extends Controller
 {
     
 
-    public function index(){
+    public function index(Request $request){
 
-        $auctions = Auction::latest();
+        $id = $request->session()->get('loggedUser');
+
+        $auctions = Auction::latest()
+        ->where('user_id',$id)->get();
         // dd($auctions);
         return view('auctions.index',['title'=>'Auctions page','auctions'=>$auctions]);
 
