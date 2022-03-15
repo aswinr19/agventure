@@ -22,7 +22,7 @@ class isUser
         if($id == NULL){
             return redirect('/auth/signin');
         }
-        if($user->role == "admin"){
+        if($user->role == "user"){
 
             return $next($request);
         }

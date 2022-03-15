@@ -17,7 +17,9 @@ class UserController extends Controller
         return view('users.index',['title'=>'Users page','users'=>$users]);
 
     }
-    public function show($id){
+    public function show(Request $request){
+
+        $id =  $request->session()->get('loggedUser'); 
 
         $user = User::findOrFail($id);
 
