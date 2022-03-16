@@ -50,11 +50,13 @@
 
             }}
         </td>
-        <td>
+      @if($auction->started_at)
+      <td>
             {{
                 $auction->started_at->diffForHumans()
             }}
         </td>
+      @endif
         <td>
             {{
                 $auction->status

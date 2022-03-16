@@ -82,6 +82,11 @@ Route::get('/cart/increment-cart-item-count/{id}',[CartController::class,'increm
 
 Route::get('/cart/decrement-cart-item-count/{id}',[CartController::class,'decrement'])->middleware('isUser');
 
+Route::get('/tips',[TipController::class,'display']);
+
+Route::get('/guidelines',[GuidelineController::class,'display']);
+
+Route::get('/guideline/{id}',[GuidelineController::class,'displayOne']);
 
 
 //auth routes
@@ -169,9 +174,9 @@ Route::get('/admin/auctions',[AuctionController::class,'indexAdmin'])->middlewar
 
 Route::get('/admin/auction/{id}',[AuctionController::class,'showAdmin'])->middleware('isAdmin');
 
-Route::post('/admin/auction/approve/{id}',[AuctionController::class,'approve'])->middleware('isAdmin');
+Route::get('/admin/auction/approve/{id}',[AuctionController::class,'approve'])->middleware('isAdmin');
 
-Route::post('/admin/auction/reject/{id}',[AuctionController::class,'reject'])->middleware('isAdmin');
+Route::get('/admin/auction/reject/{id}',[AuctionController::class,'reject'])->middleware('isAdmin');
 
 
 //complaint routes
@@ -229,7 +234,7 @@ Route::get('/admin/delete-machine/{id}',[MachineController::class,'destroy'])->m
 
 Route::get('/admin/tips',[TipController::class,'index'])->middleware('isAdmin');
 
-Route::get('/admin/tip/{id}',[TipController::class,'show'])->middleware('isAdmin');
+// Route::get('/admin/tip/{id}',[TipController::class,'show'])->middleware('isAdmin');
 
 Route::get('/admin/create-tip',[TipController::class,'create'])->middleware('isAdmin');
 
@@ -242,6 +247,7 @@ Route::post('/admin/update-tip',[TipController::class,'change'])->middleware('is
 Route::get('/admin/delete-tip',[TipController::class,'destroy'])->middleware('isAdmin');
 
 
+
 //users
 
 Route::get('/admin/user-profiles',[UserController::class,'index'])->middleware('isAdmin');
@@ -251,6 +257,8 @@ Route::get('/admin/user-profiles',[UserController::class,'index'])->middleware('
 
 //TODO
 
+
+//remove single tip page for admin and user
 // add a user page for guidelines and tips
 //add many to many realtion to machines and purchases.
 //add cart functionalities and logic to extract products id and machines id from cart. 

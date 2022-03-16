@@ -48,7 +48,8 @@ class AuctionController extends Controller
             $auction->user_id = $request->session()->get('loggedUser');
             $auction->item_id = $request->item_id;
             $auction->starting_amount = $request->starting_price;
-            $auction->duration = Carbon::createFromFormat('H',$request->duration)->format('H:i:s');
+            //$auction->duration = Carbon::createFromFormat('H',$request->duration)->format('H:i:s');
+            $auction->duration = $request->duration;
             $auction->save();
             // return redirect('/farmer/auctions');
           
@@ -67,7 +68,8 @@ class AuctionController extends Controller
             'status'=> ' required'
         ]);
         $auction = Auction::findOrFail($request->id);
-        $auction->duration = Carbon::createFromFormat('H',$request->duration)->format('H:i:s');
+        // $auction->duration = Carbon::createFromFormat('H',$request->duration)->format('H:i:s');
+        $auction->duration = $request->duration;
         $auction->status = $request->status;
         $auction->save();
 
@@ -131,9 +133,10 @@ class AuctionController extends Controller
     public function approve($id){
 
         $auction = Auction::findOrFail($id);
-
+        $duration = $auction->duration;
         $auction->status = "approved";
         $auction->started_at = Carbon::now();
+        $auction->ending_at = Carbon::now()->addHours($duration);
         $auction->save();
 
         return redirect('/admin/auctions');

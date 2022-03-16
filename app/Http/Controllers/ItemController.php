@@ -53,7 +53,7 @@ class ItemController extends Controller
         $item->name = $request->item_name;
         $item->description = $request->item_description;
         $item->user_id = $request->session()->get('loggedUser');
-        $item->category = $request->category;
+        $item->category_id = $request->category;
         $item->quantity = $request->quantity;
         $item->image = $newImageName;
         $item->save();

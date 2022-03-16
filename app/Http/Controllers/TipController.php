@@ -38,10 +38,11 @@ class TipController extends Controller
         ]);
 
         $tip = new Tip();
-        $tip->user_id = $request-> $request->session()->get('loggedUser');
+        $tip->user_id = $request->session()->get('loggedUser');
         $tip->title = $request->title;
         $tip->description = $request->description;
         $tip->url = $request->url;
+        $tip->save();
 
         return redirect('/admin/tips');
     }
@@ -76,5 +77,11 @@ class TipController extends Controller
 
         $tip = Tip::findOrFail($id);
         $tip->delete();  
+    }
+    public function display(){
+
+        $tips = Tip::latest();
+
+        return view('tips.display',['title'=>'Tips page','tips'=> $tips]);
     }
 }

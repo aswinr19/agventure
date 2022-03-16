@@ -11,6 +11,13 @@ class Auction extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'started_at' => 'datetime',
+        'ending_at' => 'datetime',
+        
+        
+    ];
+
     public function item(){
         return $this->belongsTo(Item::class);
     }
