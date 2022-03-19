@@ -1,8 +1,48 @@
 @extends('layouts.layout')
 @section('content')
 <h2>Auction</h2>
-    <img src="{{ asset('images/'. $auction->item->image) }}"" alt="{{ $auction->item->name }}" height="100px"><br>
-    <span> {{ $auction->item->name }}</span> <br>
-    <span> ₹ {{ $auction->starting_amount}}</span> <br>
-    <span>{{ $auction->item->description }}</span> <br>
+
+
+        {{
+    $auction->item->name
+        }} <br>
+        {{
+    $auction->item->description
+}}<br>
+
+        
+            {{
+                $auction->starting_amount
+            }}<br>
+        
+            {{
+                $auction->item->quantity
+            }}<br>
+        
+            {{
+                $auction->user->name
+
+            }}<br>
+        @if($auction->started_at)
+            {{
+                $auction->started_at->diffForHumans()
+            }} <br>
+            @endif
+            @if($auction->ending_at)
+            {{
+                $auction->ending_at->diffForHumans()
+            }} <br>
+            @endif
+            @if($auction->duration)
+            {{
+                $auction->duration
+            }} <br>
+            @endif
+            <br>
+                   {{
+                $auction->status
+            }}<br>
+                <img src="{{
+           asset('images/'. $auction->item->image)}}" alt="{{ $auction->item->image }} " height="40px">
+
 @endsection

@@ -80,5 +80,16 @@ public function destroy($id){
     $guideline->delete();
     return redirect('/admin/guidelines');
 }
-//
+
+public function display(){
+
+    $guidelines = Guideline::all();
+     return view('guidelines.display',['title'=>'Guidelines page','guidelines'=>$guidelines]);
+}
+
+public function displayOne($id){
+
+    $guideline = Guideline::findOrFail($id);
+     return view('guidelines.displayOne',['title'=>'Guideline page','guideline'=>$guideline]);
+}
 }

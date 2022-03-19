@@ -1,6 +1,8 @@
 @extends('layouts.layout')
 @section('content')
 <h2>Auction</h2>
+
+
         {{
     $auction->item->name
         }} <br>
@@ -21,6 +23,22 @@
                 $auction->user->name
 
             }}<br>
+        @if($auction->started_at)
+            {{
+                $auction->started_at->diffForHumans()
+            }} <br>
+            @endif
+            @if($auction->ending_at)
+            {{
+                $auction->ending_at->diffForHumans()
+            }} <br>
+            @endif
+            @if($auction->duration)
+            {{
+                $auction->duration
+            }} <br>
+            @endif
+            <br>
                    {{
                 $auction->status
             }}<br>
