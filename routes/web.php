@@ -234,7 +234,7 @@ Route::get('/admin/delete-machine/{id}',[MachineController::class,'destroy'])->m
 
 Route::get('/admin/tips',[TipController::class,'index'])->middleware('isAdmin');
 
-// Route::get('/admin/tip/{id}',[TipController::class,'show'])->middleware('isAdmin');
+ Route::get('/admin/tip/{id}',[TipController::class,'show'])->middleware('isAdmin');
 
 Route::get('/admin/create-tip',[TipController::class,'create'])->middleware('isAdmin');
 
@@ -258,12 +258,9 @@ Route::get('/admin/user-profiles',[UserController::class,'index'])->middleware('
 //TODO
 
 
-//remove single tip page for admin and user
-// add a user page for guidelines and tips
 //add many to many realtion to machines and purchases.
 //add cart functionalities and logic to extract products id and machines id from cart. 
 //add the rest of the relations.
-//add middlewares to check for authentication ,authorization(roles) ,and protect routes.
 //add a field in auction table to specify the ending time of the auction and schedule a task to check for the curren time and auction ending time
     //if ending time exceeded the current time then update the auction status to ended ( add logic to calculate the ending time in the admin approve action ).
 //add a task schedular to check update the remaining time fo acution.

@@ -28,15 +28,20 @@
                 $auction->started_at->diffForHumans()
             }} <br>
             @endif
-            @if($auction->ending_at)
+            @if(  $auction->ending_at > \Carbon\Carbon::now())
+            @if($auction->ending_at )
             {{
                 $auction->ending_at->diffForHumans()
-            }} <br>
+            }} 
+            <br>
             @endif
-            @if($auction->duration)
+            @if($auction->duration )
             {{
                 $auction->duration
-            }} <br>
+            }}
+             <br>
+            @endif
+            @else <p>Ended  </p> 
             @endif
             <br>
                    {{

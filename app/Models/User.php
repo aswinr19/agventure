@@ -68,5 +68,7 @@ class User extends Authenticatable
     public function machines(){
         return $this->hasMany(Machine::class);
     }
-    
+    public function tips(){
+        return $this->hasMany(Tip::class);
+    }
 }

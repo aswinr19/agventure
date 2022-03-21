@@ -31,7 +31,9 @@ class AuctionController extends Controller
 
     }
 
-    public function create(){
+    public function create(Request $request){
+
+         $id = $request->session()->get('loggedUser');
          $item = Item::latest()->first();
         // dd($item);
         return view('auctions.create',['title'=>'Create auction page','item'=>$item]);
@@ -51,7 +53,7 @@ class AuctionController extends Controller
             //$auction->duration = Carbon::createFromFormat('H',$request->duration)->format('H:i:s');
             $auction->duration = $request->duration;
             $auction->save();
-            // return redirect('/farmer/auctions');
+            return redirect('/farmer/auctions');
           
     }
     public function update($id){

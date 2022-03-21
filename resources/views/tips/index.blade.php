@@ -1,9 +1,44 @@
 @extends('layouts.layout')
 @section('content')
 <h2>Tips</h2>
+<table>
+    <tr>
+        <th>
+            Titile
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Url
+        </th>
+        <th>
+            Created By
+        </th>
+        <th>
+            Created At
+        </th>
+    </tr>
 @foreach($tips as $tip)
-<h3>{{ $tip->title }}</h3> <br>
-<p>{{$tip->description}}</p>
-<iframe width="560" height="315" src="{{ $tip->url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<td>
+<a href="/admin/tip/{{ $tip->id }}">
+    {{ $tip->title }}
+</a>
+</td>
+
+<td>
+{{ $tip->description }}
+</td>
+<td>
+    {{ $tip->url }}
+</td>
+<td>
+    {{ $tip->user->name }}
+</td>
+<td>
+    {{ $tip->created_at->diffForHumans() }}
+</td>
 @endforeach
+</table>
 @endsection

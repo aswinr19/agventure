@@ -80,8 +80,10 @@ class TipController extends Controller
     }
     public function display(){
 
-        $tips = Tip::latest();
+        $tips = Tip::latest()->get();
 
         return view('tips.display',['title'=>'Tips page','tips'=> $tips]);
     }
+
+    
 }

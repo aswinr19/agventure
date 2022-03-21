@@ -17,8 +17,8 @@ class CreateProductsTable extends Migration
         //fertilizer , pesticides , seeds
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('category_id')->nullable();
+            $table->foreignId('user_id')->onDelete('cascade');
+            $table->foreignId('category_id')->onDelete('cascade');
             $table->string('name');
             $table->text('description');
             $table->integer('quantity');
