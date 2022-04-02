@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -91,10 +91,12 @@ class UserController extends Controller
                         // redirect to corresponding home page
                         $request->session()->put('loggedUser',$userInfo->id);
                         if($userInfo->role=='user'){
-                            return redirect('/');
+                             return redirect('/');
+                            
                         }
                         else{
-                            return redirect("/$userInfo->role");
+                             return redirect("/$userInfo->role");
+                            
 
                         }
     

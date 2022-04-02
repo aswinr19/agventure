@@ -20,7 +20,8 @@ class CreatePaymentsTable extends Migration
             $table->bigInteger('card_number')->nullable();
             $table->bigInteger('upi_id')->nullable();
             $table->integer('cvv')->nullable();
-            $table->date('valid_through')->nullable();
+            $table->date('expiry_month')->nullable();
+            $table->date('expiry_year')->nullable();
             $table->timestamps();
         });
     }

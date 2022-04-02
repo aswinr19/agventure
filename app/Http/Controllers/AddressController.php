@@ -28,6 +28,8 @@ class AddressController extends Controller
         $address->district = $request->district;
         $address->state = $request->state;
         $address->save();
+
+        return redirect('/checkout');
     }
 
     public function change(Request $request){
@@ -50,10 +52,14 @@ class AddressController extends Controller
         $address->district = $request->district;
         $address->state = $request->state;
         $address->save();
+        return redirect('/checkout');
     
     }
 
-    public function delete($id){
-        
+    public function destroy($id){
+
+    $address = Address::findOrFail($id);
+    $address->delete();
+    return redirect('/checkout');
     }
 }

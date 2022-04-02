@@ -91,15 +91,15 @@ Route::get('/guideline/{id}',[GuidelineController::class,'displayOne']);
 
 //auth routes
 
-Route::get('/auth/signup',[UserController::class,'create']);
+Route::get('/auth/signup',[UserController::class,'create'])->middleware('isNotLoggedIn');
 
-Route::post('/auth/signup',[UserController::class,'store']);
+Route::post('/auth/signup',[UserController::class,'store'])->middleware('isNotLoggedIn');
 
-Route::get('/auth/signin',[UserController::class,'login']);
+Route::get('/auth/signin',[UserController::class,'login'])->middleware('isNotLoggedIn');
 
-Route::post('/auth/signin',[UserController::class,'check']);
+Route::post('/auth/signin',[UserController::class,'check'])->middleware('isNotLoggedIn');
 
-Route::get('auth/logout',[UserController::class,'logout'])->middleware('customAuth');
+Route::get('auth/logout',[UserController::class,'logout'])->middleware('isLoggedIn');
 
 
 //specific routes 
@@ -213,11 +213,6 @@ Route::post('/admin/update-guideline',[GuidelineController::class,'change'])->mi
 Route::get('/admin/delete-guideline',[GuidelineController::class,'destroy'])->middleware('isAdmin');
 
 
-//machine routes
-
-Route::get('/admin/machines',[MachineController::class,'index'])->middleware('isAdmin');
-
-Route::get('/admin/machine/{id}',[MachineController::class,'show'])->middleware('isAdmin');
 
 Route::get('/admin/create-machine',[MachineController::class,'create'])->middleware('isAdmin');
 
@@ -256,8 +251,9 @@ Route::get('/admin/user-profiles',[UserController::class,'index'])->middleware('
 
 
 //TODO
-
-
+//update payment table
+//add validation to payment related fields
+//add login middleware to checkout route and fix the error in checkout index ( '(' issue )
 //add many to many realtion to machines and purchases.
 //add cart functionalities and logic to extract products id and machines id from cart. 
 //add the rest of the relations.
@@ -266,7 +262,7 @@ Route::get('/admin/user-profiles',[UserController::class,'index'])->middleware('
 //add a task schedular to check update the remaining time fo acution.
 // add cascade on delete for necessary relations.
 //add stripe payments
-//add styling elemnts to views.
+//add styling elements to views.
     //show rejected auctions as dull in farmer view (auctions.index)
 //test the code for errors ,bugs.
 //address the n-1 problem.

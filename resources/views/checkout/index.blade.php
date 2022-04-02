@@ -6,7 +6,7 @@
     @foreach($addresses as $address)
     <input type="radio" name="{{ $address->id }}" >  <span>{{ $address->name}},{{ $address->phone}}, {{ $address->house_name}},
         {{ $address->street}},{{ $address->city}},{{ $address->district }},{{ $address->state }},
-        {{ $address->pincode }}. </span>
+        {{ $address->pincode }}. <a href="/checkout/update-address">Edit</a> <a href="/checkout/delete-address">Delete</a></span>
     @endforeach
 </div>
 
@@ -71,11 +71,14 @@
         @enderror</span> <br>
         <input type="submit" value="add" name="submit">
 </form>
+
 <div>
     @foreach($paymentDetails as $paymentDetail)
     <span> {{ $paymentDetail->card_number}} {{ $paymentDetail->upi_id }}</span>
     @endforeach
 </div>
+
+
 <h5>Add Payment Details</h5>
 <form action="/checkout/create-payment-details" method="POST">
 @csrf
@@ -89,13 +92,16 @@ COD
 <label for="card_number">Card Number</label> <br>
 <input type="text" name="card_number" > <br>
 <label for="cvv">CVV</label> <br>
-<input type="text" name="cvv"><br>
-<label for="valid_through">Valid Through</label> <br>
-<input type="text" name="valid_through"><br>
-<label for="upi_id"> UPI Id</label><br>
+<input type="password" name="cvv"><br>
+<label for="valid_through">Expiry Month</label> <br>
+<input type="text" name="expiry_month"><br>
+<label for="valid_through">Expiry Year</label> <br>
+<input type="text" name="expiry_year"><br>
+<label for="upi_id"> UPI ID</label><br>
 <input type="text" name="upi_id"> <br>
 <input type="submit" value="add" name="submit">
 </form>
+
 <form action="/checkout" method="POST">
 @csrf
     <input type="hidden" name="user_id" value="{{}}">
@@ -103,6 +109,5 @@ COD
     <input type="hidden" name="" name="payment_id" value="{{}}">
     <input type="submit" value="continue" name="submit">
 </form>
+
 @endsection
-
-
