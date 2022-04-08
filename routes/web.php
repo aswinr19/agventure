@@ -251,7 +251,10 @@ Route::get('/admin/user-profiles',[UserController::class,'index'])->middleware('
 
 
 //TODO
-//update payment table
+
+
+//get user id , cart items , seleted address in purchase controller and use those to make purchase
+//removed expiry momth ,year , cvv and upi_id from payments table update those in other parts and doc 
 //add validation to payment related fields
 //add login middleware to checkout route and fix the error in checkout index ( '(' issue )
 //add many to many realtion to machines and purchases.

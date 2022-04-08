@@ -85,8 +85,6 @@
 <label for="payment_method">Payment Method</label><br>
 Credit/Debit/ATM Card
 <input type="radio" name="payment_method" value="card">
-UPI
-<input type="radio" name="payment_method" value="upi">
 COD
 <input type="radio" name="payment_method" value="cod"><br>
 <label for="card_number">Card Number</label> <br>
@@ -97,8 +95,6 @@ COD
 <input type="text" name="expiry_month"><br>
 <label for="valid_through">Expiry Year</label> <br>
 <input type="text" name="expiry_year"><br>
-<label for="upi_id"> UPI ID</label><br>
-<input type="text" name="upi_id"> <br>
 <input type="submit" value="add" name="submit">
 </form>
 
@@ -108,6 +104,9 @@ COD
     <input type="hidden" name="address_id" value="{{}}">
     <input type="hidden" name="" name="payment_id" value="{{}}">
     <input type="submit" value="continue" name="submit">
+    @if(Session::has('stripe_error'))
+    <span>{{ Session::get('stripe_error') }}</span>
+    @endif
 </form>
 
 @endsection
