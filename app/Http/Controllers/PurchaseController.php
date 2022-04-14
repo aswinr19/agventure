@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Address;
 use App\Models\Payment;
 use App\Models\Purchase;
-use Cartalyst\Stripe\Laravel\Facades\Stripe;
+use Cartalyst\Stripe\Stripe;
 use Exception;
 
 class PurchaseController extends Controller
@@ -68,7 +68,7 @@ class PurchaseController extends Controller
                 }
 
                 $customer = $stripe->customer()->create([
-                    'name'=>,
+                    'name'=> ,
                     'email'=>,
                     'phone'=>,
                     'address'=>[
@@ -96,7 +96,7 @@ class PurchaseController extends Controller
 
                 $charge = $stripe->charges()->create([
                     'customer'=> $customer['id'],
-                    'currency'=>'inr',
+                    'currency'=>'INR',
                     'amount'=> $totalAmount,
                     'description'=>'Payment for order no : '
                 ]);
