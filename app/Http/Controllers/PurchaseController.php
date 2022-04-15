@@ -6,16 +6,19 @@ use Illuminate\Http\Request;
 use App\Models\Address;
 use App\Models\Payment;
 use App\Models\Purchase;
+use App\Models\User;
 use Cartalyst\Stripe\Stripe;
 use Exception;
+use Illuminate\Contracts\Session\Session;
 
 class PurchaseController extends Controller
 {
 
     public function create(){
 
-        $addresses = Address::all();
-        $paymentDetails = Payment::all();
+        $id = $request->session()->get('loggedUser');
+        $addresses = Address::where('user_id',$id);
+        $paymentDetails = Payment::where('user_id',$id);
         return view('checkout.index',['title'=>'Checkout page','addresses'=>$addresses,'paymentDetails'=>$paymentDetails]);
         
     }
@@ -25,6 +28,12 @@ class PurchaseController extends Controller
     }
 
     public function makeTransaction(Request $request,$orderId,$status){
+
+
+        $id = $request->session()->get('loggedUser');
+        $user = User::findOrFail($id);
+        // $cartItems = Cart::where('user_id',$id);
+        // $addresses = Address::where('user_id',$id);
 
         if($request->payment_method == "cod"){
 

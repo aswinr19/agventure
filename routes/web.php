@@ -253,6 +253,7 @@ Route::get('/admin/user-profiles',[UserController::class,'index'])->middleware('
 //TODO
 
 
+//display the cart items , addresses , and payment info and pass the selected address,payment info from view to controller and use that for purchase
 //get user id , cart items , seleted address in purchase controller and use those to make purchase
 //removed expiry momth ,year , cvv and upi_id from payments table update those in other parts and doc 
 //add validation to payment related fields

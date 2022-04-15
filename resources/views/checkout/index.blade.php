@@ -4,7 +4,7 @@
 <h2>Checkout</h2>
 <div>
     @foreach($addresses as $address)
-    <input type="radio" name="{{ $address->id }}" >  <span>{{ $address->name}},{{ $address->phone}}, {{ $address->house_name}},
+    <input type="radio" name="selected_address" >  <span>{{ $address->name}},{{ $address->phone}}, {{ $address->house_name}},
         {{ $address->street}},{{ $address->city}},{{ $address->district }},{{ $address->state }},
         {{ $address->pincode }}. <a href="/checkout/update-address">Edit</a> <a href="/checkout/delete-address">Delete</a></span>
     @endforeach
@@ -74,18 +74,20 @@
 
 <div>
     @foreach($paymentDetails as $paymentDetail)
-    <span> {{ $paymentDetail->card_number}} {{ $paymentDetail->upi_id }}</span>
+    <input type="radio" name="selected_card" > 
+    <span> {{ $paymentDetail->card_number}}</span>
     @endforeach
 </div>
 
 
-<h5>Add Payment Details</h5>
+
 <form action="/checkout/create-payment-details" method="POST">
 @csrf
 <label for="payment_method">Payment Method</label><br>
 Credit/Debit/ATM Card
 <input type="radio" name="payment_method" value="card">
 COD
+<h5>Add Payment Details</h5>
 <input type="radio" name="payment_method" value="cod"><br>
 <label for="card_number">Card Number</label> <br>
 <input type="text" name="card_number" > <br>

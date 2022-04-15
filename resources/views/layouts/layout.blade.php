@@ -45,10 +45,10 @@
             value="{{ request('search') }}"
             >
            </form>
+            @if(Session::get('loggedUser'))
             <a href="/cart">
             Cart
             </a>
-            @if(Session::get('loggedUser'))
             Welocme , user {{ Session::get('loggedUser') }}
             <a href="/auth/logout">Logout</a>
                 @else

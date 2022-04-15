@@ -20,10 +20,6 @@ class PaymentController extends Controller
         $payment->user_id = $request->session()->get('loggedUser');
         $payment->payment_method = $request->payment_method;
         $payment->card_number = $request->card_number;
-        $payment->cvv = $request->cvv;
-        $payment->expiry_month = $request->expiry_month;
-        $payment->expiry_year = $request->expiry_year;
-        $payment->upi_id = $request->upi_id;
         $payment->save();
         
 
