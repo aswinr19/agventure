@@ -12,7 +12,8 @@ class PaymentController extends Controller
 
         $request->validate([
             
-            'payment_method'=>'required'
+            'payment_method'=>'required',
+            'card_number'=>'required'
 
         ]);
 
@@ -21,6 +22,8 @@ class PaymentController extends Controller
         $payment->payment_method = $request->payment_method;
         $payment->card_number = $request->card_number;
         $payment->save();
+
+        return redirect('/checkout');
         
 
     }

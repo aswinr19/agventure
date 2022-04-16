@@ -2,7 +2,9 @@
 
 @section('content')
 <h2>Checkout</h2>
+
 <div>
+<h4>Select address</h4> <br>
     @foreach($addresses as $address)
     <input type="radio" name="selected_address" >  <span>{{ $address->name}},{{ $address->phone}}, {{ $address->house_name}},
         {{ $address->street}},{{ $address->city}},{{ $address->district }},{{ $address->state }},
@@ -72,23 +74,23 @@
         <input type="submit" value="add" name="submit">
 </form>
 
-<div>
-    @foreach($paymentDetails as $paymentDetail)
-    <input type="radio" name="selected_card" > 
-    <span> {{ $paymentDetail->card_number}}</span>
-    @endforeach
-</div>
+
 
 
 
 <form action="/checkout/create-payment-details" method="POST">
 @csrf
 <label for="payment_method">Payment Method</label><br>
-Credit/Debit/ATM Card
-<input type="radio" name="payment_method" value="card">
-COD
+<input type="radio" name="payment_method" value="card">Credit/Debit/ATM Card<br>
+<input type="radio" name="payment_method" value="cod">COD<br>
+<h4>Select card</h4>
+<div>
+    @foreach($paymentDetails as $paymentDetail)
+    <input type="radio" name="selected_card" > 
+    <span> {{ $paymentDetail->card_number}}</span>
+    @endforeach
+</div> <br> <br>
 <h5>Add Payment Details</h5>
-<input type="radio" name="payment_method" value="cod"><br>
 <label for="card_number">Card Number</label> <br>
 <input type="text" name="card_number" > <br>
 <label for="cvv">CVV</label> <br>
@@ -100,15 +102,5 @@ COD
 <input type="submit" value="add" name="submit">
 </form>
 
-<form action="/checkout" method="POST">
-@csrf
-    <input type="hidden" name="user_id" value="{{}}">
-    <input type="hidden" name="address_id" value="{{}}">
-    <input type="hidden" name="" name="payment_id" value="{{}}">
-    <input type="submit" value="continue" name="submit">
-    @if(Session::has('stripe_error'))
-    <span>{{ Session::get('stripe_error') }}</span>
-    @endif
-</form>
 
 @endsection

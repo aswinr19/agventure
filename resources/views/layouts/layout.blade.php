@@ -19,10 +19,7 @@
                 justify-content: space-between;
                 list-style: none;
             }
-            div{
-               font-size: 16px;
-                background-color:grey;
-            }
+           
             
             
    </style>
