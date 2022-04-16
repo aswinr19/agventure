@@ -82,6 +82,8 @@ Route::get('/cart/increment-cart-item-count/{id}',[CartController::class,'increm
 
 Route::get('/cart/decrement-cart-item-count/{id}',[CartController::class,'decrement'])->middleware('isUser');
 
+Route::post('/cart/proceed-to-buy',[CartController::class,'prodceedToBuy']);
+
 Route::get('/tips',[TipController::class,'display']);
 
 Route::get('/guidelines',[GuidelineController::class,'display']);
@@ -252,7 +254,7 @@ Route::get('/admin/user-profiles',[UserController::class,'index'])->middleware('
 
 //TODO
 
-
+//rearrange middlewares for routes
 //display the cart items , addresses , and payment info and pass the selected address,payment info from view to controller and use that for purchase
 //get user id , cart items , seleted address in purchase controller and use those to make purchase
 //removed expiry momth ,year , cvv and upi_id from payments table update those in other parts and doc 

@@ -18,8 +18,6 @@ class CartController extends Controller
 
         return view('cartItems.index',['title'=>'Cart items page','cartItems'=>$cartItems]);
         
-
-     
     }
 
     public function store(Request $request){
@@ -69,9 +67,16 @@ class CartController extends Controller
             $cartItem->save();
         }
 
-       
-
         return redirect('/cart');
+
+    }
+
+    public function prodceedToBuy(Request $request){
+
+        $total = $request->total;
+        $request->session()->put('totalAmount',$total);
+
+        return redirect('/checkout');
 
     }
     

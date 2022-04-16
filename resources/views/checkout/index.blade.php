@@ -4,9 +4,11 @@
 <h2>Checkout</h2>
 
 <div>
+    <form action="/checkout" method="POST">
+    @csrf
 <h4>Select address</h4> <br>
     @foreach($addresses as $address)
-    <input type="radio" name="selected_address" >  <span>{{ $address->name}},{{ $address->phone}}, {{ $address->house_name}},
+    <input type="radio" name="selected_address" value="{{ $address->id }}" >  <span>{{ $address->name}},{{ $address->phone}}, {{ $address->house_name}},
         {{ $address->street}},{{ $address->city}},{{ $address->district }},{{ $address->state }},
         {{ $address->pincode }}. <a href="/checkout/update-address">Edit</a> <a href="/checkout/delete-address">Delete</a></span>
     @endforeach
@@ -86,7 +88,7 @@
 <h4>Select card</h4>
 <div>
     @foreach($paymentDetails as $paymentDetail)
-    <input type="radio" name="selected_card" > 
+    <input type="radio" name="selected_card" value="{{ $ $paymentDetail->$id }}" > 
     <span> {{ $paymentDetail->card_number}}</span>
     @endforeach
 </div> <br> <br>
@@ -101,6 +103,5 @@
 <input type="text" name="expiry_year"><br>
 <input type="submit" value="add" name="submit">
 </form>
-
-
+</form>
 @endsection

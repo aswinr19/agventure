@@ -39,108 +39,109 @@ class PurchaseController extends Controller
 
     }
 
-    public function makeTransaction(Request $request,$orderId,$status){
+    public function makeTransaction(Request $request){
 
 
-        // $id = $request->session()->get('loggedUser');
-        // $user = User::findOrFail($id);
-        // // $cartItems = Cart::where('user_id',$id);
-        // // $addresses = Address::where('user_id',$id);
+        $id = $request->session()->get('loggedUser');
+        $user = User::findOrFail($id);
+        $cartItems = Cart::where('user_id',$id)->get();
 
-        // if($request->payment_method == "cod"){
+        if($request->payment_method == "cod"){
 
-        //     $request->validate([
+            $request->validate([
                 
-        //     ]);
+            ]);
 
-        // }
-        // if($request->payment_method == "card"){
+        }
+        if($request->payment_method == "card"){
 
-        //     $request->validate([
+            $request->validate([
                 
-        //     ]);
+            ]);
 
-        // }
-
-
-        // if($request->payment_method == "cod"){
+        }
 
 
+        if($request->payment_method == "cod"){
 
-        // }
-        // else if($request->payment_method == "card"){
+
+
+        }
+        else if($request->payment_method == "card"){
             
-        //     $stripe = Stripe::make(env('STRIPE_SECRET'));
+            $stripe = Stripe::make(env('STRIPE_SECRET'));
 
-        //     try{
+            try{
 
-        //         $token = $stripe->tokens->create([
-        //             'card'=>[
-        //                 'number'=> $request->card_number,
-        //                 'exp_year'=>$request->expiry_year,
-        //                 'exp_month'=>$request->expiry_month,
-        //                 'cvc'=>$request->cvv
-        //             ]
-        //         ]);
+                $token = $stripe->tokens->create([
+                    'card'=>[
+                        'number'=> $request->card_number,
+                        'exp_year'=>$request->expiry_year,
+                        'exp_month'=>$request->expiry_month,
+                        'cvc'=>$request->cvv
+                    ]
+                ]);
 
-        //         if(!isset($token['id'])){
+                if(!isset($token['id'])){
 
-        //             session->flash('stripe_error','The stripe token was not generated correctly!');
-        //         }
+                    session->flash('stripe_error','The stripe token was not generated correctly!');
+                }
 
-        //         $customer = $stripe->customer()->create([
-        //             'name'=> ,
-        //             'email'=>,
-        //             'phone'=>,
-        //             'address'=>[
-        //                 'line1'=>,
-        //                 'postal_code'=>,
-        //                 'city'=>,
-        //                 'state'=>,
-        //                 'country'=>
-        //             ],
-        //             'shipping'=>[
+                $customer = $stripe->customer()->create([
+                    'name'=> ,
+                    'email'=>,
+                    'phone'=>,
+                    'address'=>[
+                        'line1'=>,
+                        'postal_code'=>,
+                        'city'=>,
+                        'state'=>,
+                        'country'=>
+                    ],
+                    'shipping'=>[
                         
-        //                 'name'=>,
-        //             'email'=>,
-        //             'phone'=>,
-        //             'address'=>[
-        //                 'line1'=>,
-        //                 'postal_code'=>,
-        //                 'city'=>,
-        //                 'state'=>,
-        //                 'country'=>
-        //             ],
-        //             ],
-        //             'source'=> $token['id'];
-        //         ]);
+                        'name'=>,
+                    'email'=>,
+                    'phone'=>,
+                    'address'=>[
+                        'line1'=>,
+                        'postal_code'=>,
+                        'city'=>,
+                        'state'=>,
+                        'country'=>
+                    ],
+                    ],
+                    'source'=> $token['id'];
+                ]);
 
-        //         $charge = $stripe->charges()->create([
-        //             'customer'=> $customer['id'],
-        //             'currency'=>'INR',
-        //             'amount'=> $totalAmount,
-        //             'description'=>'Payment for order no : '
-        //         ]);
+                $charge = $stripe->charges()->create([
+                    'customer'=> $customer['id'],
+                    'currency'=>'INR',
+                    'amount'=> $totalAmount,
+                    'description'=>'Payment for order no : '
+                ]);
 
-        //         $if($charge['status'] == 'succeeded'){
+                $if($charge['status'] == 'succeeded'){
 
-        //         } 
-        //         else
-        //         {
-        //             session()->flash('stripe_error','Error in transaction!');
-        //         }
-        //     }
-        //     catch(Exception $e){
+                } 
+                else
+                {
+                    session()->flash('stripe_error','Error in transaction!');
+                }
+            }
+            catch(Exception $e){
 
-        //         session()->flash('stripe_error',$e->getMessage());
-        //     }
-        // }
+                session()->flash('stripe_error',$e->getMessage());
+            }
+        }
     }
-    public function store(Request $request){
+    public function store($user_id , $status){
 
         $purchase = new Purchase();
         $purchase->save();
-        // return redirect('');
+
+        
+        return redirect('/');
 
 
     }
