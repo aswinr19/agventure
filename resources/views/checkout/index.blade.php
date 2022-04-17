@@ -79,27 +79,19 @@
 
 
 
-
 <form action="/checkout/create-payment-details" method="POST">
 @csrf
 <label for="payment_method">Payment Method</label><br>
 <input type="radio" name="payment_method" value="card">Credit/Debit/ATM Card<br>
 <input type="radio" name="payment_method" value="cod">COD<br>
-<h4>Select card</h4>
-<div>
-    @foreach($paymentDetails as $paymentDetail)
-    <input type="radio" name="selected_card" value="{{ $ $paymentDetail->$id }}" > 
-    <span> {{ $paymentDetail->card_number}}</span>
-    @endforeach
-</div> <br> <br>
 <h5>Add Payment Details</h5>
 <label for="card_number">Card Number</label> <br>
 <input type="text" name="card_number" > <br>
 <label for="cvv">CVV</label> <br>
 <input type="password" name="cvv"><br>
-<label for="valid_through">Expiry Month</label> <br>
+<label for="expiry_month">Expiry Month</label> <br>
 <input type="text" name="expiry_month"><br>
-<label for="valid_through">Expiry Year</label> <br>
+<label for="expiry_year">Expiry Year</label> <br>
 <input type="text" name="expiry_year"><br>
 <input type="submit" value="add" name="submit">
 </form>

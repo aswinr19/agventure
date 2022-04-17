@@ -52,7 +52,7 @@ Route::get('/machine/{id}',[MachineController::class,'displayOne']);
 
 Route::get('/checkout',[PurchaseController::class,'create']);
 
-Route::post('/checkout',[PurchaseController::class,'store']);
+Route::post('/checkout',[PurchaseController::class,'makeTransaction']);
 
 Route::post('/checkout/create-address',[AddressController::class,'store']);
 
@@ -254,6 +254,8 @@ Route::get('/admin/user-profiles',[UserController::class,'index'])->middleware('
 
 //TODO
 
+//add many to many relation
+//added new column in purchase table, migrate
 //rearrange middlewares for routes
 //display the cart items , addresses , and payment info and pass the selected address,payment info from view to controller and use that for purchase
 //get user id , cart items , seleted address in purchase controller and use those to make purchase

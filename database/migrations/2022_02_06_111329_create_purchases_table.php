@@ -22,8 +22,9 @@ class CreatePurchasesTable extends Migration
             $table->integer('delivery_charge');
             $table->bigInteger('total');
             $table->foreignId('auction_id')->nullable();
-            $table->foreignId('machine_id')->nullable();
+            // $table->foreignId('machine_id')->nullable();
             // $table->foreignId('product_id')->nullable();
+            $table->string('payment_method');
             $table->string('status');
             $table->timestamps();
         });

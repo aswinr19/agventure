@@ -10,7 +10,11 @@ use App\Models\Purchase;
 use App\Models\User;
 use Cartalyst\Stripe\Stripe;
 use Exception;
-use Illuminate\Contracts\Session\Session;
+
+
+
+
+
 
 class PurchaseController extends Controller
 {
@@ -39,13 +43,35 @@ class PurchaseController extends Controller
 
     }
 
+
+    // make transcation action makes the actual transaction and calls the store action to store the transaction details
     public function makeTransaction(Request $request){
 
 
         $id = $request->session()->get('loggedUser');
+
         $user = User::findOrFail($id);
+
+        //fetch the cart items corresponding to current loggedin user
         $cartItems = Cart::where('user_id',$id)->get();
 
+        //find the address with the id sent from the view ( selected address )
+        $address = Address::findOrFail($request->selected_address);
+
+        //total amount 
+        $totalAmount =  $request->session()->get('totalAmount');
+
+        //card details
+
+        $cardNumber = $request->card_number;
+
+        $expiryMonth = $request->expiry_month;
+
+        $expiryYear = $request->expiry_year;
+
+        $cvv = $request->cvv;
+
+        //validation for payment method cod transactions
         if($request->payment_method == "cod"){
 
             $request->validate([
@@ -53,20 +79,26 @@ class PurchaseController extends Controller
             ]);
 
         }
+          //validation for payment method card transactions
         if($request->payment_method == "card"){
 
-            $request->validate([
+            $request->validate([  
                 
+              
             ]);
 
         }
 
-
+        //logic for cod transactions
         if($request->payment_method == "cod"){
 
-
+                    $mode = "cod";
+                    $status = "pending"; 
+                    $this->store($id,$address->id,$totalAmount,$mode,$status);
+                    $this->resetCart($id);
 
         }
+        //logic for card transactions
         else if($request->payment_method == "card"){
             
             $stripe = Stripe::make(env('STRIPE_SECRET'));
@@ -84,49 +116,57 @@ class PurchaseController extends Controller
 
                 if(!isset($token['id'])){
 
-                    session->flash('stripe_error','The stripe token was not generated correctly!');
+                    session()->flash('stripe_error','The stripe token was not generated correctly!');
                 }
 
                 $customer = $stripe->customer()->create([
-                    'name'=> ,
-                    'email'=>,
-                    'phone'=>,
+                    'name'=> $user->name,
+                    'email'=> $user->email,
+                    'phone'=> $user->phone,
                     'address'=>[
-                        'line1'=>,
-                        'postal_code'=>,
-                        'city'=>,
-                        'state'=>,
-                        'country'=>
+                        'line1'=> $address->house_name.' '.$address->street,
+                        'postal_code'=> $address->pincode,
+                        'city'=> $address->city,
+                        'state'=> $address->state,
+                        'country'=> 'India'
                     ],
                     'shipping'=>[
                         
-                        'name'=>,
-                    'email'=>,
-                    'phone'=>,
+                        'name'=> $address->name,
+                    'email'=> $user->email,
+                    'phone'=> $address->phone,
                     'address'=>[
-                        'line1'=>,
-                        'postal_code'=>,
-                        'city'=>,
-                        'state'=>,
-                        'country'=>
+                        'line1'=> $address->house_name.' '.$address->street,
+                        'postal_code'=> $address->city,
+                        'city'=> $address->city,
+                        'state'=> $address->state,
+                        'country'=> 'India'
                     ],
                     ],
-                    'source'=> $token['id'];
+                    'source'=> $token['id']
                 ]);
 
                 $charge = $stripe->charges()->create([
+
                     'customer'=> $customer['id'],
                     'currency'=>'INR',
                     'amount'=> $totalAmount,
                     'description'=>'Payment for order no : '
                 ]);
 
-                $if($charge['status'] == 'succeeded'){
-
+                if($charge['status'] == 'succeeded'){
+                    $mode = "card";
+                    $status = "success"; 
+                    $this->store($id,$address->id,$totalAmount,$mode,$status);
+                    $this->resetCart($id);
                 } 
                 else
                 {
                     session()->flash('stripe_error','Error in transaction!');
+                    $mode = "card";
+                    $status = "failed"; 
+                    $this->store($id,$address->id,$totalAmount,$mode,$status);
+                    $this->resetCart($id);
                 }
             }
             catch(Exception $e){
@@ -135,9 +175,17 @@ class PurchaseController extends Controller
             }
         }
     }
-    public function store($user_id , $status){
+    public function store($userId , $addressId,$totalAmount ,$mode ,$status){
 
         $purchase = new Purchase();
+        $purchase->user_id = $userId;
+        $purchase->address_id = $addressId;
+        // $purchase->payment_id = $paymentId;
+        $purchase->amount = $totalAmount;
+        $purchase->delivery_charge = 60;
+        $purchase->total = $totalAmount + 60;
+        $purchase->payment_method = $mode;
+        $purchase->status = $status;
         $purchase->save();
 
         
