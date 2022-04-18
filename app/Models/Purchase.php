@@ -15,8 +15,13 @@ class Purchase extends Model
 
     }
 
-    // public function products(){
+    public function products(){
         
-    //     return $this->belongsToMany(Product::class);
-    // }
+        return $this->belongsToMany(Product::class);
+    }
+
+    public function machines(){
+        
+        return $this->belongsToMany(Machine::class);
+    }
 }

@@ -17,7 +17,7 @@ class CreatePurchasesTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('address_id');
-            $table->foreignId('payment_id');
+            $table->foreignId('card_number');
             $table->bigInteger('amount');
             $table->integer('delivery_charge');
             $table->bigInteger('total');

@@ -17,10 +17,10 @@ class Product extends Model
 
     }
 
-    public function purchases(){
+    // public function purchases(){
 
-        return $this->belongsToMany(Purchase::class);
-    }
+    //     return $this->belongsToMany(Purchase::class);
+    // }
      public function cartItems(){
 
          return $this->hasMany(Cart::class);

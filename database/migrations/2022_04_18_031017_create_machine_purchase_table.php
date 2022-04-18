@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductPurchaseTable extends Migration
+class CreateMachinePurchaseTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateProductPurchaseTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_purchase', function (Blueprint $table) { //pivot table for prodcuts - purchases many to many relation 
-            $table->foreignId('product_id')->constrained();
+        Schema::create('machine_purchase', function (Blueprint $table) {
+            $table->foreignId('machine_id')->constrained();
             $table->foreignId('purchase_id')->constrained();
-            // $table->timestamps();
         });
     }
 
@@ -27,6 +26,6 @@ class CreateProductPurchaseTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_purchase');
+        Schema::dropIfExists('machine_purchase');
     }
 }

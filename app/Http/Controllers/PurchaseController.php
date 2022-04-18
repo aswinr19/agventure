@@ -94,7 +94,7 @@ class PurchaseController extends Controller
 
                     $mode = "cod";
                     $status = "pending"; 
-                    $this->store($id,$address->id,$totalAmount,$mode,$status);
+                    $this->store($id,$address->id,$cardNumber,$totalAmount,$mode,$status);
                     $this->resetCart($id);
 
         }
@@ -107,10 +107,10 @@ class PurchaseController extends Controller
 
                 $token = $stripe->tokens->create([
                     'card'=>[
-                        'number'=> $request->card_number,
-                        'exp_year'=>$request->expiry_year,
-                        'exp_month'=>$request->expiry_month,
-                        'cvc'=>$request->cvv
+                        'number'=> $cardNumber,
+                        'exp_year'=>$expiryYear,
+                        'exp_month'=>$expiryMonth,
+                        'cvc'=>$cvv
                     ]
                 ]);
 
@@ -157,16 +157,18 @@ class PurchaseController extends Controller
                 if($charge['status'] == 'succeeded'){
                     $mode = "card";
                     $status = "success"; 
-                    $this->store($id,$address->id,$totalAmount,$mode,$status);
+                    $this->store($id,$address->id,$cardNumber,$totalAmount,$mode,$status);
                     $this->resetCart($id);
+                    $this->linkItems($cartItems);
                 } 
                 else
                 {
                     session()->flash('stripe_error','Error in transaction!');
                     $mode = "card";
                     $status = "failed"; 
-                    $this->store($id,$address->id,$totalAmount,$mode,$status);
-                    $this->resetCart($id);
+                    $this->store($id,$address->id,$cardNumber,$totalAmount,$mode,$status);
+                    // $this->resetCart($id);
+                    $this->linkItems($cartItems);
                 }
             }
             catch(Exception $e){
@@ -175,23 +177,41 @@ class PurchaseController extends Controller
             }
         }
     }
-    public function store($userId , $addressId,$totalAmount ,$mode ,$status){
+    public function store($userId , $addressId, $cardNumber, $totalAmount, $mode, $status){
 
         $purchase = new Purchase();
         $purchase->user_id = $userId;
         $purchase->address_id = $addressId;
-        // $purchase->payment_id = $paymentId;
+        $purchase->card_number = $cardNumber;
         $purchase->amount = $totalAmount;
         $purchase->delivery_charge = 60;
         $purchase->total = $totalAmount + 60;
         $purchase->payment_method = $mode;
         $purchase->status = $status;
         $purchase->save();
+  
+        // return redirect('/');
 
-        
+    }
+//function to relate products/machines to purchases (many to many relations)
+
+    public function linkItems($cartItems){
+
+        $purchase = Purchase::latest()->first()->get();
+
+        foreach($cartItems as $item){
+            
+            if($item->machine_id){
+
+                $purchase->machines()->attach($item->machine_id);
+            }
+            elseif( $item->product_id){
+
+                $purchase->products()->attch($item->product_id);
+            }
+        }
+
         return redirect('/');
-
-
     }
 
 }
