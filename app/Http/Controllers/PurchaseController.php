@@ -188,6 +188,7 @@ class PurchaseController extends Controller
         $purchase->total = $totalAmount + 60;
         $purchase->payment_method = $mode;
         $purchase->status = $status;
+        $purchase->orderStatus = "ordered" ;
         $purchase->save();
   
         // return redirect('/');

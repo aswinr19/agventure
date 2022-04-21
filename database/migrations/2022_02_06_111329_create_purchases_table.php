@@ -26,6 +26,7 @@ class CreatePurchasesTable extends Migration
             // $table->foreignId('product_id')->nullable();
             $table->string('payment_method');
             $table->string('status');
+            $table->string('orderStatus');
             $table->timestamps();
         });
     }

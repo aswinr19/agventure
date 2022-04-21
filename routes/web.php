@@ -14,6 +14,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TipController;
 
 
@@ -65,6 +66,12 @@ Route::post('/checkout/create-payment-details',[PaymentController::class,'store'
 Route::post('/checkout/update-payment-details',[PaymentController::class,'change']);
 
 Route::get('/checkout/delete-payment-details',[PaymentController::class,'destroy']);
+
+Route::get('/orders',[OrderController::class,'display']);
+
+Route::get('/orders/{id}',[OrderController::class,'displayOne']);
+
+Route::post('/orders/cancel-order/{id}',[OrderController::class,'cancel']);
 
 Route::get('/profile',[UserController::class,'show'])->middleware('customAuth');
 
@@ -137,6 +144,17 @@ Route::post('/admin/update-product',[ProductController::class,'change'])->middle
 
 Route::get('/admin/delete-product/{id}',[ProductController::class,'destroy'])->middleware('isAdmin');
 
+//order routes
+
+Route::get('/admin/orders',[OrderController::class,'index']);
+
+Route::get('/admin/orders/{id}',[OrderController::class,'show']);
+
+Route::post('/admin/orders/update/packed/{id}',[OrderController::class,'packed']);
+
+Route::post('/admin/orders/update/shipped/{id}',[OrderController::class,'shipped']);
+
+Route::post('/admin/orders/update/delivered/{id}',[OrderController::class,'delivered']);
 
 //item routes
 
@@ -254,8 +272,9 @@ Route::get('/admin/user-profiles',[UserController::class,'index'])->middleware('
 
 //TODO
 
+
+//added new column in purchase table, migrate , 
 //add many to many relation
-//added new column in purchase table, migrate
 //rearrange middlewares for routes
 //display the cart items , addresses , and payment info and pass the selected address,payment info from view to controller and use that for purchase
 //get user id , cart items , seleted address in purchase controller and use those to make purchase
