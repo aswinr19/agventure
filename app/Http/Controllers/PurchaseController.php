@@ -49,13 +49,13 @@ class PurchaseController extends Controller
     // make transcation action makes the actual transaction and calls the store action to store the transaction details
     public function makeTransaction(Request $request){
 
-
+        // dd('hello');
         $id = $request->session()->get('loggedUser');
 
         $user = User::findOrFail($id);
 
         //fetch the cart items corresponding to current loggedin user
-        $cartItems = Cart::where('user_id',$id)->get();
+        $cartItems = Cart::latest()->where('user_id',$id)->get();
 
         //find the address with the id sent from the view ( selected address )
         $address = Address::findOrFail($request->selected_address);
@@ -179,6 +179,7 @@ class PurchaseController extends Controller
             }
         }
     }
+
     public function store($userId , $addressId, $cardNumber, $totalAmount, $mode, $status){
 
         $purchase = new Purchase();
@@ -218,3 +219,7 @@ class PurchaseController extends Controller
     }
 
 }
+
+
+
+

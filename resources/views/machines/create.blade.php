@@ -2,6 +2,7 @@
 @section('content')
 <h2>Create Machine</h2>
 <form action="/admin/create-machine" method="POST" enctype="multipart/form-data">
+    @csrf
     <label for="name">Machine Name</label><br>
     <input type="text" name="name"><br>
     <span>@error('name') 
@@ -49,5 +50,6 @@
         {{ $message }}
     
         @enderror</span> <br>
+        <input type="submit" value="submit" name="submit">
 </form>
 @endsection

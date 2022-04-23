@@ -11,7 +11,7 @@
     }}
     <br>
     {{
-        $machine->category
+        $machine->category->name
     }}<br>
     {{
         $machine->quantity

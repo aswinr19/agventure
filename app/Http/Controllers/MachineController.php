@@ -35,6 +35,8 @@ public function create(){
 public function store(Request $request){
 
 
+    // dd($request);
+
     $request->validate([
         'name'=>'required',
         'description'=>'required',
@@ -56,7 +58,7 @@ public function store(Request $request){
     $machine->user_id = $request->session()->get('loggedUser');
     $machine->name = $request->name;
     $machine->description = $request->description;
-    $machine->category  = $request->category;
+    $machine->category_id  = $request->category;
     $machine->quantity = $request->quantity;
     $machine->price = $request->price;
     $machine->image = $newImageName;

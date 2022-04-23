@@ -16,7 +16,7 @@ class CreateMachinesTable extends Migration
         Schema::create('machines', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('category_id')->nullable();
+            $table->foreignId('category_id');
             $table->string('name');
             $table->text('description');
             $table->integer('quantity');

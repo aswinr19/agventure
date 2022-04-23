@@ -35,7 +35,7 @@
         </td>
         <td>
         {{
-    $machine->category
+    $machine->category->name
 }}
         </td>
         <td>
@@ -48,25 +48,11 @@
                 $machine->quantity
             }}
         </td>
-        <td>
-            {{
-                $machine->suitable_crops
-            }}
-        </td>
-        <td>
-            {{
-                $machine->reccomended_crops
-            }}
-        </td>
-        <td>
-            {{
-                $product->composition
-            }}
-        </td>machine
+       
         <td>
         <img src="{{
     asset('images/'. $machine->image)
-}}" alt="{{ $product->image }} " height="40px">
+}}" alt="{{ $machine->image}} " height="40px">
 
         </td>
         <td>
@@ -76,10 +62,14 @@
             <a href="/admin/delete-machine/{{ $machine-> id }}">Delete</a>
         </td>
     </tr>
-
+<p>
+    <a href="/admin/create-machine">Add New Machine</a>
+</p>
 @endforeach
 </table>
 @else
 <p>No products yet. Please check back later.</p>
+<br><br>
+<a href="/admin/create-machine">Add New Machine</a>
 @endif
 @endsection

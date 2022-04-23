@@ -4,8 +4,6 @@
 <h2>Checkout</h2>
 
 <div>
-    <form action="/checkout" method="POST">
-    @csrf
 <h4>Select address</h4> <br>
     @foreach($addresses as $address)
     <input type="radio" name="selected_address" value="{{ $address->id }}" >  <span>{{ $address->name}},{{ $address->phone}}, {{ $address->house_name}},
@@ -16,7 +14,7 @@
 
 <h5>Add New Address</h5>
 <form action="/checkout/create-address" method="POST">
-    @csrf
+  @csrf
     <label for="name">Full Name</label> <br>
     <input type="text" name="name"><br>
     <span>@error('name') 
@@ -79,7 +77,7 @@
 <br><br>
 
 
-<form action="/checkout/create-payment-details" method="POST">
+<form action="/checkout" method="POST">
 @csrf
 <label for="payment_method">Payment Method</label><br>
 <input type="radio" name="payment_method" value="card">Credit/Debit/ATM Card<br>
@@ -88,12 +86,12 @@
 <h5>Add Payment Details</h5>
 <label for="card_number">Card Number</label> <br>
 <input type="text" name="card_number" > <br>
-<label for="cvv">CVV</label> <br>
-<input type="password" name="cvv"><br>
 <label for="expiry_month">Expiry Month</label> <br>
 <input type="text" name="expiry_month"><br>
 <label for="expiry_year">Expiry Year</label> <br>
 <input type="text" name="expiry_year"><br>
+<label for="cvv">CVV</label> <br>
+<input type="password" name="cvv"><br>
 <input type="submit" value="PROCEED" name="submit">
 </form>
 @endsection

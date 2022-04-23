@@ -8,7 +8,6 @@
 <span>{{ $product->category->name }}</span> <br>
 <span> {{ $product->quantity }}</span> <br>
 <span> ₹ {{ $product->price }}</span> <br>
-<button>Buy Now</button>
 <form action="/add-to-cart" method="POST">
 @csrf
 <input type="hidden" name="product_id" value="{{$product->id}}">

@@ -9,7 +9,11 @@ class AddressController extends Controller
 {
     public function store(Request $request){
 
+
+        // dd('hellow');
         $request->validate([
+            'name'=>'required',
+            'phone'=>'required',
             'house_name'=>'required',
             'street'=>'required',
             'pincode'=>'required',
@@ -35,6 +39,8 @@ class AddressController extends Controller
     public function change(Request $request){
 
         $request->validate([
+            'name'=>'required',
+            'phone'=>'required',
             'house_name'=>'required',
             'street'=>'required',
             'pincode'=>'required',
@@ -61,5 +67,6 @@ class AddressController extends Controller
     $address = Address::findOrFail($id);
     $address->delete();
     return redirect('/checkout');
+
     }
 }

@@ -232,7 +232,11 @@ Route::post('/admin/update-guideline',[GuidelineController::class,'change'])->mi
 
 Route::get('/admin/delete-guideline',[GuidelineController::class,'destroy'])->middleware('isAdmin');
 
+//machine routes
 
+Route::get('/admin/machines',[MachineController::class,'index']);
+
+Route::get('/admin/machine/{id}',[MachineController::class,'show']);
 
 Route::get('/admin/create-machine',[MachineController::class,'create'])->middleware('isAdmin');
 
