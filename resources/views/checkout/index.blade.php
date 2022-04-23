@@ -76,7 +76,7 @@
         <input type="submit" value="add" name="submit">
 </form>
 
-
+<br><br>
 
 
 <form action="/checkout/create-payment-details" method="POST">
@@ -84,6 +84,7 @@
 <label for="payment_method">Payment Method</label><br>
 <input type="radio" name="payment_method" value="card">Credit/Debit/ATM Card<br>
 <input type="radio" name="payment_method" value="cod">COD<br>
+
 <h5>Add Payment Details</h5>
 <label for="card_number">Card Number</label> <br>
 <input type="text" name="card_number" > <br>
@@ -93,7 +94,6 @@
 <input type="text" name="expiry_month"><br>
 <label for="expiry_year">Expiry Year</label> <br>
 <input type="text" name="expiry_year"><br>
-<input type="submit" value="add" name="submit">
+<input type="submit" value="PROCEED" name="submit">
 </form>
-</for m>
 @endsection

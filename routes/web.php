@@ -51,43 +51,43 @@ Route::get('/machines',[MachineController::class,'display']);
 
 Route::get('/machine/{id}',[MachineController::class,'displayOne']);
 
-Route::get('/checkout',[PurchaseController::class,'create']);
+Route::get('/checkout',[PurchaseController::class,'create'])->middleware('isLoggedIn');
 
-Route::post('/checkout',[PurchaseController::class,'makeTransaction']);
+Route::post('/checkout',[PurchaseController::class,'makeTransaction'])->middleware('isLoggedIn');
 
-Route::post('/checkout/create-address',[AddressController::class,'store']);
+Route::post('/checkout/create-address',[AddressController::class,'store'])->middleware('isLoggedIn');
 
-Route::post('/checkout/update-address',[AddressController::class,'change']);
+Route::post('/checkout/update-address',[AddressController::class,'change'])->middleware('isLoggedIn');
 
-Route::get('/checkout/delete-address',[AddressController::class,'destroy']);
+Route::get('/checkout/delete-address',[AddressController::class,'destroy'])->middleware('isLoggedIn');
 
-Route::post('/checkout/create-payment-details',[PaymentController::class,'store']);
+// Route::post('/checkout/create-payment-details',[PaymentController::class,'store']);
 
-Route::post('/checkout/update-payment-details',[PaymentController::class,'change']);
+// Route::post('/checkout/update-payment-details',[PaymentController::class,'change']);
 
-Route::get('/checkout/delete-payment-details',[PaymentController::class,'destroy']);
+Route::get('/checkout/delete-payment-details',[PaymentController::class,'destroy'])->middleware('isLoggedIn');
 
-Route::get('/orders',[OrderController::class,'display']);
+Route::get('/orders',[OrderController::class,'display'])->middleware('isLoggedIn');
 
-Route::get('/orders/{id}',[OrderController::class,'displayOne']);
+Route::get('/orders/{id}',[OrderController::class,'displayOne'])->middleware('isLoggedIn');
 
-Route::post('/orders/cancel-order/{id}',[OrderController::class,'cancel']);
+Route::post('/orders/cancel-order/{id}',[OrderController::class,'cancel'])->middleware('isLoggedIn');
 
-Route::get('/profile',[UserController::class,'show'])->middleware('customAuth');
+Route::get('/profile',[UserController::class,'show'])->middleware('isLoggedIn');
 
-Route::post('/profile/update-profile',[UserController::class,'change']);
+Route::post('/profile/update-profile',[UserController::class,'change'])->middleware('isLoggedIn');
 
-Route::get('/profile/delete-profile',[UserController::class,'destroy']);
+Route::get('/profile/delete-profile',[UserController::class,'destroy'])->middleware('isLoggedIn');
 
-Route::get('/cart',[CartController::class,'index'])->middleware('isUser');
+Route::get('/cart',[CartController::class,'index'])->middleware('isLoggedIn');
 
-Route::post('/add-to-cart',[CartController::class,'store'])->middleware('isUser');
+Route::post('/add-to-cart',[CartController::class,'store'])->middleware('isLoggedIn');
 
-Route::get('cart/delete-cart-item/{id}',[CartController::class,'destroy'])->middleware('isUser');
+Route::get('cart/delete-cart-item/{id}',[CartController::class,'destroy'])->middleware('isLoggedIn');
 
-Route::get('/cart/increment-cart-item-count/{id}',[CartController::class,'increment'])->middleware('isUser');
+Route::get('/cart/increment-cart-item-count/{id}',[CartController::class,'increment'])->middleware('isLoggedIn');
 
-Route::get('/cart/decrement-cart-item-count/{id}',[CartController::class,'decrement'])->middleware('isUser');
+Route::get('/cart/decrement-cart-item-count/{id}',[CartController::class,'decrement'])->middleware('isLoggedIn');
 
 Route::post('/cart/proceed-to-buy',[CartController::class,'prodceedToBuy']);
 

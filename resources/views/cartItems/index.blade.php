@@ -8,7 +8,7 @@ $total = 0 ;
 @endphp
 @foreach($cartItems as $item)
 @if($item->product_id)
-<span> {{ $item->product->name }} 
+<span> {{ $item->product->name }} <span> {{ $item->product->price }} 
 <img src="{{ asset('images/'. $item->product->image)}}" alt="{{ $item->product->image }} " height="20px"> 
 <a href="/cart/increment-cart-item-count/{{$item->id}}">+</a>
 {{$item->count}} <a href="/cart/decrement-cart-item-count/{{$item->id}}">-</a></span>

@@ -1,3 +1,7 @@
 @extends('layouts.layout')
-@extends('section')
+@section('content')
+<h2>Orders</h2>
+@foreach($orders as $order)
+
+@endforeach
 @endsection

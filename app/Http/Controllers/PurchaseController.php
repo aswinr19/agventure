@@ -21,6 +21,8 @@ class PurchaseController extends Controller
 
     public function create(Request $request){
 
+        // dd($request->session()->get('totalAmount'));
+
         $id = $request->session()->get('loggedUser');
 
 
@@ -194,7 +196,7 @@ class PurchaseController extends Controller
         // return redirect('/');
 
     }
-//function to relate products/machines to purchases (many to many relations)
+//function to relate products/machines to purchases (many to many relation)
 
     public function linkItems($cartItems){
 
