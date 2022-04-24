@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Address;
 use App\Models\Cart;
+use App\Models\Machine;
 use App\Models\Payment;
+use App\Models\Product;
 use App\Models\Purchase;
 use App\Models\User;
 use Cartalyst\Stripe\Stripe;
@@ -200,6 +202,8 @@ else if($request->payment_method == "card"){
 
             $item->delete();
         }
+
+        return redirect('/');
         
 
     }
@@ -221,10 +225,16 @@ else if($request->payment_method == "card"){
 
     }
 
-    public function linkItemts($cartItems){
+    public function linkItemts($user_id){
         
+        $cartItems = Cart::latest()
+            ->where('user_id',$user_id)
+                ->get();
 
-        $purchase = Purchase::latest()->first()->get();
+        $purchase = Purchase::latest()
+            ->where('user_id',$user_id)
+                ->first()
+                    ->get();
 
         foreach($cartItems as $item){
             
@@ -238,9 +248,33 @@ else if($request->payment_method == "card"){
             }
         }
 
-        return redirect('/');
 
     }
+
+    public function decreaseQuantity($user_id){
+
+        $cartItems = Cart::latest()
+            ->where('user_id',$user_id)
+                ->get();
+
+                foreach($cartItems as $item){
+            
+                    if($item->machine_id){
+        
+                        $machine = Machine::findOrFail($item->machine_id);
+                        $machine->quantity = $machine->quantity-1; 
+                    }
+                    elseif( $item->product_id){
+                        
+                        $product = Product::findOrFail( $item->product_id);
+                        $product->quantity = $product->quantity-1; 
+                        
+                    }
+                }
+           
+    }
+
+
 
 }
 
