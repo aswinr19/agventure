@@ -8,7 +8,9 @@
     @foreach($addresses as $address)
     <input type="radio" name="selected_address" value="{{ $address->id }}" >  <span>{{ $address->name}},{{ $address->phone}}, {{ $address->house_name}},
         {{ $address->street}},{{ $address->city}},{{ $address->district }},{{ $address->state }},
-        {{ $address->pincode }}. <a href="/checkout/update-address">Edit</a> <a href="/checkout/delete-address">Delete</a></span>
+        {{ $address->pincode }}. 
+        <!-- <a href="/checkout/update-address/{{$address->id}}">Edit</a>  -->
+        <a href="/checkout/delete-address/{{$address->id}}">Delete</a></span>
     @endforeach
 </div>
 

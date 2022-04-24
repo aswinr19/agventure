@@ -57,9 +57,9 @@ Route::post('/checkout',[PurchaseController::class,'makeTransaction'])->middlewa
 
 Route::post('/checkout/create-address',[AddressController::class,'store'])->middleware('isLoggedIn');
 
-Route::post('/checkout/update-address',[AddressController::class,'change'])->middleware('isLoggedIn');
+Route::post('/checkout/update-address/{id}',[AddressController::class,'change'])->middleware('isLoggedIn');
 
-Route::get('/checkout/delete-address',[AddressController::class,'destroy'])->middleware('isLoggedIn');
+Route::get('/checkout/delete-address/{id}',[AddressController::class,'destroy'])->middleware('isLoggedIn');
 
 // Route::post('/checkout/create-payment-details',[PaymentController::class,'store']);
 

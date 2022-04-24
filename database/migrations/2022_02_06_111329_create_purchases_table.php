@@ -17,7 +17,7 @@ class CreatePurchasesTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('address_id');
-            $table->foreignId('card_number');
+            $table->foreignId('card_number')->nullable();
             $table->bigInteger('amount');
             $table->integer('delivery_charge');
             $table->bigInteger('total');
@@ -26,7 +26,7 @@ class CreatePurchasesTable extends Migration
             // $table->foreignId('product_id')->nullable();
             $table->string('payment_method');
             $table->string('status');
-            $table->string('orderStatus');
+            $table->string('order_status');
             $table->timestamps();
         });
     }
