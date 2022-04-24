@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 @section('content')
 <h2> Categories </h2>
+@if ($categories->count())
 <table>
     <tr>
         <th>Id</th>
@@ -23,5 +24,9 @@
 
 
 </table>
+@else
+    <p>No categories yet. Please check back later.</p>
+@endif
+<br> 
 <a href="/admin/create-category">Add new category</a>
 @endsection

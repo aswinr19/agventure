@@ -8,7 +8,7 @@ use App\Models\Cart;
 use App\Models\Payment;
 use App\Models\Purchase;
 use App\Models\User;
-use Stripe;
+use Cartalyst\Stripe\Stripe;
 use Exception;
 
 
@@ -46,8 +46,10 @@ class PurchaseController extends Controller
 
         $id = $request->session()->get('loggedUser');
 
+        $user = User::findOrFail($id);
+
         //fetch the cart items corresponding to current loggedin user
-         $cartItems = Cart::latest()->where('user_id',$id)->get();
+         $cartItems = Cart::latest()->where('user_id',$id)->get();       
 
         //addressId
         $addressId = $request->selected_address;
@@ -57,31 +59,132 @@ class PurchaseController extends Controller
 
          //total amount 
          $totalAmount =  $request->session()->get('totalAmount');
-
+         
          //card details
          $cardNumber = $request->card_number;
- 
+        
          $expiryMonth = $request->expiry_month;
  
          $expiryYear = $request->expiry_year;
  
          $cvv = $request->cvv;
  
+        //  dd($cardNumber,$expiryMonth,$expiryYear,$cvv);
+      
 
-        if($request->payment_method == "cod"){
+
+        // if($request->payment_method == "cod"){
 
 
-            $this->store($id,$addressId,0,$totalAmount,"cod","pending");
+        //     $this->store($id,$addressId,0,$totalAmount,"cod","pending");
 
-            $this->resetCart($id);
+        //     // $this->linkItemts($cartItems);
 
-            $this->linkItemts($cartItems);
+        //     $this->resetCart($id);
 
             
+        // }
+        // elseif($request->payment_method == "card"){
+
+        //     $this->store($id,$addressId,$cardNumber,$totalAmount,"card","succesful");
+
+        //     // $this->linkItemts($cartItems);
+
+        //     $this->resetCart($id);
+
+        // }
+
+
+
+
+        //logic for cod transactions
+        if($request->payment_method == "cod"){
+
+            $this->store($id,$addressId,0,$totalAmount,"cod","pending");
+            $this->resetCart($id);
+
+            return redirect('/checkout');
+
+}
+//logic for card transactions
+else if($request->payment_method == "card"){
+    
+    $stripe = Stripe::make(env('STRIPE_SECRET'));
+
+    try{
+
+        $token = $stripe->tokens->create([
+            'card'=>[
+                'number'=> $cardNumber,
+                'exp_year'=>$expiryYear,
+                'exp_month'=>$expiryMonth,
+                'cvc'=>$cvv
+            ]
+        ]);
+
+        if(!isset($token['id'])){
+
+            session()->flash('stripe_error','The stripe token was not generated correctly!');
+            return redirect('/checkout');
         }
-        elseif($request->payment_method == "card"){
+
+        $customer = $stripe->customer()->create([
+            'name'=> $user->name,
+            'email'=> $user->email,
+            'phone'=> $user->phone,
+            'address'=>[
+                'line1'=> $address->house_name.' '.$address->street,
+                'postal_code'=> $address->pincode,
+                'city'=> $address->city,
+                'state'=> $address->state,
+                'country'=> 'India'
+            ],
+            'shipping'=>[
+                
+                'name'=> $address->name,
+            'email'=> $user->email,
+            'phone'=> $address->phone,
+            'address'=>[
+                'line1'=> $address->house_name.' '.$address->street,
+                'postal_code'=> $address->city,
+                'city'=> $address->city,
+                'state'=> $address->state,
+                'country'=> 'India'
+            ],
+            ],
+            'source'=> $token['id']
+        ]);
+
+        $charge = $stripe->charges()->create([
+
+            'customer'=> $customer['id'],
+            'currency'=>'INR',
+            'amount'=> $totalAmount,
+            'description'=>'Payment for order no : '
+        ]);
+
+        if($charge['status'] == 'succeeded'){
+          
+            $this->store($id,$addressId,$cardNumber,$totalAmount,"card","succesful");
+            $this->resetCart($id);
+          
+        } 
+        else
+        {
+            session()->flash('stripe_error','Error in transaction!');
+
+            $this->store($id,$addressId,$cardNumber,$totalAmount,"card","failed");
+            return redirect('/checkout');
 
         }
+    }
+    catch(Exception $e){
+
+        session()->flash('stripe_error',$e->getMessage());
+    }
+}
+
+           
 
     }
 

@@ -4,15 +4,7 @@
 <h2>Checkout</h2>
 
 <div>
-<h4>Select address</h4> <br>
-    @foreach($addresses as $address)
-    <input type="radio" name="selected_address" value="{{ $address->id }}" >  <span>{{ $address->name}},{{ $address->phone}}, {{ $address->house_name}},
-        {{ $address->street}},{{ $address->city}},{{ $address->district }},{{ $address->state }},
-        {{ $address->pincode }}. 
-        <!-- <a href="/checkout/update-address/{{$address->id}}">Edit</a>  -->
-        <a href="/checkout/delete-address/{{$address->id}}">Delete</a></span>
-    @endforeach
-</div>
+
 
 <h5>Add New Address</h5>
 <form action="/checkout/create-address" method="POST">
@@ -81,6 +73,18 @@
 
 <form action="/checkout" method="POST">
 @csrf
+
+<h4>Select address</h4> <br>
+    @foreach($addresses as $address)
+    <input type="radio" name="selected_address" value="{{ $address->id }}" >  <span>{{ $address->name}},{{ $address->phone}}, {{ $address->house_name}},
+        {{ $address->street}},{{ $address->city}},{{ $address->district }},{{ $address->state }},
+        {{ $address->pincode }}. 
+        <!-- <a href="/checkout/update-address/{{$address->id}}">Edit</a>  -->
+        <a href="/checkout/delete-address/{{$address->id}}">Delete</a></span> <br>
+    @endforeach
+</div>
+
+
 <label for="payment_method">Payment Method</label><br>
 <input type="radio" name="payment_method" value="card">Credit/Debit/ATM Card<br>
 <input type="radio" name="payment_method" value="cod">COD<br>
@@ -96,4 +100,8 @@
 <input type="password" name="cvv"><br>
 <input type="submit" value="PROCEED" name="submit">
 </form>
+
+@if(Session::has('stripe_error'))
+<p>{{ Session::get('stripe_error')}}</p>
+@endif
 @endsection

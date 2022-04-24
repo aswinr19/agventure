@@ -7,7 +7,10 @@
 <span>{{ $machine->description }}</span> <br>
 <span> {{ $machine->quantity }}</span> <br>
 <span> ₹ {{ $machine->price }}</span> <br>
-<button>Buy Now</button>
-<button>Add To Cart</button>
+<form action="/add-to-cart" method="POST">
+@csrf
+<input type="hidden" name="machine_id" value="{{$machine->id}}">
+<input type="submit" value="Add To Cart" name="submit">
+</form>
 
 @endsection

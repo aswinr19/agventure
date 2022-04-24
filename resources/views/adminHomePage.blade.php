@@ -7,4 +7,7 @@
 <p>
     <a href="/admin/machines">View Machines</a>
 </p>
+<p>
+    <a href="/admin/categories">View Categories</a>
+</p>
 @endsection

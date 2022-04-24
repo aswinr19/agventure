@@ -65,7 +65,7 @@ Route::get('/checkout/delete-address/{id}',[AddressController::class,'destroy'])
 
 // Route::post('/checkout/update-payment-details',[PaymentController::class,'change']);
 
-Route::get('/checkout/delete-payment-details',[PaymentController::class,'destroy'])->middleware('isLoggedIn');
+Route::get('/delete-payment-details',[PaymentController::class,'destroy'])->middleware('isLoggedIn');
 
 Route::get('/orders',[OrderController::class,'display'])->middleware('isLoggedIn');
 

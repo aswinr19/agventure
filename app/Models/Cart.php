@@ -13,4 +13,9 @@ class Cart extends Model
 
         return $this->belongsTo(Product::class);
     }
+
+    public function machine(){
+
+        return $this->belongsTo(Machine::class);
+    }
 }
