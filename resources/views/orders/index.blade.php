@@ -21,7 +21,7 @@
    </p><br>
    <p>
        $order->deliveryStatus
-   </p>q
+   </p>
 </div>
 @endforeach
 @endsection

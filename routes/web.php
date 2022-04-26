@@ -65,7 +65,7 @@ Route::get('/checkout/delete-address/{id}',[AddressController::class,'destroy'])
 
 // Route::post('/checkout/update-payment-details',[PaymentController::class,'change']);
 
-Route::get('/delete-payment-details',[PaymentController::class,'destroy'])->middleware('isLoggedIn');
+// Route::get('/delete-payment-details',[PaymentController::class,'destroy'])->middleware('isLoggedIn');
 
 Route::get('/orders',[OrderController::class,'display'])->middleware('isLoggedIn');
 
@@ -308,4 +308,4 @@ Route::get('/admin/user-profiles',[UserController::class,'index'])->middleware('
 
 //bug in creating auctions - create() method , returns the last added item for creating auction , there isn't any check for the owner of the item.
 //crct the mistakes with showing individual results pages.
-//bug in deleting products , auctions , items etc .No check for owner!
+
