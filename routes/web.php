@@ -55,6 +55,10 @@ Route::get('/checkout',[PurchaseController::class,'create'])->middleware('isLogg
 
 Route::post('/checkout',[PurchaseController::class,'makeTransaction'])->middleware('isLoggedIn');
 
+Route::get('/checkout/success',[PurchaseController::class,'success']);
+
+Route::get('/checkout/failed',[PurchaseController::class,'failed']);
+
 Route::post('/checkout/create-address',[AddressController::class,'store'])->middleware('isLoggedIn');
 
 Route::post('/checkout/update-address/{id}',[AddressController::class,'change'])->middleware('isLoggedIn');
