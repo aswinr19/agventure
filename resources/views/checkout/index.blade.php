@@ -82,6 +82,11 @@
         <!-- <a href="/checkout/update-address/{{$address->id}}">Edit</a>  -->
         <a href="/checkout/delete-address/{{$address->id}}">Delete</a></span> <br>
     @endforeach
+    <span>@error('selected_address') 
+        
+        {{ $message }}
+    
+        @enderror</span> <br>
 </div>
 
 
