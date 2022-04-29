@@ -1,75 +1,51 @@
 @extends('layouts.layout')
 @section('content')
-<h2>Auctions</h2>
-<table>
-    <tr>
-        <th>Item Name</th>
-        <th>Item Description</th>
-        <th>Starting Price</th>
-        <th>Quantity</th>
-        <th>Created By</th>
-        <th>Started At</th>
-        <th>Status</th>
-        <th>Image</th>
-       
-    </tr>
-    
+<h2>Auctions</h2> 
 @foreach($auctions as $auction)
 
-<tr>
-   
-<td>
-<a href="/auction/{{ $auction->id }}">
         {{
     $auction->item->name
-        }}</a>
-        </td>
-
-        
-        <td>
+        }} <br>
         {{
     $auction->item->description
-}}
+}}<br>
 
-        </td>
-       
-        <td>
+        
             {{
                 $auction->starting_amount
-            }}
-        </td>
-        <td>
+            }}<br>
+        
             {{
                 $auction->item->quantity
-            }}
-        </td>
-        <td>
+            }}<br>
+        
             {{
                 $auction->user->name
 
-            }}
-        </td>
-      @if($auction->started_at)
-      <td>
+            }}<br>
+        @if($auction->started_at)
             {{
                 $auction->started_at->diffForHumans()
-            }}
-        </td>
-      @endif
-        <td>
+            }} <br>
+            @endif
+            @if($auction->ending_at)
             {{
+                $auction->ending_at->diffForHumans()
+            }} <br>
+            @endif
+            @if($auction->duration)
+            {{
+                $auction->duration
+            }} <br>
+            @endif
+            <br>
+                   {{
                 $auction->status
-            }}
-        </td>
-        <td>
-        <img src="{{
-           asset('images/'. $auction->item->image)}}" alt="{{ $auction->item->image }} " height="40px">
+            }}<br>
+                <img src="{{
+           asset('images/'. $auction->item->image)}}" alt="{{ $auction->item->image }} " height="20px">
 
-        </td>
-       
-        
-    </tr>
-    
+  
 @endforeach
-</table>
+
 @endsection

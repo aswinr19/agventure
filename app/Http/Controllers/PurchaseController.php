@@ -163,7 +163,7 @@ else if($request->payment_method == "card"){
             'description'=>'Payment for order no : '
         ]);
 
-        dd($charge);
+        // dd($charge);
 
         if($charge['status'] == 'succeeded'){
           

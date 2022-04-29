@@ -6,7 +6,8 @@
 <div>
 
 
-<h5>Add New Address</h5>
+<h5> Add New Address<button onclick="toggleAdressForm()"> + </button></h5>
+<div id="address" style="display:none">
 <form action="/checkout/create-address" method="POST">
   @csrf
     <label for="name">Full Name</label> <br>
@@ -67,7 +68,7 @@
         @enderror</span> <br>
         <input type="submit" value="add" name="submit">
 </form>
-
+</div>
 <br><br>
 
 
@@ -91,9 +92,9 @@
 
 
 <label for="payment_method">Payment Method</label><br>
-<input type="radio" name="payment_method" value="card">Credit/Debit/ATM Card<br>
-<input type="radio" name="payment_method" value="cod">COD<br>
-
+<input  type="radio" name="payment_method" value="card" onclick="togglePaymentForm()">Credit/Debit/ATM Card<br>
+<input  type="radio" name="payment_method" value="cod" onclick="togglePaymentForm()">COD<br>
+<div id="payment" style="display:none">
 <h5>Add Payment Details</h5>
 <label for="card_number">Card Number</label> <br>
 <input type="text" name="card_number" > <br>
@@ -103,10 +104,34 @@
 <input type="text" name="expiry_year"><br>
 <label for="cvv">CVV</label> <br>
 <input type="password" name="cvv"><br>
+</div>
 <input type="submit" value="PROCEED" name="submit">
 </form>
 
 @if(Session::has('stripe_error'))
 <p>{{ Session::get('stripe_error')}}</p>
 @endif
+
+<script>
+    
+  function toggleAdressForm() {
+  var x = document.getElementById("address");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+
+function togglePaymentForm() {
+  var x = document.getElementById("payment");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+
+
+</script>
 @endsection
