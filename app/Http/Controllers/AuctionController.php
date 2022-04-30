@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Auction;
+use App\Models\Participation;
 use Illuminate\Support\Carbon;
-
+use Svg\Tag\Rect;
 
 class AuctionController extends Controller
 {
@@ -154,4 +155,67 @@ class AuctionController extends Controller
         return redirect('/admin/auctions');
 
     }
+
+    public function startBid(Request $request){
+
+
+        $request->validate([
+            'bid' => 'required',
+        ]);
+
+        $bid = new Participation();
+
+        $bid->user_id = $request->session()->get('loggedUser');
+        $bid->auction_id = $request->auction_id;
+        $bid->bid = $request->bid;
+        $bid->status = "ongoing";
+        $bid->save();
+
+        return redirect('/auction/{{ $request->auction_id }}');
+
+    }
+
+    public function updateBid(Request $request,$id){
+
+
+        $request->validate([
+            'bid' => 'required',
+        ]);
+
+        $bid  = Participation::latest()
+                    ->where('auction_id',$id)
+                        ->get();
+
+        $bid->bid = $request->bid;
+        $bid->save();
+        
+        return redirect('/auction/{{ $id }}');
+    }
+
+    public function deleteBid($id){
+
+        $bid  = Participation::latest()
+                    ->where('auction_id',$id)
+                        ->get();
+
+        $bid->delete();
+
+        return redirect('/auction/{{ $id }}');
+    }
+
+    public function auctionComplete($id){
+        
+        $auction = Auction::findOrFail($id);
+
+        $bid = Participation::where('auction_id',$id)
+                                    ->orderBy('bid','DESC')
+                                        ->first()
+                                            ->get();
+
+
+        $auction->partcipation_id = $bid->user_id;
+        $auction->save();
+
+    }
+    
 }

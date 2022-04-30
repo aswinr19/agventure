@@ -22,6 +22,7 @@ class CreateAuctionsTable extends Migration
             $table->dateTime('started_at')->nullable();
             $table->dateTime('ending_at')->nullable();
             $table->integer('duration');
+            $table->foreignId('partcipation_id')->nullable();
             $table->timestamps();
         });
     }

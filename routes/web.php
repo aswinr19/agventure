@@ -281,22 +281,15 @@ Route::get('/admin/user-profiles',[UserController::class,'index'])->middleware('
 //TODO
 
 
-//added new column in purchase table, migrate , 
+// 
 //add many to many relation
-//rearrange middlewares for routes
-//display the cart items , addresses , and payment info and pass the selected address,payment info from view to controller and use that for purchase
-//get user id , cart items , seleted address in purchase controller and use those to make purchase
-//removed expiry momth ,year , cvv and upi_id from payments table update those in other parts and doc 
 //add validation to payment related fields
-//add login middleware to checkout route and fix the error in checkout index ( '(' issue )
 //add many to many realtion to machines and purchases.
-//add cart functionalities and logic to extract products id and machines id from cart. 
 //add the rest of the relations.
 //add a field in auction table to specify the ending time of the auction and schedule a task to check for the curren time and auction ending time
     //if ending time exceeded the current time then update the auction status to ended ( add logic to calculate the ending time in the admin approve action ).
 //add a task schedular to check update the remaining time fo acution.
 // add cascade on delete for necessary relations.
-//add stripe payments
 //add styling elements to views.
     //show rejected auctions as dull in farmer view (auctions.index)
 //test the code for errors ,bugs.

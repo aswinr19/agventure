@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Models\Auction;
 use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -17,12 +18,23 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-    //     $schedule->call(function () {
+        $schedule->call(function () {
+            
         //find the corresponding records and update the status field.
-    //         $currentTime = Carbon::now();
-        
-    //         FacadesDB::table('auctions')->where('status','approved')->where('ending_time','<',$currentTime);
-    //     })->everyMinute();
+            $currentDateTime = Carbon::now();
+
+            $auctions = Auction::where('status','=','approved');
+
+            foreach($auctions as $auction){
+
+                $endingDateTime = $auction->ending_at;
+
+                if($currentDateTime->gte($endingDateTime)){
+
+                    $auction->status = "ended";
+                }
+            }
+        })->everyMinute();
      }
 
     /**
