@@ -14,6 +14,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ExpertController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TipController;
 
@@ -100,6 +101,18 @@ Route::get('/tips',[TipController::class,'display']);
 Route::get('/guidelines',[GuidelineController::class,'display']);
 
 Route::get('/guideline/{id}',[GuidelineController::class,'displayOne']);
+
+Route::get('/experts',[ExpertController::class,'display'])->middleware('isLoggedIn');
+
+Route::get('/expert/{id}',[ExpertController::class,'displayOne'])->middleware('isLoggedIn');
+
+Route::post('/expert/book-appointment',[ExpertController::class,'bookAppointment'])->middleware('isLoggedIn');
+
+Route::get('/expert/cancel-appointment',[ExpertController::class,'cancelAppointment'])->middleware('isLoggedIn');
+
+Route::get('/weather');
+
+Route::post('/weather');
 
 
 //auth routes
@@ -270,6 +283,22 @@ Route::post('/admin/update-tip',[TipController::class,'change'])->middleware('is
 Route::get('/admin/delete-tip',[TipController::class,'destroy'])->middleware('isAdmin');
 
 
+//exxperts
+
+Route::get('/admin/experts',[ExpertController::class,'index'])->middleware('isAdmin');
+
+Route::get('/admin/experts/{id}',[ExpertController::class,'show'])->middleware('isAdmin');
+
+Route::get('/admin/create-expert',[ExpertController::class,'create'])->middleware('isAdmin');
+
+Route::post('/admin/create-expert',[ExpertController::class,'store'])->middleware('isAdmin');
+
+Route::get('/admin/update-expert',[ExpertController::class,'update'])->middleware('isAdmin');
+
+Route::post('/admin/update-expert',[ExpertController::class,'change'])->middleware('isAdmin');
+
+Route::get('/admin/delere-expert',[ExpertController::class,'destroy'])->middleware('isAdmin');
+
 
 //users
 
@@ -281,7 +310,7 @@ Route::get('/admin/user-profiles',[UserController::class,'index'])->middleware('
 //TODO
 
 
-// 
+//migrate 
 //add many to many relation
 //add validation to payment related fields
 //add many to many realtion to machines and purchases.
