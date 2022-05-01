@@ -9,9 +9,9 @@ use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\GuidelineController;
 use App\Http\Controllers\MachineController;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ExpertController;
@@ -106,9 +106,11 @@ Route::get('/experts',[ExpertController::class,'display'])->middleware('isLogged
 
 Route::get('/expert/{id}',[ExpertController::class,'displayOne'])->middleware('isLoggedIn');
 
-Route::post('/expert/book-appointment',[ExpertController::class,'bookAppointment'])->middleware('isLoggedIn');
+Route::post('/expert/book-appointment',[AppointmentController::class,'store'])->middleware('isLoggedIn');
 
-Route::get('/expert/cancel-appointment',[ExpertController::class,'cancelAppointment'])->middleware('isLoggedIn');
+Route::get('/expert/cancel-appointment',[AppointmentController::class,'destroy'])->middleware('isLoggedIn');
+
+Route::get('/appointments',[AppointmentController::class,'index'])->middleware('isLoggedIn');
 
 Route::get('/weather');
 
