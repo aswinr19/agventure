@@ -40,6 +40,7 @@ class UserController extends Controller
             'email'=>'required|email|unique:users',
             'phone'=>'required|digits:10|unique:users',
             'password'=>'required|min:6|max:14',
+            'role'=>'required'
             
         ]);
             // saving data to database

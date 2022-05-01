@@ -50,7 +50,12 @@
         <option value="role" selected disabled >Role</option>
         <option value="user">User</option>
         <option value="farmer">Farmer</option>
-    </select><br>
+    </select> <br>
+    <span>@error('role') 
+        
+        {{ $message }}
+    
+        @enderror</span> <br>
     <input type="submit" value="submit" name="submit">  <br>
     <a href="/auth/signin">I already have an account , sign in</a>
 </form>
