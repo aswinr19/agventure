@@ -76,7 +76,7 @@ Route::get('/orders',[OrderController::class,'display'])->middleware('isLoggedIn
 
 Route::get('/orders/{id}',[OrderController::class,'displayOne'])->middleware('isLoggedIn');
 
-Route::post('/orders/cancel-order/{id}',[OrderController::class,'cancel'])->middleware('isLoggedIn');
+Route::get('/orders/cancel-order/{id}',[OrderController::class,'cancel'])->middleware('isLoggedIn');
 
 Route::get('/profile',[UserController::class,'show'])->middleware('isLoggedIn');
 

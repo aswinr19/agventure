@@ -81,8 +81,8 @@ class OrderController extends Controller
         $id = $request->session()->get('loggedUser');    
         
         $orders = Purchase::latest()
-            ->where('user_id',$id)
-                ->get();
+                                ->where('user_id',$id)
+                                     ->get();
 
                 return view('orders.display',['title' => 'Orders page','orders'=> $orders]);
 
@@ -97,11 +97,18 @@ class OrderController extends Controller
 
         $order = Purchase::findOrFail($id);
 
-        $order->orderStatus = "cancelled";
-
-        $order->save();
-
-        return redirect('/orders/{$id}');
+        if($order->order_status == "ordered"){
+            
+            $order->order_status = "cancelled";
+    
+            $order->save();
+    
+            return redirect('/orders/'.$id);
+        }
+        else{
+            
+            return redirect('/orders/'.$id);
+        }
     }
 
 }
