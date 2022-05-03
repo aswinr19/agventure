@@ -96,6 +96,7 @@ class PurchaseController extends Controller
         if($request->payment_method == "cod"){
 
             $this->store($id,$addressId,0,$totalAmount,"cod","pending","ordered",0);
+             $this->linkItemts($id);
             $this->resetCart($id);
 
             return redirect('/checkout/success');
@@ -168,6 +169,7 @@ else if($request->payment_method == "card"){
         if($charge['status'] == 'succeeded'){
           
             $this->store($id,$addressId,$cardNumber,$totalAmount,"card","succesful","ordered",0);
+            // $this->linkItemts($id);
             $this->resetCart($id);
 
             return redirect('/checkout/success');
@@ -245,6 +247,7 @@ else if($request->payment_method == "card"){
         $purchase->auction_id = $auctionId;
 
         $purchase->save();
+
         }
 
         
@@ -257,10 +260,15 @@ else if($request->payment_method == "card"){
             ->where('user_id',$user_id)
                 ->get();
 
-        $purchase = Purchase::latest()
-            ->where('user_id',$user_id)
-                ->first()
-                    ->get();
+        // $purchase = Purchase::latest()
+        //                         ->first()
+        //                           ->where('user_id',$user_id)
+        //                            ->get();
+
+        $purchase = Purchase::all()     
+                                ->last();
+
+        // dd($purchase);
 
         foreach($cartItems as $item){
             
@@ -270,7 +278,7 @@ else if($request->payment_method == "card"){
             }
             elseif( $item->product_id){
 
-                $purchase->products()->attch($item->product_id);
+                $purchase->products()->attach($item->product_id);
             }
         }
 
@@ -289,11 +297,13 @@ else if($request->payment_method == "card"){
         
                         $machine = Machine::findOrFail($item->machine_id);
                         $machine->quantity = $machine->quantity-1; 
+                        $machine->save();
                     }
                     elseif( $item->product_id){
                         
                         $product = Product::findOrFail( $item->product_id);
                         $product->quantity = $product->quantity-1; 
+                        $product->save();
                         
                     }
                 }

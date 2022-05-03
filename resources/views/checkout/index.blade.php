@@ -92,9 +92,11 @@
 
 
 <label for="payment_method">Payment Method</label><br>
-<input  type="radio" name="payment_method" value="card" onclick="togglePaymentForm()">Credit/Debit/ATM Card<br>
-<input  type="radio" name="payment_method" value="cod" onclick="togglePaymentForm()">COD<br>
+<input  type="radio" name="payment_method" value="card" onclick="displayPaymentForm()">Credit/Debit/ATM Card<br>
+<input  type="radio" name="payment_method" value="cod" onclick="hidePaymentForm()">COD<br>
 <div id="payment" style="display:none">
+
+
 <h5>Add Payment Details</h5>
 <label for="card_number">Card Number</label> <br>
 <input type="text" name="card_number" > <br>
@@ -123,15 +125,18 @@
   }
 }
 
-function togglePaymentForm() {
+function displayPaymentForm() {
   var x = document.getElementById("payment");
   if (x.style.display === "none") {
     x.style.display = "block";
-  } else {
+  }
+}
+function hidePaymentForm() {
+  var x = document.getElementById("payment");
+  if (x.style.display != "none") {
     x.style.display = "none";
   }
 }
-
 
 </script>
 @endsection

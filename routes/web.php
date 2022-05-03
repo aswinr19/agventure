@@ -169,11 +169,11 @@ Route::get('/admin/orders',[OrderController::class,'index']);
 
 Route::get('/admin/orders/{id}',[OrderController::class,'show']);
 
-Route::post('/admin/orders/update/packed/{id}',[OrderController::class,'packed']);
+Route::get('/admin/orders/update/packed/{id}',[OrderController::class,'packed']);
 
-Route::post('/admin/orders/update/shipped/{id}',[OrderController::class,'shipped']);
+Route::get('/admin/orders/update/shipped/{id}',[OrderController::class,'shipped']);
 
-Route::post('/admin/orders/update/delivered/{id}',[OrderController::class,'delivered']);
+Route::get('/admin/orders/update/delivered/{id}',[OrderController::class,'delivered']);
 
 //item routes
 
