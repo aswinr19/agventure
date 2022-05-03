@@ -36,4 +36,12 @@ class SoilTestController extends Controller
 
     }
 
+    public function display(){
+
+    }
+
+    public function displayOne(){
+        
+    }
+
 }
