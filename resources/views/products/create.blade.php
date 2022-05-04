@@ -1,77 +1,85 @@
-@extends('layouts.layout')
+@extends('layouts.adminlayout')
 @section('content')
-<h2>Create Product</h2>
+<div class="container shadow-none p-3 mb-5 bg-light rounded" style="margin-top: 70px;">
 <form action="/admin/create-product" method="POST" enctype="multipart/form-data">
     @csrf
-    <label for="product_name">Product Name</label> <br>
-    <input type="text" name="product_name"><br>
-    <span>@error('product_name') 
-        
-        {{ $message }}
-    
-        @enderror</span> <br>
-    <label for="product_description">Product Description</label> <br>
-    <input type="text" name="product_description"><br>
-    <span>@error('product_description') 
-        
-        {{ $message }}
-    
-        @enderror</span> <br>
-    <label for="category">Category</label> <br>
-    <select name="category" >
+    <!-- new one -->
+  <div class="row">
+    <div class="col">
+    <label for="product_name">Product Name</label> 
+    <input type="text" class="form-control" name="product_name"><br>
+    <span>@error('product_name'){{ $message }}@enderror</span> 
+    </div>
+    <div class="col">
+    <label for="product_description">Product Description</label> 
+    <input type="text" class="form-control" name="product_description">
+    <span>@error('product_description'){{ $message }}@enderror</span> 
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+    <label for="category">Category</label> 
+    <select name="category"class="form-control"  >
         <option value="category"  selected disabled>Category</option>
         @foreach($categories as $category)
         <option value="{{ $category->id }}">{{ $category->name }}</option>        
         @endforeach
-    </select> <br>
-    <span>@error('category') 
-        
-        {{ $message }}
-    
-        @enderror</span> <br>
-    <label for="quantity">Product Quantity </label> <br>
-    <input type="text" name="quantity"><br>
-    <span>@error('quantity') 
-        
-        {{ $message }}
-    
-        @enderror</span> <br>
-    <label for="product_price">Product Price</label> <br>
-    <input type="text" name="product_price"><br>
-    <span>@error('product_price') 
-        
-        {{ $message }}
-    
-        @enderror</span> <br>
-    <label for="suitable_crops">Suitable Crop </label> <br>
-    <input type="text" name="suitable_crops"><br>
-    <span>@error('suitable_crops') 
-        
-        {{ $message }}
-    
-        @enderror</span> <br>
-    <label for="recommended_crops">Recommended Crops</label> <br>
-    <input type="text" name="recommended_crops"><br>
-    <span>@error('recommended_crops') 
-        
-        {{ $message }}
-    
-        @enderror</span> <br>
-    <label for="composition">Composition</label> <br>
-    <input type="text" name="composition"><br>
-    <span>@error('composition') 
-        
-        {{ $message }}
-    
-        @enderror</span> <br>
-    <label for="product_image">Product Image </label> <br>
-    <input type="file" src="" alt="" name="product_image"><br>
-    <span>@error('product_image') 
-        
-        {{ $message }}
-    
-        @enderror</span> <br>
-    <input type="submit" value="submit" name="submit">
-    
+    </select> 
+    <span>@error('category'){{ $message }}@enderror</span>
+    </div>
+    <div class="col">
+    <label for="quantity">Product Quantity </label> 
+    <input type="text" class="form-control" name="quantity">
+    <span>@error('quantity') {{ $message }}@enderror</span> 
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+    <label for="product_price">Product Price</label> 
+    <input type="text" class="form-control" name="product_price">
+    <span>@error('product_price'){{ $message }}@enderror</span> 
+    </div>
+    <div class="col">
+    <label for="suitable_crops">Suitable Crop </label> 
+    <input type="text" class="form-control" name="suitable_crops">
+    <span>@error('suitable_crops'){{ $message }}@enderror</span> 
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+    <label for="recommended_crops">Recommended Crops</label> 
+    <input type="text"class="form-control" name="recommended_crops">
+    <span>@error('recommended_crops') {{ $message }}@enderror</span> 
+    </div>
+    <div class="col">
+    <label for="composition">Composition</label> 
+    <input class="form-control" type="text" name="composition">
+    <span>@error('composition'){{ $message }}@enderror</span> 
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+    <label for="product_image">Product Image </label> 
+    <input class="form-control" type="file" src="" alt="" name="product_image">
+    <span>@error('product_image'){{ $message }}@enderror</span> 
+    </div>
+
+    <div class="col"style="margin-top: 23px;">
+    <input type="submit" style="float:right"value="submit" name="submit" class="btn btn-warning">
+    </div>
+  </div>
+  
 </form>
+    <!-- new one end -->
+    </div>
+ 
+
+  
+
+    
+  
+
+  
+    
+
 @endsection

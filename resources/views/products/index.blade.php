@@ -1,12 +1,14 @@
-@extends('layouts.layout')
+@extends('layouts.adminlayout')
 @section('content')
-<h2>Products</h2>
-@if ($products->count())
 
-<table>
-    <tr>
+<div class="top"><h3>Products</h3><a href="/admin/create-product">Add a new product</a> </div>
+@if ($products->count())
+<!-- new temp -->
+<table class="table table-striped">
+  <thead>
+  <tr>
         <th>Product Name</th>
-        <th>Product Description</th>
+        <th> Description</th>
         <th>Category</th>
         <th>Price</th>
     
@@ -18,13 +20,14 @@
         <th>Update</th>
         <th>Delete</th>
     </tr>
-    
-
-@foreach($products as $product)
+  </thead>
+  <tbody>
+    <tr>
+      @foreach($products as $product)
 
 <tr>
    
-<td>
+<td  scope="row">
 <a href="/admin/product/{{ $product->id }}">
         {{
     $product->name
@@ -60,7 +63,7 @@
         </td>
         <td>
             {{
-                $product->reccomended_crops
+                $product->recommended_crops
             }}
         </td>
         <td>
@@ -83,9 +86,13 @@
     </tr>
 
 @endforeach
+    </tr>
+  </tbody>
 </table>
+<!-- new template end -->
+
 @else
     <p>No products yet. Please check back later.</p>
 @endif
-<a href="/admin/create-product">Add a new product</a>
+
 @endsection

@@ -84,19 +84,24 @@ class PurchaseController extends Controller
                 'selected_address'=>'required'
             ]);
          }
-        //  else if($request->payment_method == "card"){
-        //     $request->validate([
+         else if($request->payment_method == "card"){
+            $request->validate([
 
-        //     ]);
-        //  }
+                'card_number'=>'required',
+                'expiry_month'=>'required',
+                'expiry_year'=>'required',
+                'cvv'=>'required',
+                'selected_address'=>'required'
 
+            ]);
+         }
 
 
         //logic for cod transactions
         if($request->payment_method == "cod"){
 
             $this->store($id,$addressId,0,$totalAmount,"cod","pending","ordered",0);
-             $this->linkItemts($id);
+            $this->linkItemts($id);
             $this->resetCart($id);
 
             return redirect('/checkout/success');
@@ -161,7 +166,10 @@ else if($request->payment_method == "card"){
             'customer'=> $customer['id'],
             'currency'=>'inr',
             'amount'=> $totalAmount+60,
-            'description'=>'Payment for order no : '
+            'description'=>'Payment for order no : ',
+            'payment_method_types'=> [
+                'card'
+            ],
         ]);
 
         // dd($charge);
@@ -169,7 +177,7 @@ else if($request->payment_method == "card"){
         if($charge['status'] == 'succeeded'){
           
             $this->store($id,$addressId,$cardNumber,$totalAmount,"card","succesful","ordered",0);
-            // $this->linkItemts($id);
+             $this->linkItemts($id);
             $this->resetCart($id);
 
             return redirect('/checkout/success');

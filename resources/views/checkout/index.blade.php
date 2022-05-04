@@ -100,12 +100,32 @@
 <h5>Add Payment Details</h5>
 <label for="card_number">Card Number</label> <br>
 <input type="text" name="card_number" > <br>
+<span>@error('card_number') 
+        
+        {{ $message }}
+    
+        @enderror</span> <br>
 <label for="expiry_month">Expiry Month</label> <br>
 <input type="text" name="expiry_month"><br>
+<span>@error('expiry_month') 
+        
+        {{ $message }}
+    
+        @enderror</span> <br>
 <label for="expiry_year">Expiry Year</label> <br>
 <input type="text" name="expiry_year"><br>
+<span>@error('expiry_year') 
+        
+        {{ $message }}
+    
+        @enderror</span> <br>
 <label for="cvv">CVV</label> <br>
 <input type="password" name="cvv"><br>
+<span>@error('cvv') 
+        
+        {{ $message }}
+    
+        @enderror</span> <br>
 </div>
 <input type="submit" value="PROCEED" name="submit">
 </form>

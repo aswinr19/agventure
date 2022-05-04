@@ -1,55 +1,61 @@
-@extends('layouts.layout')
+@extends('layouts.adminlayout')
 @section('content')
-<h2>Create Machine</h2>
+
+<div class="container shadow-none p-3 mb-5 bg-light rounded" style="margin-top: 70px;">
+<h2 class="text-center">Create Machine</h2>
 <form action="/admin/create-machine" method="POST" enctype="multipart/form-data">
     @csrf
-    <label for="name">Machine Name</label><br>
-    <input type="text" name="name"><br>
-    <span>@error('name') 
-        
-        {{ $message }}
-    
-        @enderror</span> <br>
-        <label for="description">Machine Description</label> <br>
-        <input type="text" name="description" ><br>
-        <span>@error('description') 
-        
-        {{ $message }}
-    
-        @enderror</span> <br>
-        <label for="category">Category</label> <br>
-    <select name="category" >
+
+  <div class="row">
+    <div class="col">
+    <label for="name">Machine Name</label>
+    <input class="form-control"type="text" name="name">
+    <span>@error('name'){{ $message }}@enderror</span>     </div>
+    <div class="col">
+    <label for="description">Machine Description</label> 
+        <input class="form-control"type="text" name="description" >
+        <span>@error('description'){{ $message }}@enderror</span> 
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+    <label for="category">Category</label> 
+    <select class="form-control"name="category" >
         <option value="category"  selected disabled>Category</option>
         @foreach($categories as $category)
         <option value="{{ $category->id }}">{{ $category->name }}</option>        
         @endforeach
-    </select> <br>
-    <span>@error('category') 
-        
-        {{ $message }}
+    </select>
+    <span>@error('category') {{ $message }}@enderror</span>
+    </div>
+    <div class="col">
+    <label for="quantity">Quantity</label> 
+        <input class="form-control"type="text" name="quantity" >
+        <span>@error('quantity'){{ $message }}@enderror</span> 
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+    <label for="price">Price</label> 
+        <input class="form-control"type="text" name="price" >
+        <span>@error('price'){{ $message }}@enderror</span> 
+    </div>
+    <div class="col">
+    <label for="image">Image</label> 
+        <input class="form-control"type="file" name="image" >
+        <span>@error('image'){{ $message }}@enderror</span> 
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+     
+    </div>
+    <div class="col" style="margin-top: 23px;">
+    <input type="submit" style="float:right" value="submit" name="submit" class="btn btn-warning">
+    </div>
     
-        @enderror</span> <br>
-        <label for="quantity">Quantity</label> <br>
-        <input type="text" name="quantity" ><br>
-        <span>@error('quantity') 
-        
-        {{ $message }}
     
-        @enderror</span> <br>
-        <label for="price">Price</label> <br>
-        <input type="text" name="price" ><br>
-        <span>@error('price') 
-        
-        {{ $message }}
-    
-        @enderror</span> <br>
-        <label for="image">Image</label> <br>
-        <input type="file" name="image" ><br>
-        <span>@error('image') 
-        
-        {{ $message }}
-    
-        @enderror</span> <br>
-        <input type="submit" value="submit" name="submit">
+  </div>
 </form>
+</div>
 @endsection

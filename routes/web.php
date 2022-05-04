@@ -310,10 +310,7 @@ Route::get('/admin/user-profiles',[UserController::class,'index'])->middleware('
 
 
 //TODO
-
-
-//migrate 
-//add many to many relation
+//soil test page - create html calender controll to select date and time and controller actions
 //add validation to payment related fields
 //add many to many realtion to machines and purchases.
 //add the rest of the relations.
