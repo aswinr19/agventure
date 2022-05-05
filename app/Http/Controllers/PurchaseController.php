@@ -21,6 +21,7 @@ class PurchaseController extends Controller
         // dd($request->session()->get('totalAmount'));
 
         $id = $request->session()->get('loggedUser');
+        $totalAmount =  $request->session()->get('totalAmount');
 
 
         $addresses = Address::latest()
@@ -31,8 +32,14 @@ class PurchaseController extends Controller
                 ->where('user_id',$id)->get();
 
 
+        if($totalAmount){
+
         return view('checkout.index',['title'=>'Checkout page','addresses'=>$addresses,'paymentDetails'=>$paymentDetails]);
-        
+
+        }
+        else{
+                return redirect('/');
+        }
     }
 
 
@@ -104,6 +111,7 @@ class PurchaseController extends Controller
             $this->linkItemts($id);
             $this->decreaseQuantity($id);
             $this->resetCart($id);
+            $request->session()->forget('totalAmount');
 
             return redirect('/checkout/success');
 
@@ -181,6 +189,7 @@ else if($request->payment_method == "card"){
              $this->linkItemts($id);
              $this->decreaseQuantity($id);
             $this->resetCart($id);
+            $request->session()->forget('totalAmount');
 
             return redirect('/checkout/success');
           
@@ -190,6 +199,7 @@ else if($request->payment_method == "card"){
             session()->flash('stripe_error','Error in transaction!');
 
             $this->store($id,$addressId,$cardNumber,$totalAmount,"card","failed","failed",0);
+            $request->session()->forget('totalAmount');
             return redirect('/checkout/failed');
 
         }
