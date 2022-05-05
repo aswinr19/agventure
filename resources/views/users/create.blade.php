@@ -73,7 +73,7 @@
        
 
         
-  <button type="submit" class="btn btn-success btn-block "name="submit">Submit</button> <br>
+  <button type="submit" class="btn btn-success btn-block "name="submit">Signup</button> <br>
    <div class="text-center"> <a style="text-decoration: underline;"href="/auth/signin">Or Login </a></div>
 </form>
 </div>

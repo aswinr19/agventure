@@ -16,14 +16,14 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ExpertController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SoilTestController;
 use App\Http\Controllers\TipController;
 
 
 
-
-
 Route::get('/', function () {
-    return view('index',['title'=>'Welcome Page']);
+
+        return view('index',['title'=>'Welcome Page']);   
 });
 
 
@@ -112,6 +112,18 @@ Route::get('/expert/cancel-appointment',[AppointmentController::class,'destroy']
 
 Route::get('/appointments',[AppointmentController::class,'index'])->middleware('isLoggedIn');
 
+Route::get('/soil-test/appointments',[SoilTestController::class,'display'])->middleware('isLoggedIn');
+
+Route::get('/soil-test/appointments/{id}',[SoilTestController::class,'displayOne'])->middleware('isLoggedIn');
+
+Route::get('/soil-test/create-soil-test',[SoilTestController::class,'create'])->middleware('isLoggedIn');
+
+Route::post('/soil-test/create-soil-test',[SoilTestController::class,'store'])->middleware('isLoggedIn');
+
+Route::get('/soil-test/update-soil-test/{id}',[SoilTestController::class,'update'])->middleware('isLoggedIn');
+
+Route::post('/soil-test/update-soil-test',[SoilTestController::class,'change'])->middleware('isLoggedIn');
+
 Route::get('/weather');
 
 Route::post('/weather');
@@ -131,6 +143,13 @@ Route::get('auth/logout',[UserController::class,'logout'])->middleware('isLogged
 
 
 //specific routes 
+
+//soil tests
+
+Route::get('/admin/soil-test/appointments',[SoilTestController::class,'index'])->middleware('isAdmin');
+
+Route::get('/admin/soil-test/appointments/{id}',[SoilTestController::class,'show'])->middleware('isAdmin');
+
 
 //category routes
 

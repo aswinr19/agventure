@@ -3,7 +3,7 @@
 
 
 <div class="container col-4 shadow-none p-3 mb-5 bg-light rounded"  style="top: 67px;">
-<form method="POST" action="/auth/signup">
+<form method="POST" action="/auth/signin">
   @csrf
   
   <div class="text-center"><strong class="head" style="color:green">Login</strong></div>
@@ -33,7 +33,7 @@
     <!-- <input type="password"  id="exampleInputPassword1" placeholder="Password"> -->
   </div>
 
-  <button type="submit" class="btn btn-success btn-block "name="submit">Submit</button> <br>
+  <button type="submit" class="btn btn-success btn-block "name="submit">Signin</button> <br>
   <!-- <input type="submit" class="button">   <br> -->
    <div class="text-center"> <a style="text-decoration: underline;"href="/auth/signup">Or Register </a></div>
 </form>

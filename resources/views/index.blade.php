@@ -33,13 +33,13 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100" src=" {{ asset('images/imgggg.jpg') }}" alt="First slide">
+      <img class="d-block w-100" src=" {{ asset('img1.jpg') }}" alt="First slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="{{ asset('assets/a1.jpg') }}" alt="Second slide">
+      <img class="d-block w-100" src="{{ asset('img2.jpg') }}" alt="Second slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="{{ asset('assets/a2.jpg') }}" alt="Third slide">
+      <img class="d-block w-100" src="{{ asset('img3.jpg') }}" alt="Third slide">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -72,7 +72,7 @@
   <div class="card-body" style="padding:.8rem">
     <p class="card-text">
     <div class="product-shop">
-<h3 class="product-name" itemprop="name">PRoduct Name</h3>
+<h3 class="product-name" itemprop="name">Product Name</h3>
 <div class="price-box">
 <p class="old-price">
 <span class="price">
@@ -88,14 +88,14 @@
 <span class="label-price">/500g</span>
 </p>
 </div>
-<div class="short-desc ellipsis-text">One of the good product buy one getone free...</div>
+<div class="short-desc ellipsis-text">One of the good product buy one get one free...</div>
 
 </div>
     </p>
   </div>
 </div>
   </div>
-  <!-- ----------------------------------- -->
+
   
  
 </div>
