@@ -5,9 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('plant(1).png') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Quicksand:wght@300&display=swap" rel="stylesheet"> 
+   
     <title>{{$title}}</title>
 </head>
 <style>
@@ -52,6 +50,9 @@ margin: 56px;
     .top h3 {
   flex: .9;
 }
+.error-msg{
+    color:red;
+}
     /* .side-bar{
         
         width: 20%;
@@ -63,6 +64,9 @@ margin: 56px;
     
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Quicksand:wght@300&display=swap" rel="stylesheet"> 
 <body>
     <!-- <h1>adminlayout</h1> -->
     <div class="top-navbar">
@@ -70,9 +74,8 @@ margin: 56px;
         <div class="left"><a href="/admin">Agventure</a>  </div>
         <div class="right">
         <a href="/admin/products">View Poducts</a>
-    <a href="/admin/machines">View Machines</a>
-    <a href="/admin/categories">View Categories</a>
-    <a href="/admin/categories">View Categories</a>
+        <a href="/admin/machines">View Machines</a>
+        <a href="/admin/categories">View Categories</a>
     @if(Session::get('loggedUser'))
     <a href="/auth/logout">Logout</a>
     @endif

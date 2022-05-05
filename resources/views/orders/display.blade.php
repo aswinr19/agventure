@@ -4,8 +4,8 @@
 @foreach($orders as $order)
 <div>
 
-<a href="/orders/{{$order->id}}">{{ $order->id}}</a>
-{{$order->user->name}}
+<a href="/orders/{{$order->id}}">{{ $order->id}}
+{{$order->user->name}}</a>
 @foreach($order->products as $product)
 {{ $product->name}}
 @endforeach

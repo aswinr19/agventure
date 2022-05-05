@@ -1,4 +1,4 @@
-@extends('layouts.adminlayout')
+@extends('layouts.adminLayout')
 @section('content')
 <h2></h2>
 <div class="top"><h3>Machines</h3><a href="/admin/create-machine">Add New Machine</a></div>

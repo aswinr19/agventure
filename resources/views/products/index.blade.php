@@ -1,4 +1,4 @@
-@extends('layouts.adminlayout')
+@extends('layouts.adminLayout')
 @section('content')
 
 <div class="top"><h3>Products</h3><a href="/admin/create-product">Add a new product</a> </div>

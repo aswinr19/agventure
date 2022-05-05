@@ -1,4 +1,4 @@
-@extends('layouts.adminlayout')
+@extends('layouts.adminLayout')
 @section('content')
 
 
@@ -8,7 +8,7 @@
 @csrf
 <label for="name">Name</label><br>
 <input type="text" class="form-control col-4" name="name"><br>
-<span>@error('name') {{ $message }}@enderror</span> 
+<span class="error-msg">@error('name') {{ $message }}@enderror</span>  <br>
 <input type="submit" value="submit" class="btn btn-warning" name="submit">
 </form>
 </div>

@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.adminLayout')
 @section('content')
 <h2>Tip</h2>
 <h3>{{ $tip->title }}</h3> <br>

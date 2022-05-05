@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.adminLayout')
 @section('content')
 <h2>Expert</h2>
 

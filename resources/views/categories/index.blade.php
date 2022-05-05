@@ -1,4 +1,4 @@
-@extends('layouts.adminlayout')
+@extends('layouts.adminLayout')
 @section('content')
 <!-- <h2> Categories </h2> -->
 <div class="top"><h3>Categories</h3><a href="/admin/create-category">Add new category</a></div>

@@ -1,4 +1,4 @@
-@extends('layouts.adminlayout')
+@extends('layouts.adminLayout')
 @section('content')
 
 <div class="container shadow-none p-3 mb-5 bg-light rounded" style="margin-top: 70px;">
@@ -10,11 +10,11 @@
     <div class="col">
     <label for="name">Machine Name</label>
     <input class="form-control"type="text" name="name">
-    <span>@error('name'){{ $message }}@enderror</span>     </div>
+    <span class="error-msg">@error('name'){{ $message }}@enderror</span>     </div>
     <div class="col">
     <label for="description">Machine Description</label> 
         <input class="form-control"type="text" name="description" >
-        <span>@error('description'){{ $message }}@enderror</span> 
+        <span class="error-msg">@error('description'){{ $message }}@enderror</span> 
     </div>
   </div>
   <div class="row">
@@ -26,24 +26,24 @@
         <option value="{{ $category->id }}">{{ $category->name }}</option>        
         @endforeach
     </select>
-    <span>@error('category') {{ $message }}@enderror</span>
+    <span class="error-msg">@error('category') {{ $message }}@enderror</span>
     </div>
     <div class="col">
     <label for="quantity">Quantity</label> 
         <input class="form-control"type="text" name="quantity" >
-        <span>@error('quantity'){{ $message }}@enderror</span> 
+        <span class="error-msg">@error('quantity'){{ $message }}@enderror</span> 
     </div>
   </div>
   <div class="row">
     <div class="col">
     <label for="price">Price</label> 
         <input class="form-control"type="text" name="price" >
-        <span>@error('price'){{ $message }}@enderror</span> 
+        <span class="error-msg">@error('price'){{ $message }}@enderror</span> 
     </div>
     <div class="col">
     <label for="image">Image</label> 
         <input class="form-control"type="file" name="image" >
-        <span>@error('image'){{ $message }}@enderror</span> 
+        <span class="error-msg">@error('image'){{ $message }}@enderror</span> 
     </div>
   </div>
   <div class="row">

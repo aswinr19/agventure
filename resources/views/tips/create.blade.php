@@ -1,25 +1,25 @@
-@extends('layouts.layout')
+@extends('layouts.adminLayout')
 @section('content')
 <h2>Create Tip</h2>
 <form action="/admin/create-tip" method="POST">
 @csrf
     <label for="title">Title</label><br>
     <input type="text" name="title"><br>
-    <span>@error('title') 
+    <span class="error-msg">@error('title') 
         
         {{ $message }}
     
         @enderror</span> <br>
         <label for="description">Description</label><br>
     <input type="text" name="description"><br>
-    <span>@error('description') 
+    <span class="error-msg">@error('description') 
         
         {{ $message }}
     
         @enderror</span> <br>
         <label for="url">Url</label><br>
     <input type="text" name="url"><br>
-    <span>@error('url') 
+    <span class="error-msg">@error('url') 
         
         {{ $message }}
     

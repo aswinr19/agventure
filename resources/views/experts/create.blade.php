@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.adminLayout')
 @section('content')
 <h2>Create Experts</h2>
 <form action="/admin/create-expert" method="POST">
