@@ -179,6 +179,7 @@ else if($request->payment_method == "card"){
           
             $this->store($id,$addressId,$cardNumber,$totalAmount,"card","succesful","ordered",0);
              $this->linkItemts($id);
+             $this->decreaseQuantity($id);
             $this->resetCart($id);
 
             return redirect('/checkout/success');
