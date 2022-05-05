@@ -10,11 +10,10 @@
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Quicksand:wght@300&display=swap" rel="stylesheet"> 
         <title>{{$title}}</title>
         <style>
-        body {
+         body {
 
-            font-family: 'Montserrat', sans-serif;
-            font-family: 'Quicksand', sans-serif;
-            
+        font-family: 'Montserrat', sans-serif;
+        font-family: 'Quicksand', sans-serif;
             }
             nav,ul{
                 display: flex;

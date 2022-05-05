@@ -102,6 +102,7 @@ class PurchaseController extends Controller
 
             $this->store($id,$addressId,0,$totalAmount,"cod","pending","ordered",0);
             $this->linkItemts($id);
+            $this->decreaseQuantity($id);
             $this->resetCart($id);
 
             return redirect('/checkout/success');
@@ -265,8 +266,8 @@ else if($request->payment_method == "card"){
     public function linkItemts($user_id){
         
         $cartItems = Cart::latest()
-            ->where('user_id',$user_id)
-                ->get();
+                                ->where('user_id',$user_id)
+                                     ->get();
 
         // $purchase = Purchase::latest()
         //                         ->first()
@@ -304,13 +305,13 @@ else if($request->payment_method == "card"){
                     if($item->machine_id){
         
                         $machine = Machine::findOrFail($item->machine_id);
-                        $machine->quantity = $machine->quantity-1; 
+                        $machine->quantity = $machine->quantity-$item->count; 
                         $machine->save();
                     }
                     elseif( $item->product_id){
                         
                         $product = Product::findOrFail( $item->product_id);
-                        $product->quantity = $product->quantity-1; 
+                        $product->quantity = $product->quantity-$item->count; 
                         $product->save();
                         
                     }

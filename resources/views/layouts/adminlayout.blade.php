@@ -4,9 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('plant(1).png') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Quicksand:wght@300&display=swap" rel="stylesheet"> 
+    <title>{{$title}}</title>
 </head>
 <style>
+    body {
+
+      font-family: 'Montserrat', sans-serif;
+      font-family: 'Quicksand', sans-serif;
+    }
     *{
         margin:0px;
         padding:0px
@@ -64,6 +73,9 @@ margin: 56px;
     <a href="/admin/machines">View Machines</a>
     <a href="/admin/categories">View Categories</a>
     <a href="/admin/categories">View Categories</a>
+    @if(Session::get('loggedUser'))
+    <a href="/auth/logout">Logout</a>
+    @endif
 </div>
     
     </div>

@@ -7,7 +7,6 @@ use App\Models\Item;
 use App\Models\Auction;
 use App\Models\Participation;
 use Illuminate\Support\Carbon;
-use Svg\Tag\Rect;
 
 class AuctionController extends Controller
 {
@@ -18,7 +17,7 @@ class AuctionController extends Controller
         $id = $request->session()->get('loggedUser');
 
         $auctions = Auction::latest()
-                        ->where('user_id',$id)->get();
+                                ->where('user_id',$id)->get();
 
         foreach($auctions as $auction){
 

@@ -1,6 +1,7 @@
 @extends('layouts.adminlayout')
 @section('content')
 <div class="container shadow-none p-3 mb-5 bg-light rounded" style="margin-top: 70px;">
+<h2 class="text-center">Create Product</h2><br>
 <form action="/admin/create-product" method="POST" enctype="multipart/form-data">
     @csrf
     <!-- new one -->
