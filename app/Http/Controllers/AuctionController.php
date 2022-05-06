@@ -242,4 +242,14 @@ class AuctionController extends Controller
 
     }
     
+    public function prodceedToBuy(Request $request){
+
+        // $total = $request->total;
+        // $request->session()->put('totalAmount',$total);
+
+        return redirect('/checkout');
+
+    }
 }
+
+

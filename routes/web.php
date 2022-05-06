@@ -29,12 +29,14 @@ Route::get('/', function () {
 
 Route::get('/admin',function(){
     return view('adminHomePage',['title'=>'Admin Page']);
-});
+})
+->middleware('isAdmin');
 
 
 Route::get('/farmer',function(){
     return view('farmerHomePage',['title'=>'Farmer Page']);
-});
+})
+->middleware('isFarmer');
 
 
 //common routes
@@ -44,9 +46,13 @@ Route::get('/products',[ProductController::class,'display']);
 
 Route::get('/product/{id}',[ProductController::class,'displayOne']);
 
-Route::get('/auctions',[AuctionController::class,'display']);
+Route::get('/auctions',[AuctionController::class,'display'])->middleware('isLoggedIn');
 
-Route::get('/auction/{id}',[AuctionController::class,'displayOne']);
+Route::get('/auction/{id}',[AuctionController::class,'displayOne'])->middleware('isLoggedIn');
+
+Route::post('/auctions/new-bid',[AuctionController::class,'startBid'])->middleware('isLoggedIn');
+
+Route::post('/auction/update-bid',[AuctionController::class,'updateBid'])->middleware('isLoggedIn');
 
 Route::get('/machines',[MachineController::class,'display']);
 
@@ -330,12 +336,6 @@ Route::get('/admin/user-profiles',[UserController::class,'index'])->middleware('
 
 //TODO
 //soil test page - create html calender controll to select date and time and controller actions
-//add validation to payment related fields
-//add many to many realtion to machines and purchases.
-//add the rest of the relations.
-//add a field in auction table to specify the ending time of the auction and schedule a task to check for the curren time and auction ending time
-    //if ending time exceeded the current time then update the auction status to ended ( add logic to calculate the ending time in the admin approve action ).
-//add a task schedular to check update the remaining time fo acution.
 // add cascade on delete for necessary relations.
 //add styling elements to views.
     //show rejected auctions as dull in farmer view (auctions.index)
@@ -347,9 +347,7 @@ Route::get('/admin/user-profiles',[UserController::class,'index'])->middleware('
 
 
 
-
 //BUGS
-
 //bug in creating auctions - create() method , returns the last added item for creating auction , there isn't any check for the owner of the item.
-//crct the mistakes with showing individual results pages.
+
 
