@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.adminLayout')
 @section('content')
 
 <h2>Update Guideline</h2> 
@@ -6,21 +6,21 @@
     <input type="hidden" name="id" value="{{ $guideline->id }}">
     <label for="disease_name">Disease Name</label> <br>
     <input type="text" name="disease_name"><br>
-    <span>@error('disease_name') 
+    <span class="error-msg">@error('disease_name') 
         
         {{ $message }}
     
         @enderror</span> <br>
     <label for="short_description">Short Description</label> <br>
     <input type="text" name="short_description"> <br>
-    <span>@error('short_description') 
+    <span class="error-msg">@error('short_description') 
         
         {{ $message }}
     
         @enderror</span> <br>
     <label for="symptoms">Symptoms</label> <br>
     <input type="text" name="symptoms"><br>
-    <span>@error('symptoms') 
+    <span class="error-msg">@error('symptoms') 
         
         {{ $message }}
     

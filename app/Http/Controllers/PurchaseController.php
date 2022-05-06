@@ -21,6 +21,7 @@ class PurchaseController extends Controller
         // dd($request->session()->get('totalAmount'));
 
         $id = $request->session()->get('loggedUser');
+        $totalAmount =  $request->session()->get('totalAmount');
 
 
         $addresses = Address::latest()
@@ -31,8 +32,14 @@ class PurchaseController extends Controller
                 ->where('user_id',$id)->get();
 
 
+        if($totalAmount){
+
         return view('checkout.index',['title'=>'Checkout page','addresses'=>$addresses,'paymentDetails'=>$paymentDetails]);
-        
+
+        }
+        else{
+                return redirect('/');
+        }
     }
 
 
@@ -84,19 +91,27 @@ class PurchaseController extends Controller
                 'selected_address'=>'required'
             ]);
          }
-        //  else if($request->payment_method == "card"){
-        //     $request->validate([
+         else if($request->payment_method == "card"){
+            $request->validate([
 
-        //     ]);
-        //  }
+                'card_number'=>'required',
+                'expiry_month'=>'required',
+                'expiry_year'=>'required',
+                'cvv'=>'required',
+                'selected_address'=>'required'
 
+            ]);
+         }
 
 
         //logic for cod transactions
         if($request->payment_method == "cod"){
 
             $this->store($id,$addressId,0,$totalAmount,"cod","pending","ordered",0);
+            $this->linkItemts($id);
+            $this->decreaseQuantity($id);
             $this->resetCart($id);
+            $request->session()->forget('totalAmount');
 
             return redirect('/checkout/success');
 
@@ -160,7 +175,10 @@ else if($request->payment_method == "card"){
             'customer'=> $customer['id'],
             'currency'=>'inr',
             'amount'=> $totalAmount+60,
-            'description'=>'Payment for order no : '
+            'description'=>'Payment for order no : ',
+            'payment_method_types'=> [
+                'card'
+            ],
         ]);
 
         // dd($charge);
@@ -168,7 +186,10 @@ else if($request->payment_method == "card"){
         if($charge['status'] == 'succeeded'){
           
             $this->store($id,$addressId,$cardNumber,$totalAmount,"card","succesful","ordered",0);
+             $this->linkItemts($id);
+             $this->decreaseQuantity($id);
             $this->resetCart($id);
+            $request->session()->forget('totalAmount');
 
             return redirect('/checkout/success');
           
@@ -178,6 +199,7 @@ else if($request->payment_method == "card"){
             session()->flash('stripe_error','Error in transaction!');
 
             $this->store($id,$addressId,$cardNumber,$totalAmount,"card","failed","failed",0);
+            $request->session()->forget('totalAmount');
             return redirect('/checkout/failed');
 
         }
@@ -245,6 +267,7 @@ else if($request->payment_method == "card"){
         $purchase->auction_id = $auctionId;
 
         $purchase->save();
+
         }
 
         
@@ -254,13 +277,18 @@ else if($request->payment_method == "card"){
     public function linkItemts($user_id){
         
         $cartItems = Cart::latest()
-            ->where('user_id',$user_id)
-                ->get();
+                                ->where('user_id',$user_id)
+                                     ->get();
 
-        $purchase = Purchase::latest()
-            ->where('user_id',$user_id)
-                ->first()
-                    ->get();
+        // $purchase = Purchase::latest()
+        //                         ->first()
+        //                           ->where('user_id',$user_id)
+        //                            ->get();
+
+        $purchase = Purchase::all()     
+                                ->last();
+
+        // dd($purchase);
 
         foreach($cartItems as $item){
             
@@ -270,7 +298,7 @@ else if($request->payment_method == "card"){
             }
             elseif( $item->product_id){
 
-                $purchase->products()->attch($item->product_id);
+                $purchase->products()->attach($item->product_id);
             }
         }
 
@@ -288,12 +316,14 @@ else if($request->payment_method == "card"){
                     if($item->machine_id){
         
                         $machine = Machine::findOrFail($item->machine_id);
-                        $machine->quantity = $machine->quantity-1; 
+                        $machine->quantity = $machine->quantity-$item->count; 
+                        $machine->save();
                     }
                     elseif( $item->product_id){
                         
                         $product = Product::findOrFail( $item->product_id);
-                        $product->quantity = $product->quantity-1; 
+                        $product->quantity = $product->quantity-$item->count; 
+                        $product->save();
                         
                     }
                 }

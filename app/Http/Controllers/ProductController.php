@@ -15,7 +15,7 @@ class ProductController extends Controller
         $id = $request->session()->get('loggedUser');    
 
         $products = Product::latest()
-            ->where('user_id',$id)->get();
+                             ->where('user_id',$id)->get();
 
         return view('products.index',['title'=>'Products page','products'=>$products]);        
 

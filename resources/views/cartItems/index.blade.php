@@ -29,10 +29,13 @@ $total += ($item->machine->price) * $item->count;
 @endif
 @endforeach
 </table>
+@if($cartItems->count()>0)
 <form action="/cart/proceed-to-buy" method="POST">
 @csrf
 <input type="hidden" name="total" value="{{ $total }}">
 <input type="submit" value="Proceed To Buy" name="submit">
 </form>
-
+@else
+<h4> Empty cart!</h4>
+@endif
 @endsection

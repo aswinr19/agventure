@@ -9,20 +9,21 @@ use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\GuidelineController;
 use App\Http\Controllers\MachineController;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ExpertController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SoilTestController;
 use App\Http\Controllers\TipController;
 
 
 
-
-
 Route::get('/', function () {
-    return view('index',['title'=>'Welcome Page']);
+
+        return view('index',['title'=>'Welcome Page']);   
 });
 
 
@@ -75,7 +76,7 @@ Route::get('/orders',[OrderController::class,'display'])->middleware('isLoggedIn
 
 Route::get('/orders/{id}',[OrderController::class,'displayOne'])->middleware('isLoggedIn');
 
-Route::post('/orders/cancel-order/{id}',[OrderController::class,'cancel'])->middleware('isLoggedIn');
+Route::get('/orders/cancel-order/{id}',[OrderController::class,'cancel'])->middleware('isLoggedIn');
 
 Route::get('/profile',[UserController::class,'show'])->middleware('isLoggedIn');
 
@@ -101,6 +102,32 @@ Route::get('/guidelines',[GuidelineController::class,'display']);
 
 Route::get('/guideline/{id}',[GuidelineController::class,'displayOne']);
 
+Route::get('/experts',[ExpertController::class,'display'])->middleware('isLoggedIn');
+
+Route::get('/expert/{id}',[ExpertController::class,'displayOne'])->middleware('isLoggedIn');
+
+Route::post('/expert/book-appointment',[AppointmentController::class,'store'])->middleware('isLoggedIn');
+
+Route::get('/expert/cancel-appointment',[AppointmentController::class,'destroy'])->middleware('isLoggedIn');
+
+Route::get('/appointments',[AppointmentController::class,'index'])->middleware('isLoggedIn');
+
+Route::get('/soil-test/appointments',[SoilTestController::class,'display'])->middleware('isLoggedIn');
+
+Route::get('/soil-test/appointments/{id}',[SoilTestController::class,'displayOne'])->middleware('isLoggedIn');
+
+Route::get('/soil-test/create-soil-test',[SoilTestController::class,'create'])->middleware('isLoggedIn');
+
+Route::post('/soil-test/create-soil-test',[SoilTestController::class,'store'])->middleware('isLoggedIn');
+
+Route::get('/soil-test/update-soil-test/{id}',[SoilTestController::class,'update'])->middleware('isLoggedIn');
+
+Route::post('/soil-test/update-soil-test',[SoilTestController::class,'change'])->middleware('isLoggedIn');
+
+Route::get('/weather');
+
+Route::post('/weather');
+
 
 //auth routes
 
@@ -116,6 +143,13 @@ Route::get('auth/logout',[UserController::class,'logout'])->middleware('isLogged
 
 
 //specific routes 
+
+//soil tests
+
+Route::get('/admin/soil-test/appointments',[SoilTestController::class,'index'])->middleware('isAdmin');
+
+Route::get('/admin/soil-test/appointments/{id}',[SoilTestController::class,'show'])->middleware('isAdmin');
+
 
 //category routes
 
@@ -154,11 +188,11 @@ Route::get('/admin/orders',[OrderController::class,'index']);
 
 Route::get('/admin/orders/{id}',[OrderController::class,'show']);
 
-Route::post('/admin/orders/update/packed/{id}',[OrderController::class,'packed']);
+Route::get('/admin/orders/update/packed/{id}',[OrderController::class,'packed']);
 
-Route::post('/admin/orders/update/shipped/{id}',[OrderController::class,'shipped']);
+Route::get('/admin/orders/update/shipped/{id}',[OrderController::class,'shipped']);
 
-Route::post('/admin/orders/update/delivered/{id}',[OrderController::class,'delivered']);
+Route::get('/admin/orders/update/delivered/{id}',[OrderController::class,'delivered']);
 
 //item routes
 
@@ -270,6 +304,22 @@ Route::post('/admin/update-tip',[TipController::class,'change'])->middleware('is
 Route::get('/admin/delete-tip',[TipController::class,'destroy'])->middleware('isAdmin');
 
 
+//exxperts
+
+Route::get('/admin/experts',[ExpertController::class,'index'])->middleware('isAdmin');
+
+Route::get('/admin/experts/{id}',[ExpertController::class,'show'])->middleware('isAdmin');
+
+Route::get('/admin/create-expert',[ExpertController::class,'create'])->middleware('isAdmin');
+
+Route::post('/admin/create-expert',[ExpertController::class,'store'])->middleware('isAdmin');
+
+Route::get('/admin/update-expert',[ExpertController::class,'update'])->middleware('isAdmin');
+
+Route::post('/admin/update-expert',[ExpertController::class,'change'])->middleware('isAdmin');
+
+Route::get('/admin/delere-expert',[ExpertController::class,'destroy'])->middleware('isAdmin');
+
 
 //users
 
@@ -279,10 +329,7 @@ Route::get('/admin/user-profiles',[UserController::class,'index'])->middleware('
 
 
 //TODO
-
-
-// 
-//add many to many relation
+//soil test page - create html calender controll to select date and time and controller actions
 //add validation to payment related fields
 //add many to many realtion to machines and purchases.
 //add the rest of the relations.

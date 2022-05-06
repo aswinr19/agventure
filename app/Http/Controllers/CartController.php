@@ -22,13 +22,44 @@ class CartController extends Controller
 
     public function store(Request $request){
 
+        $id = $request->session()->get('loggedUser');
+
+        $cartItems = Cart::all()
+                                ->where('user_id',$id);
+
+        $exists = false;
+
+         foreach($cartItems as $item){
+
+             if($item->machine_id == $request->machine_id or $item->product_id == $request->product_id){
+
+                 $ci = Cart::findOrFail($item->id);
+
+                 if($ci->count>0){
+
+                     $ci->count = $ci->count + 1;
+                     $ci->save();
+                        $exists = true;
+                 }
+             }
+         }
+
+        if(!$exists){
+
         $cartItem = new Cart();
-        $cartItem->user_id =  $request->session()->get('loggedUser');
+        $cartItem->user_id =  $id;
         $cartItem->product_id = $request->product_id;
         $cartItem->machine_id = $request->machine_id;
         $cartItem->save();
 
         return redirect('/cart');
+
+        }
+        else{
+            return redirect('/cart');
+        }
+
+        
 
     }
 

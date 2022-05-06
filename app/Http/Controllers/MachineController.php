@@ -14,7 +14,7 @@ public function index(Request $request){
     $id = $request->session()->get('loggedUser');
     
     $machines = Machine::latest()
-        ->where('user_id',$id)->get();
+                            ->where('user_id',$id)->get();
 
     return view('machines.index',['title'=>'Machines page','machines'=>$machines]);
 

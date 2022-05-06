@@ -3,25 +3,19 @@
 <h2>Orders</h2>
 @foreach($orders as $order)
 <div>
-   <a href="/admin/orders/{{$order->id}}">
-       $order->id
-   </a><br>
-   <p>
-       products
-   </p> <br>
-   <p>
-       $order->user->name
-   </p><br>
-   <p>
-       $order->totalAmount
-   </p>
-   <br>
-   <p>
-       $order->status
-   </p><br>
-   <p>
-       $order->deliveryStatus
-   </p>
+
+<a href="/orders/{{$order->id}}">{{ $order->id}}
+{{$order->user->name}}</a>
+@foreach($order->products as $product)
+{{ $product->name}}
+@endforeach
+@foreach($order->machines as $machine)
+{{ $machine->name}}
+@endforeach
+{{ $order->total}}
+{{ $order->status}}  
+{{$order->order_status}}
+
 </div>
 @endforeach
 @endsection

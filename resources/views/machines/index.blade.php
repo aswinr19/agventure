@@ -1,8 +1,11 @@
-@extends('layouts.layout')
+@extends('layouts.adminLayout')
 @section('content')
-<h2>Machines</h2>
+<h2></h2>
+<div class="top"><h3>Machines</h3><a href="/admin/create-machine">Add New Machine</a></div>
+
 @if ($machines->count())
-<table>
+<table class="table table-striped">
+<thead>
     <tr>
         <th>Machine Name</th>
         <th>Machine Description</th>
@@ -14,57 +17,25 @@
         <th>Delete</th>
     </tr>
     
-
+    <thead>
 @foreach($machines as $machine)
-
+<tbody>
 <tr>
    
-<td>
-<a href="/admin/machine/{{ $machine->id }}">
-        {{
-    $machine->name
-        }}</a>
-        </td>
-
-        
+<td scope="row"><a href="/admin/machine/{{ $machine->id }}">{{$machine->name}}</a></td>
+        <td>{{$machine->description}}</td>
+        <td>{{ $machine->category->name}}</td>
+        <td>{{$machine->price}}</td>
+        <td>{{$machine->quantity}}
+        </td>   
         <td>
-        {{
-    $machine->description
-}}
-
+        <img src="{{ asset('images/'. $machine->image)}}" alt="{{ $machine->image}} " height="40px">
         </td>
-        <td>
-        {{
-    $machine->category->name
-}}
-        </td>
-        <td>
-            {{
-                $machine->price
-            }}
-        </td>
-        <td>
-            {{
-                $machine->quantity
-            }}
-        </td>
-       
-        <td>
-        <img src="{{
-    asset('images/'. $machine->image)
-}}" alt="{{ $machine->image}} " height="40px">
-
-        </td>
-        <td>
-            <a href="/admin/update-machine/{{ $machine-> id }}">Update</a>
-        </td>
-        <td>
-            <a href="/admin/delete-machine/{{ $machine-> id }}">Delete</a>
-        </td>
+        <td><a href="/admin/update-machine/{{ $machine-> id }}">Update</a> </td>
+        <td> <a href="/admin/delete-machine/{{ $machine-> id }}">Delete</a></td>
     </tr>
-<p>
-    <a href="/admin/create-machine">Add New Machine</a>
-</p>
+    </tbody>
+<!-- <p></p> -->
 @endforeach
 </table>
 @else

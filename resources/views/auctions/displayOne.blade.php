@@ -29,11 +29,14 @@ Current Highest Bid : <br>
     <input type="submit" name="submit" value="Enter Auction">
 </form>
 
+
+@if($bid)
 <form action="" method="POST">
     <label for="amount">New Bid Amount</label>
-    <input type="text" name="amount"><br>
+    <input type="text" name="amount" value="{{ $bid->bid }}"><br>
     <input type="submit" name="submit" value="Update Bid Amount">
 </form>
+@endif
 
 <a href="">Quit auction</a>
 @endsection

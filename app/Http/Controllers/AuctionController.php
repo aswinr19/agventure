@@ -7,7 +7,6 @@ use App\Models\Item;
 use App\Models\Auction;
 use App\Models\Participation;
 use Illuminate\Support\Carbon;
-use Svg\Tag\Rect;
 
 class AuctionController extends Controller
 {
@@ -18,8 +17,14 @@ class AuctionController extends Controller
         $id = $request->session()->get('loggedUser');
 
         $auctions = Auction::latest()
-        ->where('user_id',$id)->get();
-        // dd($auctions);
+                                ->where('user_id',$id)->get();
+
+        foreach($auctions as $auction){
+
+            $this->auctionComplete($auction->id);
+
+        }
+
         return view('auctions.index',['title'=>'Auctions page','auctions'=>$auctions]);
 
     }
@@ -88,7 +93,14 @@ class AuctionController extends Controller
     public function display(){
 
         $auctions = Auction::latest()
-        ->where('status','approved');
+                       ->where('status','approved')
+                            ->get();
+
+        foreach($auctions as $auction){
+
+        $this->auctionComplete($auction->id);
+            
+        }
         
         // $auctions = Auction::with('item')
         // ->where('status','approved');
@@ -104,17 +116,25 @@ class AuctionController extends Controller
         // }
 
 
-        return view('auctions.display',['title'=>'Auctions page','auctions'=>$auctions->get()]);
+        return view('auctions.display',['title'=>'Auctions page','auctions'=>$auctions]);
         
 
     }
 
-    public function displayOne($id){
+    public function displayOne($id,Request $request){
 
         $auction = Auction::findOrFail($id);
-        return view('auctions.displayOne',['title'=>'Auction page','auction'=>$auction]);
+
+        $userId = $request->session()->get('loggedUser');
+
+        $bid = Participation::where('user_id',$userId)
+                                    ->where('auuction_id',$id)  
+                                            ->get();
+
+        return view('auctions.displayOne',['title'=>'Auction page','auction'=>$auction,'bid'=>$bid]);
      
     }
+
 
     public function indexAdmin(){
 
@@ -205,16 +225,20 @@ class AuctionController extends Controller
 
     public function auctionComplete($id){
         
-        $auction = Auction::findOrFail($id);
+        $auction = Auction::where('id',$id)
+                                ->where('status','=','ended');
 
         $bid = Participation::where('auction_id',$id)
                                     ->orderBy('bid','DESC')
                                         ->first()
                                             ->get();
 
+        if($auction and $bid){
 
-        $auction->partcipation_id = $bid->user_id;
-        $auction->save();
+            $auction->partcipation_id = $bid->user_id;
+            $auction->save();
+        }
+        
 
     }
     
