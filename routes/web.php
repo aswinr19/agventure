@@ -190,15 +190,15 @@ Route::get('/admin/delete-product/{id}',[ProductController::class,'destroy'])->m
 
 //order routes
 
-Route::get('/admin/orders',[OrderController::class,'index']);
+Route::get('/admin/orders',[OrderController::class,'index'])->middleware('isAdmin');
 
-Route::get('/admin/orders/{id}',[OrderController::class,'show']);
+Route::get('/admin/orders/{id}',[OrderController::class,'show'])->middleware('isAdmin');
 
-Route::get('/admin/orders/update/packed/{id}',[OrderController::class,'packed']);
+Route::get('/admin/orders/update/packed/{id}',[OrderController::class,'packed'])->middleware('isAdmin');
 
-Route::get('/admin/orders/update/shipped/{id}',[OrderController::class,'shipped']);
+Route::get('/admin/orders/update/shipped/{id}',[OrderController::class,'shipped'])->middleware('isAdmin');
 
-Route::get('/admin/orders/update/delivered/{id}',[OrderController::class,'delivered']);
+Route::get('/admin/orders/update/delivered/{id}',[OrderController::class,'delivered'])->middleware('isAdmin');
 
 //item routes
 

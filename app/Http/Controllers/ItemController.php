@@ -89,7 +89,7 @@ class ItemController extends Controller
         $item = Item::findOrFail($request->id);
         $item->name = $request->item_name;
         $item->description = $request->item_description;
-        $item->category = $request->category;
+        $item->category_id = $request->category;
         $item->user_id = $request->session()->get('loggedUser');
         $item->quantity = $request->quantity;
          $item->image = $request->item_image;

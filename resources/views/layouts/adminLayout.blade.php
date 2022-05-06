@@ -69,8 +69,11 @@ margin: 56px;
 <body>
     <!-- <h1>adminlayout</h1> -->
     <div class="top-navbar">
-       
-        <div class="left"><a href="/admin">Agventure</a>  </div>
+    <div class="left">
+       <h2>
+            <a href="/">Agventure</a>
+        </h2>
+      </div>
         <div class="right">
         <a href="/admin/products">View Poducts</a>
         <a href="/admin/machines">View Machines</a>

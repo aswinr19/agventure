@@ -19,11 +19,11 @@ class AuctionController extends Controller
         $auctions = Auction::latest()
                                 ->where('user_id',$id)->get();
 
-        foreach($auctions as $auction){
+        // foreach($auctions as $auction){
 
-            $this->auctionComplete($auction->id);
+        //     $this->auctionComplete($auction->id);
 
-        }
+        //}
 
         return view('auctions.index',['title'=>'Auctions page','auctions'=>$auctions]);
 
@@ -78,8 +78,12 @@ class AuctionController extends Controller
         $auction = Auction::findOrFail($request->id);
         // $auction->duration = Carbon::createFromFormat('H',$request->duration)->format('H:i:s');
         $auction->duration = $request->duration;
+        $auction->starting_amount  = $request->starting_price;
         $auction->status = $request->status;
         $auction->save();
+
+        return redirect('/farmer/auctions');
+
 
     }
 
@@ -87,7 +91,7 @@ class AuctionController extends Controller
         
         $auction = Auction::findOrFail($id);
         $auction->delete();
-        return redirect('/farmer/auction');
+        return redirect('/farmer/auctions');
     }
 
     public function display(){
@@ -96,11 +100,11 @@ class AuctionController extends Controller
                        ->where('status','approved')
                             ->get();
 
-        foreach($auctions as $auction){
+        // foreach($auctions as $auction){
 
-        $this->auctionComplete($auction->id);
+        // $this->auctionComplete($auction->id);
             
-        }
+        // }
         
         // $auctions = Auction::with('item')
         // ->where('status','approved');
@@ -128,11 +132,12 @@ class AuctionController extends Controller
         $userId = $request->session()->get('loggedUser');
 
         $bid = Participation::where('user_id',$userId)
-                                    ->where('auuction_id',$id)  
+                                    ->where('auction_id',$id)  
                                             ->get();
-
-        return view('auctions.displayOne',['title'=>'Auction page','auction'=>$auction,'bid'=>$bid]);
-     
+        if($bid)
+            return view('auctions.displayOne',['title'=>'Auction page','auction'=>$auction,'bid'=>$bid]);
+        else
+            return view('auctions.displayOne',['title'=>'Auction page','auction'=>$auction]);
     }
 
 

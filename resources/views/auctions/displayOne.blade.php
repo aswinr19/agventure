@@ -22,7 +22,8 @@
 $auction->status}}<br>
 <img src="{{asset('images/'. $auction->item->image)}}" alt="{{ $auction->item->image }} " height="40px">
 Current Highest Bid : <br>
-<form action="" method="POST">
+<form action="/auctions/new-bid" method="POST">
+    @csrf
     <label for="amount">Bid Amount</label>
     <input type="text" name="amount"><br>
     <input type="checkbox" name="agree" > Agree to terms and conditions
@@ -30,8 +31,9 @@ Current Highest Bid : <br>
 </form>
 
 
-@if($bid)
-<form action="" method="POST">
+@if($bid->count()>0)
+<form action="/auctions/update-bid" method="POST">
+    @csrf
     <label for="amount">New Bid Amount</label>
     <input type="text" name="amount" value="{{ $bid->bid }}"><br>
     <input type="submit" name="submit" value="Update Bid Amount">

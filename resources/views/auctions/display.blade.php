@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 @section('content')
 <h2>Auctions</h2> 
+@if ($auctions->count())
 @foreach($auctions as $auction)
 
         {{
@@ -39,13 +40,12 @@
             }} <br>
             @endif
             <br>
-                   {{
-                $auction->status
-            }}<br>
                 <img src="{{
            asset('images/'. $auction->item->image)}}" alt="{{ $auction->item->image }} " height="20px">
-
+                    <br> <br>
   
 @endforeach
-
+@else
+    <p>No products yet. Please check back later.</p>
+@endif
 @endsection

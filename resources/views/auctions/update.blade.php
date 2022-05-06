@@ -29,6 +29,7 @@
         <label for="status">Status</label> <br>
     <select name="status" id="">
     <option value="status" selected disabled >Status</option>
+    <option value="pending">Pending</option>
     <option value="cancelled">Cancel</option>
     <option value="ended">End</option>
     </select> <br>

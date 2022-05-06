@@ -23,7 +23,8 @@ class Kernel extends ConsoleKernel
         //find the corresponding records and update the status field.
             $currentDateTime = Carbon::now();
 
-            $auctions = Auction::where('status','=','approved');
+            $auctions = FacadesDB::table('auctions')
+                                ->where('status','=','approved');
 
             foreach($auctions as $auction){
 
