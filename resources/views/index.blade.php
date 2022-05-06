@@ -52,19 +52,11 @@
   </a>
 </div>
 <center style="padding: 18px 0px 0px 0px;">
-  <h1>Our Main Products</h1>
+  <h1>Popular Products</h1>
 </center>
 
-<!-- /////////////////////////////////////// -->
 <div class="row" style="padding: 29px;">
-  <!-- <div class="col-sm-3">
-  <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="images/imgggg.jpg" alt="Card image cap">
-  <div class="card-body">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
-  </div> -->
+ 
    <!-- ------------------- -->
   <div class="col-sm-3" style="padding: 18px 30px 11px 45px;">
   <div class="card" style="width: 15rem;">

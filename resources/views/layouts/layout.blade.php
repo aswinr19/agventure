@@ -14,8 +14,9 @@
  body {
     font-family: 'Montserrat', sans-serif;
     font-family: 'Quicksand', sans-serif;
-}         
-img.d-block.w-100 {
+}  
+    
+img .d-block.w-100 {
     height: 500px;
 }
 .img-with-text {
@@ -33,6 +34,7 @@ img.d-block.w-100 {
     padding: 0px 0px 15px 0px;
     display: flex;
     margin-bottom: 0px;
+  
             }
 .categoryImag{
     width: 20px;
@@ -54,7 +56,13 @@ img.d-block.w-100 {
     border-radius: 7px;
     font-width: 17px;
     padding: 8px;
-            }     
+}
+.footer{
+    padding: 20px;
+    position:absolute;
+    bottom:0;
+    
+}   
     </style>
     </head>
 
@@ -62,22 +70,26 @@ img.d-block.w-100 {
         <ul class="top-nav-bar">
             <a id="list-elements"href="/"><h3>Agventure</h3></a>            
             <div class="img-with-text">
-            <img class="categoryImag"src="{{ asset('farming-black.png') }}   " alt="sometext" /> 
+                <a href="/products?category=1">
+            <img class="categoryImag"src="{{ asset('farming-black.png') }}   " alt="seeds" /> </a>
     <br>
     <a id="list-elements"href="/products?category=1"  class="categoryname">Seeds </a>
 </div>
             <div class="img-with-text">
-    <img class="categoryImag"src="{{ asset('fertilizer-black.png') }}   " alt="sometext" /> 
+            <a href="/products?category=2">
+    <img class="categoryImag"src="{{ asset('fertilizer-black.png') }}   " alt="fertilizers" /> </a>
     <br>
     <a id="list-elements"href="/products?category=2"  class="categoryname">Fertilizers </a>
 </div>
             <div class="img-with-text">
-    <img class="categoryImag"src="{{ asset('pesticide-black.png') }}   " alt="sometext" /> 
+            <a href="/products?category=2">
+    <img class="categoryImag"src="{{ asset('pesticide-black.png') }}   " alt="pesticides" /> </a>
     <br>
    <a id="list-elements"href="/products?category=3" class="categoryname">Pesticides </a>
 </div>
 <div class="img-with-text">
-    <img class="categoryImag"src=" {{ asset('tractor-black.png') }}  " alt="sometext" /> <br>
+<a href="/machines">
+    <img class="categoryImag"src=" {{ asset('tractor-black.png') }}  " alt="machines" /></a> <br>
     <a id="list-elements"href="/machines"  class="categoryname">Machines</a>
 </div>
 
@@ -91,6 +103,13 @@ img.d-block.w-100 {
             <!-- <img class="searchimg"src="{{ asset('assets/search.png') }}    " alt="search"> -->
            </form>
             @if(Session::get('loggedUser'))
+            <div class="img-with-text">
+                <a href="/cart">
+             <img class="categoryImag"src="{{ asset('shopping-cart-black.png') }}   " alt="cart" /> 
+             </a>
+        <br>
+        <!-- <a id="list-elements"href="/cart"  class="categoryname">Cart </p> -->
+        </div>
             Welocme , user {{ Session::get('loggedUser') }}
             <a id="list-elements" href="/auth/logout">Logout</a>
                 @else
@@ -100,8 +119,10 @@ img.d-block.w-100 {
             @endif
         </ul>
     @yield('content')
-    <footer class="top-nav-bar">
-       <span class="footer-content">Agventure</span>
+    <footer class="footer">
+      
+       <span class="footer-content">&copy;Agventure</span>
+     
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" ></script>
