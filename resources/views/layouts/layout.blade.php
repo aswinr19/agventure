@@ -59,8 +59,9 @@ img .d-block.w-100 {
 }
 .footer{
     padding: 20px;
-    position:absolute;
-    bottom:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     
 }   
     </style>

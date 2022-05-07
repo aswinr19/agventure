@@ -234,6 +234,8 @@ Route::post('/farmer/update-auction',[AuctionController::class,'change'])->middl
 
 Route::get('farmer/delete-auction/{id}',[AuctionController::class,'destroy'])->middleware('isFarmer');
 
+Route::get('farmer/auction/results',[AuctionController::class,'result'])->middleware('isFarmer');
+
 Route::get('/admin/auctions',[AuctionController::class,'indexAdmin'])->middleware('isAdmin');
 
 Route::get('/admin/auction/{id}',[AuctionController::class,'showAdmin'])->middleware('isAdmin');

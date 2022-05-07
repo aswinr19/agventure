@@ -231,7 +231,8 @@ class AuctionController extends Controller
     public function auctionComplete($id){
         
         $auction = Auction::where('id',$id)
-                                ->where('status','=','ended');
+                                ->where('status','=','ended')   
+                                    ->get();
 
         $bid = Participation::where('auction_id',$id)
                                     ->orderBy('bid','DESC')
@@ -242,8 +243,26 @@ class AuctionController extends Controller
 
             $auction->partcipation_id = $bid->user_id;
             $auction->save();
+        }  
+
+    }
+
+    public function result(Request $request){
+       
+        $id = $request->session()->get('loggedUser');
+
+        $auctions = Auction::latest()
+                                ->where('user_id',$id)
+                                    ->get();
+        foreach($auctions as $auction){
+
+            $bids = Participation::where('auction_id',$auction->id)  
+                                        ->get();
         }
-        
+        if($bids->count() > 0 )
+            return view('auctions.displayOne',['title'=>'Auction results page','auctions'=>$auctions,'bids'=>$bids]);
+        else
+            return view('auctions.displayOne',['title'=>'Auction results page']);
 
     }
     
