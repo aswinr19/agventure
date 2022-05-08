@@ -254,6 +254,7 @@ class AuctionController extends Controller
         $auctions = Auction::latest()
                                 ->where('user_id',$id)
                                     ->get();
+                                    
         foreach($auctions as $auction){
 
             $bids = Participation::where('auction_id',$auction->id)  

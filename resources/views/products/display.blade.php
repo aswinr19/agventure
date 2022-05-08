@@ -5,18 +5,14 @@
   <h1> Products</h1>
 </center>
 @if ($products->count())
-<div class="row" style="padding: 29px;">
-    @foreach($products as $product)
-    <a href="/product/{{ $product->id }}">
-    <!-- <img src="{{ asset('images/'. $product->image) }}"" alt="{{ $product->name }}" height="100px"><br> -->
-    <!-- <span> {{ $product->name }}</span> <br> -->
-   
-    <!-- <span> </span> <br> -->
-    <!-- <span></span> <br> -->
 
+    @foreach($products as $product)</a>
+    <div class="row" style="">
 <!-- new template  -->
 
   <div class="col-sm-3" style="padding: 18px 30px 11px 45px;">
+  <a href="/product/{{ $product->id }}">
+
   <div class="card" style="width: 15rem;">
   <img class="card-img-top" src="{{ asset('images/'. $product->image) }}"" alt="{{ $product->name }}"style="width:275;height:185px;">
   <div class="card-body" style="padding:.8rem">
@@ -45,11 +41,9 @@
     </p>
   </div>
 </div>
- 
-  
-
+</div>
     @endforeach
-    </div>
+   
 @else
     <p>No products yet. Please check back later.</p>
 @endif

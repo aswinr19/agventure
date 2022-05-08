@@ -19,7 +19,7 @@
          </span>
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
-    <input class="form-control"  type="text" name="email" placeholder="" value="{{ old('email') }}">
+    <input class="form-control"  type="text" name="email" placeholder="Email Address" value="{{ old('email') }}">
     <span class="errormsg">@error('email')   {{ $message }}@enderror</span>
     <!-- <input type="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"> -->
     <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
