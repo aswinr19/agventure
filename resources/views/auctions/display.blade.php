@@ -3,10 +3,10 @@
 <h2>Auctions</h2> 
 @if ($auctions->count())
 @foreach($auctions as $auction)
-
+<a href="/auctions/{{ $auction->id }}">
         {{
     $auction->item->name
-        }} <br>
+        }} </a><br>
         {{
     $auction->item->description
 }}<br>
@@ -46,6 +46,6 @@
   
 @endforeach
 @else
-    <p>No products yet. Please check back later.</p>
+    <p>No auctions yet. Please check back later.</p>
 @endif
 @endsection

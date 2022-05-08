@@ -7,18 +7,19 @@ use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
 
         // dd('hellow');
         $request->validate([
-            'name'=>'required',
-            'phone'=>'required',
-            'house_name'=>'required',
-            'street'=>'required',
-            'pincode'=>'required',
-            'district'=>'required',
-            'state'=>'required'
+            'name' => 'required',
+            'phone' => 'required',
+            'house_name' => 'required',
+            'street' => 'required',
+            'pincode' => 'required',
+            'district' => 'required',
+            'state' => 'required'
         ]);
 
         $address = new Address();
@@ -36,16 +37,17 @@ class AddressController extends Controller
         return redirect('/checkout');
     }
 
-    public function change(Request $request){
+    public function change(Request $request)
+    {
 
         $request->validate([
-            'name'=>'required',
-            'phone'=>'required',
-            'house_name'=>'required',
-            'street'=>'required',
-            'pincode'=>'required',
-            'district'=>'required',
-            'state'=>'required'
+            'name' => 'required',
+            'phone' => 'required',
+            'house_name' => 'required',
+            'street' => 'required',
+            'pincode' => 'required',
+            'district' => 'required',
+            'state' => 'required'
         ]);
 
         $address =  Address::findOrFail($request->id);
@@ -59,14 +61,13 @@ class AddressController extends Controller
         $address->state = $request->state;
         $address->save();
         return redirect('/checkout');
-    
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
 
-    $address = Address::findOrFail($id);
-    $address->delete();
-    return redirect('/checkout');
-
+        $address = Address::findOrFail($id);
+        $address->delete();
+        return redirect('/checkout');
     }
 }

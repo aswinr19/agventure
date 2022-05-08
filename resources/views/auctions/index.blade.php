@@ -14,26 +14,26 @@
         <th>Update</th>
         <th>Delete</th>
     </tr>
-    
-@foreach($auctions as $auction)
 
-<tr>
-   
-<td>
-<a href="/farmer/auction/{{ $auction->id }}">
-        {{
+    @foreach($auctions as $auction)
+
+    <tr>
+
+        <td>
+            <a href="/farmer/auctions/{{ $auction->id }}">
+                {{
     $auction->item->name
         }}</a>
         </td>
 
-        
+
         <td>
-        {{
+            {{
     $auction->item->description
 }}
 
         </td>
-       
+
         <td>
             {{
                 $auction->starting_amount
@@ -50,20 +50,22 @@
 
             }}
         </td>
-      @if($auction->started_at)
-      <td>
-            {{
-                $auction->started_at->diffForHumans()
-            }}
+
+        <td>
+            @if($auction->started_at )
+            {{$auction->started_at->diffForHumans()}}
+            @else
+            Not yet started
+            @endif
         </td>
-      @endif
+
         <td>
             {{
                 $auction->status
             }}
         </td>
         <td>
-        <img src="{{
+            <img src="{{
            asset('images/'. $auction->item->image)}}" alt="{{ $auction->item->image }} " height="40px">
 
         </td>
@@ -73,9 +75,9 @@
         <td>
             <a href="/farmer/delete-auction/{{ $auction-> id }}">Delete</a>
         </td>
-        
+
     </tr>
-    
-@endforeach
+
+    @endforeach
 </table>
 @endsection

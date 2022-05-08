@@ -3,8 +3,8 @@
 
 <style>
  .product-name {
-    font-weight: 600;
-    font-size: 13px;
+    font-weight: 900;
+    font-size: 15px;
     color: #333;
 }
 .products-grid .price-box{
@@ -33,13 +33,13 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100" src=" {{ asset('img1.jpg') }}" alt="First slide">
+      <img class="d-block w-100" src=" {{ asset('img3.jpg') }}" alt="First slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="{{ asset('img2.jpg') }}" alt="Second slide">
+      <img class="d-block w-100" src="{{ asset('img1.jpg') }}" alt="Second slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="{{ asset('img3.jpg') }}" alt="Third slide">
+      <img class="d-block w-100" src="{{ asset('img2.jpg') }}" alt="Third slide">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -58,13 +58,17 @@
 <div class="row" style="padding: 29px;">
  
    <!-- ------------------- -->
+   @if ($products->count())
+
+    @foreach($products as $product)
+   
   <div class="col-sm-3" style="padding: 18px 30px 11px 45px;">
   <div class="card" style="width: 15rem;">
-  <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8H9Fk15ekcRMOhbZEERzQK32CENUnnQKFUldVjyDGlh25WJSQ-eXtwZbq-ERmWxd0v74&usqp=CAU" style="height:159px;"alt="Card image cap">
+  <img class="card-img-top" src="{{ asset('images/'. $product->image) }}"" alt="{{ $product->name }}" style="height:159px;"alt="Card image cap">
   <div class="card-body" style="padding:.8rem">
     <p class="card-text">
     <div class="product-shop">
-<h3 class="product-name" itemprop="name">Product Name</h3>
+<h3 class="product-name" itemprop="name">{{ $product->name }}</h3>
 <div class="price-box">
 <p class="old-price">
 <span class="price">
@@ -72,23 +76,26 @@
 <span class="strike-through"></span>
 </span>
 <span class="label-price">/500g</span>
-</p>
+</p> <br>
 <p class="special-price">
 <span class="price">
-<span><span class="price">₹139.00</span></span>
+<span><span class="price">₹{{ $product->price }}.00</span></span>
 </span>
 <span class="label-price">/500g</span>
 </p>
 </div>
-<div class="short-desc ellipsis-text">One of the good product buy one get one free...</div>
+<div class="short-desc ellipsis-text">{{ $product->description }}</div>
 
 </div>
     </p>
   </div>
 </div>
   </div>
-
-  
+  @endforeach
+   
+   @else
+       <p>No products yet. Please check back later.</p>
+   @endif
  
 </div>
 

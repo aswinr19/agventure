@@ -21,20 +21,23 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             
         //find the corresponding records and update the status field.
-            $currentDateTime = Carbon::now();
+            // $currentDateTime = Carbon::now();
 
-            $auctions = FacadesDB::table('auctions')
-                                ->where('status','=','approved');
+            // $auctions = FacadesDB::table('auctions')
+            //                     ->where('status','=','approved');
 
-            foreach($auctions as $auction){
+            // foreach($auctions as $auction){
 
-                $endingDateTime = $auction->ending_at;
+            //     $endingDateTime = $auction->ending_at;
 
-                if($currentDateTime->gte($endingDateTime)){
+            //     if($currentDateTime->gte($endingDateTime)){
 
-                    $auction->status = "ended";
-                }
-            }
+            //         $auction->status = "ended";
+            //     }
+            // }
+
+            dd('hai');
+            return redirect('/');
         })->everyMinute();
      }
 
