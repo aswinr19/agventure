@@ -1,6 +1,7 @@
-@extends('layouts.layout')
+@extends('layouts.adminLayout')
 @section('content')
 <h2>Auctions</h2>
+@if ($products->count())
 <table>
     <tr>
         <th>Item Name</th>
@@ -70,4 +71,8 @@
     
 @endforeach
 </table>
+
+@else
+    <p>No products yet. Please check back later.</p>
+@endif
 @endsection

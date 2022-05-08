@@ -8,7 +8,11 @@
 </form> -->
 <form action="/auth/signup" method="POST">
 @csrf
-    @if(Session::get('success'))
+    
+
+  <div class="text-center"><strong style="color:green">Registraion</strong></div>
+  
+  @if(Session::get('success'))
     {{ Session::get('success') }}
     @endif
     <span class="errormsg">
@@ -17,9 +21,6 @@
     @endif
     </span>
     <br>
-
-  <div class="text-center"><strong style="color:green">Registraion</strong></div>
-
   <div class="row">
     <div class="col">
     <label for="exampleInputEmail1">First Name</label>
