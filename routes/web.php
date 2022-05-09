@@ -141,9 +141,12 @@ Route::get('/soil-test/checkout/success', [SoilTestController::class, 'success']
 
 Route::get('/soil-test/checkout/failed', [SoilTestController::class, 'failed'])->middleware('isLoggedIn');
 
-Route::get('/weather');
+Route::get('/weather',function(){
 
-Route::post('/weather');
+    return view('weather.index',['title'=>'Weather page']);
+})
+->middleware('isLoggedIn');
+
 
 //auth routes
 
@@ -335,7 +338,7 @@ Route::get('/admin/delere-expert', [ExpertController::class, 'destroy'])->middle
 
 Route::get('/admin/user-profiles', [UserController::class, 'index'])->middleware('isAdmin');
 
-//134
+//133
 
 //TODO
 //soil test page - create html calender controll to select date and time and controller actions
