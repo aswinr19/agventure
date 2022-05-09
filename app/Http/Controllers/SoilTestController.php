@@ -2,107 +2,142 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Soil_test;
-use Illuminate\Http\Request;
 use App\Models\Address;
 use App\Models\Purchase;
+use App\Models\Soil_test;
 use App\Models\User;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Exception;
-
+use Illuminate\Http\Request;
 
 class SoilTestController extends Controller
 {
 
-    
-    public function index(){
-
-        $tests = Soil_test::latest()
-                                ->get();
-
-        return view('soilTests.index',['title'=>'Soil tests page','tests'=>$tests]);
-
-    }
-
-    public function show($id){
-
-        $test  = Soil_test::findOrFail($id);
-
-        return view('soilTests.show',['title'=>'Soil test page','test'=>$test]);
-
-    }
-
-    public function create(){
-
-        return view('soilTests.create',['title'=>'Create soil test page']);
-
-    }
-
-    
-
-    public function update($id){
-
-        return view('soilTests.update',['title'=>'Update soil test page']);
-    }
-
-    public function change(Request $request){
-
-    }
-
-    public function cancel($id){
-
-
-
-    }
-
-    public function display(Request $request){
-
-        $id = $request->session()->get('loggedUser');
-        
-        $tests = Soil_test::where('user_id',$id)
-                                ->get();
-
-        return view('soilTests.index',['title'=>'Soil tests page','tests'=>$tests]);
-
-    }
-
-    public function displayOne($id){
-
-        $test  = Soil_test::findOrFail($id);
-        
-        return view('soilTests.displayOne',['title'=>'Soil test page','test'=>$test]);
-
-    }
-
-    public function store($userId, $addressId, $cardNumber, $amount, $paymentMethod, $status, $orderStatus, $auctionId)
+    public function index()
     {
 
-            $purchase = new Purchase();
-            $purchase->user_id = $userId;
-            $purchase->address_id = $addressId;
-            $purchase->card_number = $cardNumber;
-            $purchase->amount = $amount;
-            $purchase->delivery_charge = 60;
-            $purchase->total = $amount + 60;
-            $purchase->payment_method = $paymentMethod;
-            $purchase->status = $status;
-            $purchase->order_status = $orderStatus;
+        $tests = Soil_test::latest()
+            ->get();
 
-            $purchase->save();
-      
+        return view('soilTests.index', ['title' => 'Soil tests page', 'tests' => $tests]);
     }
 
+    public function show($id)
+    {
+
+        $test = Soil_test::findOrFail($id);
+
+        return view('soilTests.show', ['title' => 'Soil test page', 'test' => $test]);
+    }
+
+    public function create(Request $request)
+    {
+
+        $id = $request->session()->get('loggedUser');
+        $soilTests = Soil_test::where('user_id', $id)->get();
+
+        return view('soilTests.create', ['title' => 'Create soil test page', 'soilTests' => $soilTests]);
+    }
+
+    public function store(Request $request)
+    {
+
+        $request->validate([
+
+            'month' => 'require',
+            'date' => 'require',
+            'time' => 'require',
+        ]);
+
+        $soilTest = new Soil_test();
+
+        $soilTest->user_id = $request->session()->get('loggedUser');
+        $soilTest->date = $request->date;
+        $soilTest->time = $request->time;
+        $soilTest->save();
+
+        return redirect('/soil-test/create-soil-test');
+
+    }
+
+    public function update($id)
+    {
+
+        return view('soilTests.update', ['title' => 'Update soil test page']);
+    }
+
+    public function change(Request $request)
+    {
+    }
+
+    public function cancel($id)
+    {
+    }
+
+    public function display(Request $request)
+    {
+
+        $id = $request->session()->get('loggedUser');
+
+        $tests = Soil_test::where('user_id', $id)
+            ->get();
+
+        return view('soilTests.index', ['title' => 'Soil tests page', 'tests' => $tests]);
+    }
+
+    public function displayOne($id)
+    {
+
+        $test = Soil_test::findOrFail($id);
+
+        return view('soilTests.displayOne', ['title' => 'Soil test page', 'test' => $test]);
+    }
+
+    public function storePurchase($userId, $addressId, $cardNumber, $amount, $paymentMethod, $status, $orderStatus, $soilTestId)
+    {
+
+        $purchase = new Purchase();
+        $purchase->user_id = $userId;
+        $purchase->address_id = $addressId;
+        $purchase->card_number = $cardNumber;
+        $purchase->amount = $amount;
+        $purchase->delivery_charge = 60;
+        $purchase->total = $amount + 60;
+        $purchase->payment_method = $paymentMethod;
+        $purchase->status = $status;
+        $purchase->order_status = $orderStatus;
+        $purchase->soil_test_id = $soilTestId;
+
+        $purchase->save();
+    }
+
+    public function createCheckout(Request $request)
+    {
+
+        // dd($request->session()->get('totalAmount'));
+
+        $id = $request->session()->get('loggedUser');
+        $totalAmount = $request->session()->get('totalAmount');
+
+        $addresses = Address::latest()
+            ->where('user_id', $id)->get();
+
+        if ($totalAmount) {
+
+            return view('checkout.index', ['title' => 'Checkout page', 'addresses' => $addresses]);
+
+        } else {
+
+            return redirect('/');
+        }
+    }
 
     public function makeTransaction(Request $request)
     {
 
-
         $id = $request->session()->get('loggedUser');
 
         $user = User::findOrFail($id);
-
-        //fetch the cart items corresponding to current loggedin user
-        $cartItems = Cart::latest()->where('user_id', $id)->get();
 
         //addressId
         $addressId = $request->selected_address;
@@ -110,9 +145,9 @@ class SoilTestController extends Controller
         //find the address with the id sent from the view ( selected address )
         $address = Address::findOrFail($addressId);
 
-        $auction_id =   $request->session()->get('auctionId');
-        //total amount 
-        $totalAmount =  $request->session()->get('totalAmount');
+        $soilTestId = $request->session()->get('soilTestId');
+
+        $totalAmount = $request->session()->get('totalAmount');
 
         //card details
         $cardNumber = $request->card_number;
@@ -124,50 +159,33 @@ class SoilTestController extends Controller
         $cvv = $request->cvv;
 
         if ($request->payment_method == "cod") {
+
             $request->validate([
-                'selected_address' => 'required'
+                'selected_address' => 'required',
+
             ]);
         } else if ($request->payment_method == "card") {
+
             $request->validate([
 
                 'card_number' => 'required',
                 'expiry_month' => 'required',
                 'expiry_year' => 'required',
                 'cvv' => 'required',
-                'selected_address' => 'required'
+                'selected_address' => 'required',
 
             ]);
         }
 
-
         //logic for cod transactions
         if ($request->payment_method == "cod") {
 
-            //auction checkout
+            $this->storePurchase($id, $addressId, 0, $totalAmount, "cod", "pending", "ordered", $soilTestId);
 
-            if($auction_id){
-
-                $this->store($id, $addressId, 0, $totalAmount, "cod", "pending", "ordered",$auction_id );
-                $this->linkItemts($id);
-                $this->decreaseQuantity($id);
-                $this->resetCart($id);
-                $request->session()->forget('totalAmount');
-                $request->session()->forget('auctionId');
-                return redirect('/checkout/success');
-
-            }
-            else
-            {
-                
-            $this->store($id, $addressId, 0, $totalAmount, "cod", "pending", "ordered", 0);
-            $this->linkItemts($id);
-            $this->decreaseQuantity($id);
-            $this->resetCart($id);
+            $request->session()->forget('soilTestId');
             $request->session()->forget('totalAmount');
 
             return redirect('/checkout/success');
-            
-            }
         }
         //logic for card transactions
         else if ($request->payment_method == "card") {
@@ -181,8 +199,8 @@ class SoilTestController extends Controller
                         'number' => $cardNumber,
                         'exp_month' => $expiryMonth,
                         'exp_year' => $expiryYear,
-                        'cvc' => $cvv
-                    ]
+                        'cvc' => $cvv,
+                    ],
                 ]);
 
                 // dd($token);
@@ -193,8 +211,6 @@ class SoilTestController extends Controller
                     return redirect('/checkout');
                 }
 
-
-
                 $customer = $stripe->customers()->create([
                     'name' => $user->name,
                     'email' => $user->email,
@@ -204,7 +220,7 @@ class SoilTestController extends Controller
                         'postal_code' => $address->pincode,
                         'city' => $address->city,
                         'state' => $address->state,
-                        'country' => 'India'
+                        'country' => 'India',
                     ],
                     'shipping' => [
 
@@ -214,14 +230,13 @@ class SoilTestController extends Controller
                             'postal_code' => $address->pincode,
                             'city' => $address->city,
                             'state' => $address->state,
-                            'country' => 'India'
+                            'country' => 'India',
                         ],
                     ],
-                    'source' => $token['id']
+                    'source' => $token['id'],
                 ]);
 
                 // dd($customer);
-
 
                 $charge = $stripe->paymentIntents()->create([
 
@@ -230,7 +245,7 @@ class SoilTestController extends Controller
                     'amount' => $totalAmount + 60,
                     'description' => 'Payment for order no : ',
                     'payment_method_types' => [
-                        'card'
+                        'card',
                     ],
                 ]);
 
@@ -238,46 +253,21 @@ class SoilTestController extends Controller
 
                 if ($charge['status'] == 'succeeded') {
 
-                    if($auction_id){
+                    $this->storePurchase($id, $addressId, $cardNumber, $totalAmount, "card", "succesful", "ordered", $soilTestId);
 
-                    $this->store($id, $addressId, $cardNumber, $totalAmount, "card", "succesful", "ordered", $auction_id);
-                    $this->linkItemts($id);
-                    $this->decreaseQuantity($id);
-                    $this->resetCart($id);
+                    $request->session()->forget('soilTestId');
                     $request->session()->forget('totalAmount');
-                    $request->session()->forget('auctionId');
 
                     return redirect('/checkout/success');
-                    }
-                    else{
-                        $this->store($id, $addressId, $cardNumber, $totalAmount, "card", "succesful", "ordered", 0);
-                        $this->linkItemts($id);
-                        $this->decreaseQuantity($id);
-                        $this->resetCart($id);
-                        $request->session()->forget('totalAmount');
-                        
-    
-                        return redirect('/checkout/success');
-                    }
                 } else {
                     session()->flash('stripe_error', 'Error in transaction!');
 
-                    if($auction_id){
-                        
-                    $this->store($id, $addressId, $cardNumber, $totalAmount, "card", "failed", "failed", $auction_id);
+                    $this->storePurchase($id, $addressId, $cardNumber, $totalAmount, "card", "failed", "failed", $soilTestId);
+
+                    $request->session()->forget('soilTestId');
                     $request->session()->forget('totalAmount');
-                    $request->session()->forget('auctionId');
 
                     return redirect('/checkout/failed');
-
-                    }
-                    else{
-
-                        $this->store($id, $addressId, $cardNumber, $totalAmount, "card", "failed", "failed",0);
-                        $request->session()->forget('totalAmount');
-
-                        return redirect('/checkout/failed');
-                    }
                 }
             } catch (Exception $e) {
 
@@ -288,5 +278,25 @@ class SoilTestController extends Controller
         }
     }
 
-}
+    public function prodceedToPay($id, Request $request)
+    {
 
+        $request->session()->put('soilTestId', $id);
+        $total = $request->total;
+        $request->session()->put('totalAmount', $total);
+
+        return redirect('/soil-test/checkout');
+    }
+
+    public function success()
+    {
+
+        return view('checkout.success', ['title' => 'Success page']);
+    }
+
+    public function failed()
+    {
+
+        return view('checkout.failed', ['title' => 'Failed page']);
+    }
+}

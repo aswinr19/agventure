@@ -3,42 +3,43 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Models\Product;
-
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     //
-    public function index(Request $request){
+    public function index(Request $request)
+    {
 
-        $id = $request->session()->get('loggedUser');    
+        $id = $request->session()->get('loggedUser');
 
         $products = Product::latest()
-                             ->where('user_id',$id)->get();
+            ->where('user_id', $id)->get();
 
-        return view('products.index',['title'=>'Products page','products'=>$products]);        
+        return view('products.index', ['title' => 'Products page', 'products' => $products]);
 
     }
 
+    public function show($id)
+    {
 
-    public function show($id) {
-        
         $product = Product::findOrFail($id);
-        return view('products.show',['title'=>'Product page','product'=>$product]);
+        return view('products.show', ['title' => 'Product page', 'product' => $product]);
 
     }
 
+    public function create()
+    {
 
-    public function create(){
-
-        $categories  = Category::all();
-        return view('products.create',['title'=>'Create product page','categories'=>$categories]);
+        $categories = Category::all();
+        return view('products.create', ['title' => 'Create product page', 'categories' => $categories]);
 
     }
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
-         $request->validate([
+        $request->validate([
 
             'product_name' => 'required|min:2',
             'product_description' => 'required',
@@ -51,16 +52,14 @@ class ProductController extends Controller
             'composition' => 'required',
             'product_image' => 'required|mimes:jpg,png,jpeg|max:5048',
 
-
         ]);
         //  dd($validatedData);
-        $newImageName = time().'-'. $request->product_name.'.'. 
+        $newImageName = time() . '-' . $request->product_name . '.' .
         $request->product_image->extension();
 
         // dd($newImageName);
 
-        $request->product_image->move(public_path('images'),$newImageName);
-
+        $request->product_image->move(public_path('images'), $newImageName);
 
         $product = new Product();
         $product->name = $request->product_name;
@@ -78,14 +77,16 @@ class ProductController extends Controller
         return redirect('/admin/products');
 
     }
-    public function update($id){
+    public function update($id)
+    {
         $product = Product::findOrFail($id);
-        $categories  = Category::all();
-        return view('products.update',['title' => 'Update product page','product'=>$product,'categories'=>$categories]);
+        $categories = Category::all();
+        return view('products.update', ['title' => 'Update product page', 'product' => $product, 'categories' => $categories]);
     }
-    public function change(Request $request){
- 
-         $request->validate([
+    public function change(Request $request)
+    {
+
+        $request->validate([
 
             'product_name' => 'required|min:2',
             'product_description' => 'required',
@@ -98,10 +99,9 @@ class ProductController extends Controller
             'composition' => 'required',
             // 'product_image' => 'required|mimes:jpg,png,jpeg|max:5048',
 
-
         ]);
         //  dd($validatedData);
-        // $newImageName = time().'-'. $request->product_name.'.'. 
+        // $newImageName = time().'-'. $request->product_name.'.'.
         // $request->product_image->extension();
 
         // // dd($newImageName);
@@ -124,38 +124,39 @@ class ProductController extends Controller
         return redirect('/admin/products');
 
     }
-    public function destroy($id){
+    public function destroy($id)
+    {
 
         $product = Product::findOrFail($id);
         $product->delete();
         return redirect('/admin/products');
     }
 
-    public function display(){
-
+    public function display()
+    {
 
         $products = Product::latest();
 
-        if(request('search')){
-            
+        if (request('search')) {
+
             $products
-            ->where('name','like','%'.request('search').'%')
-            ->orWhere('description','like','%'.request('search').'%');
+                ->where('name', 'like', '%' . request('search') . '%')
+                ->orWhere('description', 'like', '%' . request('search') . '%');
         }
-        if(request('category')){
-            
+        if (request('category')) {
+
             $products
-            ->where('category_id',request('category'));
+                ->where('category_id', request('category'));
         }
 
-        return view('products.display',['title'=>'Products page','products'=>$products->get()]);
+        return view('products.display', ['title' => 'Products page', 'products' => $products->get()]);
     }
 
-    public function displayOne($id){
+    public function displayOne($id)
+    {
 
         $product = Product::findOrFail($id);
 
-        return view('products.displayOne',['title'=>'Product page','product'=>$product]);
+        return view('products.displayOne', ['title' => 'Product page', 'product' => $product]);
     }
 }
- 

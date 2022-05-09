@@ -1,24 +1,23 @@
 <?php
 
-
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ItemController;
-use App\Http\Controllers\AuctionController;
-use App\Http\Controllers\ComplaintController;
-use App\Http\Controllers\GuidelineController;
-use App\Http\Controllers\MachineController;
-use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\ExpertController;
+use App\Http\Controllers\GuidelineController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\MachineController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SoilTestController;
 use App\Http\Controllers\TipController;
+use App\Http\Controllers\UserController;
 use App\Models\Product;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
@@ -28,21 +27,17 @@ Route::get('/', function () {
     return view('index', ['title' => 'Welcome Page', 'products' => $products]);
 });
 
-
 Route::get('/admin', function () {
     return view('adminHomePage', ['title' => 'Admin Page']);
 })
     ->middleware('isAdmin');
-
 
 Route::get('/farmer', function () {
     return view('farmerHomePage', ['title' => 'Farmer Page']);
 })
     ->middleware('isFarmer');
 
-
 //common routes
-
 
 Route::get('/products', [ProductController::class, 'display']);
 
@@ -136,10 +131,19 @@ Route::get('/soil-test/update-soil-test/{id}', [SoilTestController::class, 'upda
 
 Route::post('/soil-test/update-soil-test', [SoilTestController::class, 'change'])->middleware('isLoggedIn');
 
+Route::post('/soil-test/proceed-to-pay/{$id}', [SoilTestController::class, 'prodceedToPay'])->middleware('isLoggedIn');
+
+Route::get('/soil-test/checkout', [SoilTestController::class, 'createCheckout'])->middleware('isLoggedIn');
+
+Route::post('/soil-test/checkout', [SoilTestController::class, 'makeTransaction'])->middleware('isLoggedIn');
+
+Route::get('/soil-test/checkout/success', [SoilTestController::class, 'success'])->middleware('isLoggedIn');
+
+Route::get('/soil-test/checkout/failed', [SoilTestController::class, 'failed'])->middleware('isLoggedIn');
+
 Route::get('/weather');
 
 Route::post('/weather');
-
 
 //auth routes
 
@@ -153,15 +157,13 @@ Route::post('/auth/signin', [UserController::class, 'check'])->middleware('isNot
 
 Route::get('auth/logout', [UserController::class, 'logout'])->middleware('isLoggedIn');
 
-
-//specific routes 
+//specific routes
 
 //soil tests
 
 Route::get('/admin/soil-test/appointments', [SoilTestController::class, 'index'])->middleware('isAdmin');
 
 Route::get('/admin/soil-test/appointments/{id}', [SoilTestController::class, 'show'])->middleware('isAdmin');
-
 
 //category routes
 
@@ -176,7 +178,6 @@ Route::get('/admin/update-category/{id}', [CategoryController::class, 'update'])
 Route::post('/admin/update-category', [CategoryController::class, 'change'])->middleware('isAdmin');
 
 Route::get('/admin/delete-category/{id}', [CategoryController::class, 'destroy'])->middleware('isAdmin');
-
 
 //product routes
 
@@ -222,8 +223,6 @@ Route::post('/farmer/update-item', [ItemController::class, 'change'])->middlewar
 
 Route::get('/farmer/delete-item/{id}', [ItemController::class, 'destroy'])->middleware('isFarmer');
 
-
-
 //auction routes
 
 Route::get('/farmer/auctions', [AuctionController::class, 'index'])->middleware('isFarmer');
@@ -252,7 +251,6 @@ Route::get('/admin/auction/approve/{id}', [AuctionController::class, 'approve'])
 
 Route::get('/admin/auction/reject/{id}', [AuctionController::class, 'reject'])->middleware('isAdmin');
 
-
 //complaint routes
 
 Route::get('/user/complaints', [ComplaintController::class, 'index'])->middleware('isUser');
@@ -268,7 +266,6 @@ Route::get('/user/update-complaint/{id}', [ComplaintController::class, 'update']
 Route::get('/user/update-complaint', [ComplaintController::class, 'change'])->middleware('isUser');
 
 Route::get('/user/delete-complaint/{id}', [ComplaintController::class, 'destroy'])->middleware('isUser');
-
 
 //guideline routes
 
@@ -288,9 +285,9 @@ Route::get('/admin/delete-guideline', [GuidelineController::class, 'destroy'])->
 
 //machine routes
 
-Route::get('/admin/machines', [MachineController::class, 'index']);
+Route::get('/admin/machines', [MachineController::class, 'index'])->middleware('isAdmin');
 
-Route::get('/admin/machine/{id}', [MachineController::class, 'show']);
+Route::get('/admin/machine/{id}', [MachineController::class, 'show'])->middleware('isAdmin');
 
 Route::get('/admin/create-machine', [MachineController::class, 'create'])->middleware('isAdmin');
 
@@ -301,7 +298,6 @@ Route::get('/admin/update-machine/{id}', [MachineController::class, 'update'])->
 Route::post('/admin/update-machine', [MachineController::class, 'change'])->middleware('isAdmin');
 
 Route::get('/admin/delete-machine/{id}', [MachineController::class, 'destroy'])->middleware('isAdmin');
-
 
 //tips
 
@@ -319,7 +315,6 @@ Route::post('/admin/update-tip', [TipController::class, 'change'])->middleware('
 
 Route::get('/admin/delete-tip', [TipController::class, 'destroy'])->middleware('isAdmin');
 
-
 //exxperts
 
 Route::get('/admin/experts', [ExpertController::class, 'index'])->middleware('isAdmin');
@@ -336,26 +331,22 @@ Route::post('/admin/update-expert', [ExpertController::class, 'change'])->middle
 
 Route::get('/admin/delere-expert', [ExpertController::class, 'destroy'])->middleware('isAdmin');
 
-
 //users
 
 Route::get('/admin/user-profiles', [UserController::class, 'index'])->middleware('isAdmin');
 
-
-
+//134
 
 //TODO
 //soil test page - create html calender controll to select date and time and controller actions
 // add cascade on delete for necessary relations.
 //add styling elements to views.
-    //show rejected auctions as dull in farmer view (auctions.index)
+//show rejected auctions as dull in farmer view (auctions.index)
 //test the code for errors ,bugs.
 //address the n-1 problem.
 //add functionality for rating prodcuts.
 //add coupon code functionality.
 //add a product recommendation engine.
-
-
 
 //BUGS
 //bug in creating auctions - create() method , returns the last added item for creating auction , there isn't any check for the owner of the item.

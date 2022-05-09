@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Machine;
@@ -12,6 +11,7 @@ use App\Models\Purchase;
 use App\Models\User;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Exception;
+use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
 {
@@ -22,16 +22,13 @@ class PurchaseController extends Controller
         // dd($request->session()->get('totalAmount'));
 
         $id = $request->session()->get('loggedUser');
-        $totalAmount =  $request->session()->get('totalAmount');
-
+        $totalAmount = $request->session()->get('totalAmount');
 
         $addresses = Address::latest()
             ->where('user_id', $id)->get();
 
-
         $paymentDetails = Payment::latest()
             ->where('user_id', $id)->get();
-
 
         if ($totalAmount) {
 
@@ -41,14 +38,11 @@ class PurchaseController extends Controller
         }
     }
 
-
     public function success()
     {
 
         return view('checkout.success', ['title' => 'Success page']);
     }
-
-
 
     public function failed()
     {
@@ -56,12 +50,8 @@ class PurchaseController extends Controller
         return view('checkout.failed', ['title' => 'Failed page']);
     }
 
-
-
-
     public function makeTransaction(Request $request)
     {
-
 
         $id = $request->session()->get('loggedUser');
 
@@ -76,9 +66,9 @@ class PurchaseController extends Controller
         //find the address with the id sent from the view ( selected address )
         $address = Address::findOrFail($addressId);
 
-        $auction_id =   $request->session()->get('auctionId');
-        //total amount 
-        $totalAmount =  $request->session()->get('totalAmount');
+        $auction_id = $request->session()->get('auctionId');
+        //total amount
+        $totalAmount = $request->session()->get('totalAmount');
 
         //card details
         $cardNumber = $request->card_number;
@@ -91,7 +81,7 @@ class PurchaseController extends Controller
 
         if ($request->payment_method == "cod") {
             $request->validate([
-                'selected_address' => 'required'
+                'selected_address' => 'required',
             ]);
         } else if ($request->payment_method == "card") {
             $request->validate([
@@ -100,39 +90,34 @@ class PurchaseController extends Controller
                 'expiry_month' => 'required',
                 'expiry_year' => 'required',
                 'cvv' => 'required',
-                'selected_address' => 'required'
+                'selected_address' => 'required',
 
             ]);
         }
-
 
         //logic for cod transactions
         if ($request->payment_method == "cod") {
 
             //auction checkout
 
-            if($auction_id){
+            if ($auction_id) {
 
-                $this->store($id, $addressId, 0, $totalAmount, "cod", "pending", "ordered",$auction_id );
+                $this->store($id, $addressId, 0, $totalAmount, "cod", "pending", "ordered", $auction_id);
                 $this->linkItemts($id);
                 $this->decreaseQuantity($id);
                 $this->resetCart($id);
                 $request->session()->forget('totalAmount');
                 $request->session()->forget('auctionId');
                 return redirect('/checkout/success');
+            } else {
 
-            }
-            else
-            {
-                
-            $this->store($id, $addressId, 0, $totalAmount, "cod", "pending", "ordered", 0);
-            $this->linkItemts($id);
-            $this->decreaseQuantity($id);
-            $this->resetCart($id);
-            $request->session()->forget('totalAmount');
+                $this->store($id, $addressId, 0, $totalAmount, "cod", "pending", "ordered", 0);
+                $this->linkItemts($id);
+                $this->decreaseQuantity($id);
+                $this->resetCart($id);
+                $request->session()->forget('totalAmount');
 
-            return redirect('/checkout/success');
-            
+                return redirect('/checkout/success');
             }
         }
         //logic for card transactions
@@ -147,8 +132,8 @@ class PurchaseController extends Controller
                         'number' => $cardNumber,
                         'exp_month' => $expiryMonth,
                         'exp_year' => $expiryYear,
-                        'cvc' => $cvv
-                    ]
+                        'cvc' => $cvv,
+                    ],
                 ]);
 
                 // dd($token);
@@ -159,8 +144,6 @@ class PurchaseController extends Controller
                     return redirect('/checkout');
                 }
 
-
-
                 $customer = $stripe->customers()->create([
                     'name' => $user->name,
                     'email' => $user->email,
@@ -170,7 +153,7 @@ class PurchaseController extends Controller
                         'postal_code' => $address->pincode,
                         'city' => $address->city,
                         'state' => $address->state,
-                        'country' => 'India'
+                        'country' => 'India',
                     ],
                     'shipping' => [
 
@@ -180,14 +163,13 @@ class PurchaseController extends Controller
                             'postal_code' => $address->pincode,
                             'city' => $address->city,
                             'state' => $address->state,
-                            'country' => 'India'
+                            'country' => 'India',
                         ],
                     ],
-                    'source' => $token['id']
+                    'source' => $token['id'],
                 ]);
 
                 // dd($customer);
-
 
                 $charge = $stripe->paymentIntents()->create([
 
@@ -196,7 +178,7 @@ class PurchaseController extends Controller
                     'amount' => $totalAmount + 60,
                     'description' => 'Payment for order no : ',
                     'payment_method_types' => [
-                        'card'
+                        'card',
                     ],
                 ]);
 
@@ -204,42 +186,38 @@ class PurchaseController extends Controller
 
                 if ($charge['status'] == 'succeeded') {
 
-                    if($auction_id){
+                    if ($auction_id) {
 
-                    $this->store($id, $addressId, $cardNumber, $totalAmount, "card", "succesful", "ordered", $auction_id);
-                    $this->linkItemts($id);
-                    $this->decreaseQuantity($id);
-                    $this->resetCart($id);
-                    $request->session()->forget('totalAmount');
-                    $request->session()->forget('auctionId');
+                        $this->store($id, $addressId, $cardNumber, $totalAmount, "card", "succesful", "ordered", $auction_id);
+                        $this->linkItemts($id);
+                        $this->decreaseQuantity($id);
+                        $this->resetCart($id);
+                        $request->session()->forget('totalAmount');
+                        $request->session()->forget('auctionId');
 
-                    return redirect('/checkout/success');
-                    }
-                    else{
+                        return redirect('/checkout/success');
+                    } else {
                         $this->store($id, $addressId, $cardNumber, $totalAmount, "card", "succesful", "ordered", 0);
                         $this->linkItemts($id);
                         $this->decreaseQuantity($id);
                         $this->resetCart($id);
                         $request->session()->forget('totalAmount');
-                        
-    
+
                         return redirect('/checkout/success');
                     }
                 } else {
                     session()->flash('stripe_error', 'Error in transaction!');
 
-                    if($auction_id){
-                        
-                    $this->store($id, $addressId, $cardNumber, $totalAmount, "card", "failed", "failed", $auction_id);
-                    $request->session()->forget('totalAmount');
-                    $request->session()->forget('auctionId');
+                    if ($auction_id) {
 
-                    return redirect('/checkout/failed');
+                        $this->store($id, $addressId, $cardNumber, $totalAmount, "card", "failed", "failed", $auction_id);
+                        $request->session()->forget('totalAmount');
+                        $request->session()->forget('auctionId');
 
-                    }
-                    else{
+                        return redirect('/checkout/failed');
+                    } else {
 
-                        $this->store($id, $addressId, $cardNumber, $totalAmount, "card", "failed", "failed",0);
+                        $this->store($id, $addressId, $cardNumber, $totalAmount, "card", "failed", "failed", 0);
                         $request->session()->forget('totalAmount');
 
                         return redirect('/checkout/failed');
@@ -253,8 +231,6 @@ class PurchaseController extends Controller
             }
         }
     }
-
-
 
     public function resetCart($user_id)
     {

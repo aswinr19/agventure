@@ -13,7 +13,8 @@ class CartController extends Controller
         //find all cart items matching the user ids
 
         $id = $request->session()->get('loggedUser');
-        $cartItems = Cart::latest()->where('user_id', $id)->get();
+        $cartItems = Cart::latest()->where('user_id', $id)
+                     ->get();
 
         // dd($cartItems);
 
