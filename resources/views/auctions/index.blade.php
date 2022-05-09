@@ -13,6 +13,7 @@
         <th>Image</th>
         <th>Update</th>
         <th>Delete</th>
+        <th>Result</th>
     </tr>
 
     @foreach($auctions as $auction)
@@ -74,6 +75,9 @@
         </td>
         <td>
             <a href="/farmer/delete-auction/{{ $auction-> id }}">Delete</a>
+        </td>
+        <td>
+            <a href="auction/results/{{ $auction->id }}">Result</a>
         </td>
 
     </tr>

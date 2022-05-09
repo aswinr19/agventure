@@ -203,7 +203,7 @@ class AuctionController extends Controller
 
        
 
-        return redirect('/auction/'. $request->auction_id );
+        return redirect('/auctions/'. $request->auction_id );
     }
 
 
@@ -265,10 +265,13 @@ class AuctionController extends Controller
 
     public function result($id)
     {
+        $auction = Auction::findOrFail($id);
 
-        $bids = Participation::where('auction_id',$id);
+        $bids = Participation::where('auction_id',$id)->get();
 
-        return view('auctions.result',['title'=>'Auction reslut page','bids'=>$bids]);
+        // dd($bids);
+
+        return view('auctions.result',['title'=>'Auction reslut page','bids'=>$bids,'auction'=>$auction]);
     }
 
 
@@ -276,9 +279,9 @@ class AuctionController extends Controller
 
         $id = $request->session()->get('loggedUser');
 
-        $bids = Participation::where('user_id',$id);
+        $bids = Participation::where('user_id',$id)->get();
 
-        return view('auctions.userResults',['title'=>'Auctions results page','bids'=>$bids]);
+        return view('auctions.userResult',['title'=>'Auctions results page','bids'=>$bids]);
     }
 
 
@@ -287,12 +290,14 @@ class AuctionController extends Controller
     {
 
         $bid = Participation::findOrFail($id);
+        
+        $this->rejectBid($bid->auction_id);
 
         $bid->status =  "approved";
 
         $bid->save();
 
-        return redirect('farmer/auction/results');
+        return redirect('farmer/auction/results/'.$bid->auction_id);
     }
 
     public function rejectBid($id)
@@ -308,9 +313,9 @@ class AuctionController extends Controller
     }
 
 
-    public function prodceedToBuy(Request $request)
+    public function prodceedToBuy($id,Request $request)
     {
-
+        $request->session()->put('auctionId',$id);
         $total = $request->total;
         $request->session()->put('totalAmount',$total);
 

@@ -76,6 +76,7 @@ class PurchaseController extends Controller
         //find the address with the id sent from the view ( selected address )
         $address = Address::findOrFail($addressId);
 
+        $auction_id =   $request->session()->get('auctionId');
         //total amount 
         $totalAmount =  $request->session()->get('totalAmount');
 
@@ -108,6 +109,22 @@ class PurchaseController extends Controller
         //logic for cod transactions
         if ($request->payment_method == "cod") {
 
+            //auction checkout
+
+            if($auction_id){
+
+                $this->store($id, $addressId, 0, $totalAmount, "cod", "pending", "ordered",$auction_id );
+                $this->linkItemts($id);
+                $this->decreaseQuantity($id);
+                $this->resetCart($id);
+                $request->session()->forget('totalAmount');
+                $request->session()->forget('auctionId');
+                return redirect('/checkout/success');
+
+            }
+            else
+            {
+                
             $this->store($id, $addressId, 0, $totalAmount, "cod", "pending", "ordered", 0);
             $this->linkItemts($id);
             $this->decreaseQuantity($id);
@@ -115,6 +132,8 @@ class PurchaseController extends Controller
             $request->session()->forget('totalAmount');
 
             return redirect('/checkout/success');
+            
+            }
         }
         //logic for card transactions
         else if ($request->payment_method == "card") {
@@ -185,19 +204,46 @@ class PurchaseController extends Controller
 
                 if ($charge['status'] == 'succeeded') {
 
-                    $this->store($id, $addressId, $cardNumber, $totalAmount, "card", "succesful", "ordered", 0);
+                    if($auction_id){
+
+                    $this->store($id, $addressId, $cardNumber, $totalAmount, "card", "succesful", "ordered", $auction_id);
                     $this->linkItemts($id);
                     $this->decreaseQuantity($id);
                     $this->resetCart($id);
                     $request->session()->forget('totalAmount');
+                    $request->session()->forget('auctionId');
 
                     return redirect('/checkout/success');
+                    }
+                    else{
+                        $this->store($id, $addressId, $cardNumber, $totalAmount, "card", "succesful", "ordered", 0);
+                        $this->linkItemts($id);
+                        $this->decreaseQuantity($id);
+                        $this->resetCart($id);
+                        $request->session()->forget('totalAmount');
+                        
+    
+                        return redirect('/checkout/success');
+                    }
                 } else {
                     session()->flash('stripe_error', 'Error in transaction!');
 
-                    $this->store($id, $addressId, $cardNumber, $totalAmount, "card", "failed", "failed", 0);
+                    if($auction_id){
+                        
+                    $this->store($id, $addressId, $cardNumber, $totalAmount, "card", "failed", "failed", $auction_id);
                     $request->session()->forget('totalAmount');
+                    $request->session()->forget('auctionId');
+
                     return redirect('/checkout/failed');
+
+                    }
+                    else{
+
+                        $this->store($id, $addressId, $cardNumber, $totalAmount, "card", "failed", "failed",0);
+                        $request->session()->forget('totalAmount');
+
+                        return redirect('/checkout/failed');
+                    }
                 }
             } catch (Exception $e) {
 

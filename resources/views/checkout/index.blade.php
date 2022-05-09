@@ -75,6 +75,10 @@
 <form action="/checkout" method="POST">
 @csrf
 
+<!-- @if(Session::get('success'))
+<input type="hidden" name="auction_id" value="{{ Session::get('auctionId') }}">
+@endif -->
+
 <h4>Select address</h4> <br>
     @foreach($addresses as $address)
     <input type="radio" name="selected_address" value="{{ $address->id }}" >  <span>{{ $address->name}},{{ $address->phone}}, {{ $address->house_name}},

@@ -11,11 +11,11 @@ class Participation extends Model
 
     public function auction(){
 
-        $this->belongsTo(Auction::class);
+        return $this->belongsTo(Auction::class);
     }
 
     public function user(){
 
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 }

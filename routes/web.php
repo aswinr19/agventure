@@ -25,7 +25,6 @@ Route::get('/', function () {
     $products = Product::all()
         ->take(8);
 
-
     return view('index', ['title' => 'Welcome Page', 'products' => $products]);
 });
 
@@ -57,7 +56,9 @@ Route::post('/auctions/new-bid', [AuctionController::class, 'startBid'])->middle
 
 Route::post('/auction/update-bid', [AuctionController::class, 'updateBid'])->middleware('isLoggedIn');
 
-Route::post('/auction/results', [AuctionController::class, 'userResult'])->middleware('isLoggedIn');
+Route::get('/auction/results', [AuctionController::class, 'userResult'])->middleware('isLoggedIn');
+
+Route::post('/auction/results/proceed-to-buy/{id}', [AuctionController::class, 'prodceedToBuy'])->middleware('isLoggedIn');
 
 Route::get('/machines', [MachineController::class, 'display']);
 
