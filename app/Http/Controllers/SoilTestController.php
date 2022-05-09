@@ -6,6 +6,7 @@ use App\Models\Address;
 use App\Models\Purchase;
 use App\Models\Soil_test;
 use App\Models\User;
+use Carbon\Carbon;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Exception;
 use Illuminate\Http\Request;
@@ -34,7 +35,10 @@ class SoilTestController extends Controller
     {
 
         $id = $request->session()->get('loggedUser');
-        $soilTests = Soil_test::where('user_id', $id)->get();
+        
+        $soilTests = Soil_test::where('user_id', $id)->latest('created_at')->first();
+
+        // dd($soilTests);
 
         return view('soilTests.create', ['title' => 'Create soil test page', 'soilTests' => $soilTests]);
     }
@@ -42,18 +46,24 @@ class SoilTestController extends Controller
     public function store(Request $request)
     {
 
+
+        $currentMnth = Carbon::now()->format('m'); 
+        $currentDay = Carbon::now()->format('d');
+
         $request->validate([
 
-            'month' => 'require',
-            'date' => 'require',
-            'time' => 'require',
+            'month' => 'required|after_or_equal: .$currentMnth',
+            'day' => 'required|after_or_equal: .$currentDay',
+            'time' => 'required',
         ]);
 
+
+        // dd('hai');
         $soilTest = new Soil_test();
 
         $soilTest->user_id = $request->session()->get('loggedUser');
-        $soilTest->date = $request->date;
-        $soilTest->time = $request->time;
+        $soilTest->date = Carbon::createFromDate('2022', $request->month, $request->day);
+        $soilTest->time = Carbon::createFromTime($request->time,0,0);
         $soilTest->save();
 
         return redirect('/soil-test/create-soil-test');
@@ -111,6 +121,9 @@ class SoilTestController extends Controller
         $purchase->save();
     }
 
+
+
+
     public function createCheckout(Request $request)
     {
 
@@ -132,6 +145,9 @@ class SoilTestController extends Controller
         }
     }
 
+
+
+
     public function makeTransaction(Request $request)
     {
 
@@ -146,6 +162,8 @@ class SoilTestController extends Controller
         $address = Address::findOrFail($addressId);
 
         $soilTestId = $request->session()->get('soilTestId');
+
+        dd($soilTestId);
 
         $totalAmount = $request->session()->get('totalAmount');
 
@@ -278,16 +296,7 @@ class SoilTestController extends Controller
         }
     }
 
-    public function prodceedToPay($id, Request $request)
-    {
-
-        $request->session()->put('soilTestId', $id);
-        $total = $request->total;
-        $request->session()->put('totalAmount', $total);
-
-        return redirect('/soil-test/checkout');
-    }
-
+    
     public function success()
     {
 
@@ -299,4 +308,16 @@ class SoilTestController extends Controller
 
         return view('checkout.failed', ['title' => 'Failed page']);
     }
+
+    public function prodceedToPay($id, Request $request)
+    {
+
+        // dd($id);
+        $request->session()->put('soilTestId', $id);
+        $total = $request->total;
+        $request->session()->put('totalAmount', $total);
+
+        return redirect('/soil-test/checkout');
+    }
+
 }

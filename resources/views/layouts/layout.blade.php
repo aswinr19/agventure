@@ -57,6 +57,22 @@ img .d-block.w-100 {
     font-width: 17px;
     padding: 8px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* .footer{
     padding: 20px;
     display: flex;
@@ -111,7 +127,22 @@ img .d-block.w-100 {
         <br>
         <!-- <a id="list-elements"href="/cart"  class="categoryname">Cart </p> -->
         </div>
-            Welocme , user {{ Session::get('loggedUser') }}
+            
+<!-- dropdown menu         -->
+<div class="dropdown">
+  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+    Other
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <li><a class="dropdown-item" href="#">Auctions</a></li>
+    <li><a class="dropdown-item" href="#">Complaints</a></li>
+    <li><a class="dropdown-item" href="#">Guidelines</a></li>
+    <li><a class="dropdown-item" href="#">Tips</a></li>
+
+</ul>
+</div>      
+<!-- dropdown menu         -->
+
             <a id="list-elements" href="/auth/logout">Logout</a>
                 @else
                 <div class="img-with-text" style="margin-top: 31px;">
@@ -124,7 +155,7 @@ img .d-block.w-100 {
       
        <!-- <span class="footer-content">&copy;Agventure</span> -->
      
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" ></script>
     </footer>

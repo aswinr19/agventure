@@ -16,6 +16,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SoilTestController;
 use App\Http\Controllers\TipController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\weatherController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
@@ -131,7 +132,7 @@ Route::get('/soil-test/update-soil-test/{id}', [SoilTestController::class, 'upda
 
 Route::post('/soil-test/update-soil-test', [SoilTestController::class, 'change'])->middleware('isLoggedIn');
 
-Route::post('/soil-test/proceed-to-pay/{$id}', [SoilTestController::class, 'prodceedToPay'])->middleware('isLoggedIn');
+Route::post('/soil-test/proceed-to-pay/{id}', [SoilTestController::class, 'prodceedToPay'])->middleware('isLoggedIn');
 
 Route::get('/soil-test/checkout', [SoilTestController::class, 'createCheckout'])->middleware('isLoggedIn');
 
@@ -141,11 +142,7 @@ Route::get('/soil-test/checkout/success', [SoilTestController::class, 'success']
 
 Route::get('/soil-test/checkout/failed', [SoilTestController::class, 'failed'])->middleware('isLoggedIn');
 
-Route::get('/weather',function(){
-
-    return view('weather.index',['title'=>'Weather page']);
-})
-->middleware('isLoggedIn');
+Route::get('/weather',[weatherController::class,'index'])->middleware('isLoggedIn');
 
 
 //auth routes
