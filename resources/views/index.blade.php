@@ -29,8 +29,18 @@
   align-items: center;
   justify-content: center;
 }
+.text{
+
+}
+.empty{
+
+
+}
+
 
 </style>
+
+<!-- 
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -56,19 +66,23 @@
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
-</div>
-<center style="padding: 18px 0px 0px 0px;">
+</div> -->
+
+
+
+
+<!-- <center style="padding: 18px 0px 0px 0px;">
   <h1>Popular Products</h1>
 </center>
 
 <div class="row" style="padding: 29px;">
- 
+  -->
    <!-- ------------------- -->
    @if ($products->count())
 
     @foreach($products as $product)
    
-  <div class="col-sm-3" style="padding: 18px 30px 11px 45px;">
+  <!-- <div class="col-sm-3" style="padding: 18px 30px 11px 45px;">
   <div class="card" style="width: 15rem;">
   <img class="card-img-top" src="{{ asset('images/'. $product->image) }}"" alt="{{ $product->name }}" style="height:159px;"alt="Card image cap">
   <div class="card-body" style="padding:.8rem">
@@ -96,23 +110,24 @@
     </p>
   </div>
 </div>
-  </div>
-  @endforeach
+  </div> -->
+  <!-- @endforeach
    
    @else
        <p>No products yet. Please check back later.</p>
-   @endif
-   <br> <br> <br>
- <div class="img container" ><img src="{{ asset('sammy-plant.png')}}" alt="plant image" height="400px"></div>
- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur vero incidunt debitis sunt consequatur nulla impedit ratione ea quibusdam delectus non, placeat in magni quaerat ab nobis, aperiam nostrum enim.</p>
-</div>
-<br>
-<div class="img container"><img src="{{ asset('sammy-man-gardener-digging-up-a-carrot.png')}}" alt="plant image" height="400px"></div>
-<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod expedita commodi fugiat. Cum quae placeat iusto dolores nostrum veritatis aspernatur pariatur sequi nulla, quidem ea incidunt optio atque fugiat asperiores!</p>
+   @endif -->
+<br> <br> <br> <br>
+<div class="img container"><img src="{{ asset('sammy-man-gardener-digging-up-a-carrot.png')}}" alt="plant image" height="350px"></div>
+<p class=" text container">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod expedita commodi fugiat. Cum quae placeat iusto dolores nostrum veritatis aspernatur pariatur sequi nulla, quidem ea incidunt optio atque fugiat asperiores!</p>
 </div>
 <br> 
-<div class="img container" ><img src="{{ asset('sammy-man-and-woman-shopping.png')}}" alt="plant image" height="400px"></div>
-<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem, libero voluptate. Quisquam iure reiciendis placeat quibusdam commodi assumenda dolorem amet vel ipsam. Minima possimus nostrum eligendi est neque voluptatem repudiandae!</p>
+<div class="img container" ><img src="{{ asset('sammy-man-and-woman-shopping.png')}}" alt="plant image" height="350px"></div>
+<p class=" text container">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem, libero voluptate. Quisquam iure reiciendis placeat quibusdam commodi assumenda dolorem amet vel ipsam. Minima possimus nostrum eligendi est neque voluptatem repudiandae!</p>
+</div>
+<br>
+<div class="container-sm"></div>
+ <div class="img container-sm" ><img src="{{ asset('sammy-plant.png')}}" alt="plant image" height="350px"></div>
+ <p class=" text container">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur vero incidunt debitis sunt consequatur nulla impedit ratione ea quibusdam delectus non, placeat in magni quaerat ab nobis, aperiam nostrum enim.</p>
 </div>
 <br>
 

@@ -34,6 +34,7 @@ img .d-block.w-100 {
     padding: 0px 0px 15px 0px;
     display: flex;
     margin-bottom: 0px;
+    background-color: #f2f2f2;
   
             }
 .categoryImag{
@@ -48,6 +49,7 @@ img .d-block.w-100 {
     border: none;
     border-bottom:1px solid black;
     outline: none;
+    background-color: #f2f2f2;
 }
 
 #list-elements{
@@ -64,7 +66,7 @@ img .d-block.w-100 {
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    background-color: #b2b2b2;
 } 
     </style>
     </head>
@@ -100,7 +102,7 @@ img .d-block.w-100 {
 
 <form action="/products" method="GET">
             
-            <input type="text" class="searchBox"name="search" 
+            <input type="text" class="searchBox" name="search" 
             placeholder="Search..."
             value="{{ request('search') }}">
             <!-- <img class="searchimg"src="{{ asset('assets/search.png') }}    " alt="search"> -->
