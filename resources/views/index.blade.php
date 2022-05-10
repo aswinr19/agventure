@@ -24,6 +24,12 @@
     color: #666;
     font-size: 12px;
 }
+.img{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 </style>
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
@@ -33,13 +39,13 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100" src=" {{ asset('img3.jpg') }}" alt="First slide">
+      <img class="d-block w-100" src=" {{ asset('img3.jpg') }}" alt="First slide" width="1280" height="500" >
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="{{ asset('img1.jpg') }}" alt="Second slide">
-    </div>
+      <img class="d-block w-100" src="{{ asset('img1.jpg') }}" alt="Second slide" width="1280" height="500" >
+    </div> 
     <div class="carousel-item">
-      <img class="d-block w-100" src="{{ asset('img2.jpg') }}" alt="Third slide">
+      <img class="d-block w-100" src="{{ asset('img2.jpg') }}" alt="Third slide" width="1280" height="500" >
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -96,7 +102,18 @@
    @else
        <p>No products yet. Please check back later.</p>
    @endif
- 
+   <br> <br> <br>
+ <div class="img container" ><img src="{{ asset('sammy-plant.png')}}" alt="plant image" height="400px"></div>
+ <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur vero incidunt debitis sunt consequatur nulla impedit ratione ea quibusdam delectus non, placeat in magni quaerat ab nobis, aperiam nostrum enim.</p>
 </div>
+<br>
+<div class="img container"><img src="{{ asset('sammy-man-gardener-digging-up-a-carrot.png')}}" alt="plant image" height="400px"></div>
+<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod expedita commodi fugiat. Cum quae placeat iusto dolores nostrum veritatis aspernatur pariatur sequi nulla, quidem ea incidunt optio atque fugiat asperiores!</p>
+</div>
+<br> 
+<div class="img container" ><img src="{{ asset('sammy-man-and-woman-shopping.png')}}" alt="plant image" height="400px"></div>
+<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem, libero voluptate. Quisquam iure reiciendis placeat quibusdam commodi assumenda dolorem amet vel ipsam. Minima possimus nostrum eligendi est neque voluptatem repudiandae!</p>
+</div>
+<br>
 
 @endsection

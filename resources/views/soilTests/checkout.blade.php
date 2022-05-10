@@ -5,7 +5,6 @@
 
 <div>
 
-
 <h5> Add New Address<button onclick="toggleAdressForm()"> + </button></h5>
 <div id="address" style="display:none">
 <form action="/checkout/create-address" method="POST">

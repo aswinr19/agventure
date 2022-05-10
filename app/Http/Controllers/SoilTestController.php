@@ -18,7 +18,7 @@ class SoilTestController extends Controller
     {
 
         $tests = Soil_test::latest()
-            ->get();
+                 ->get();
 
         return view('soilTests.index', ['title' => 'Soil tests page', 'tests' => $tests]);
     }
@@ -35,7 +35,7 @@ class SoilTestController extends Controller
     {
 
         $id = $request->session()->get('loggedUser');
-        
+
         $soilTests = Soil_test::where('user_id', $id)->latest('created_at')->first();
 
         // dd($soilTests);
@@ -46,8 +46,7 @@ class SoilTestController extends Controller
     public function store(Request $request)
     {
 
-
-        $currentMnth = Carbon::now()->format('m'); 
+        $currentMnth = Carbon::now()->format('m');
         $currentDay = Carbon::now()->format('d');
 
         $request->validate([
@@ -57,13 +56,12 @@ class SoilTestController extends Controller
             'time' => 'required',
         ]);
 
-
         // dd('hai');
         $soilTest = new Soil_test();
 
         $soilTest->user_id = $request->session()->get('loggedUser');
         $soilTest->date = Carbon::createFromDate('2022', $request->month, $request->day);
-        $soilTest->time = Carbon::createFromTime($request->time,0,0);
+        $soilTest->time = Carbon::createFromTime($request->time, 0, 0);
         $soilTest->save();
 
         return redirect('/soil-test/create-soil-test');
@@ -78,10 +76,16 @@ class SoilTestController extends Controller
 
     public function change(Request $request)
     {
+
     }
 
     public function cancel($id)
     {
+        $soilTest = Soil_test::findOrFail($id);
+
+        $soilTest->delete();
+
+        return redirect('/soil-test/appointments');
     }
 
     public function display(Request $request)
@@ -92,15 +96,42 @@ class SoilTestController extends Controller
         $tests = Soil_test::where('user_id', $id)
             ->get();
 
-        return view('soilTests.index', ['title' => 'Soil tests page', 'tests' => $tests]);
+        return view('soilTests.display', ['title' => 'Soil tests page', 'tests' => $tests]);
     }
 
-    public function displayOne($id)
+    public function displayOne($id, Request $request)
     {
 
+        $userId = $request->session()->get('loggedUser');
         $test = Soil_test::findOrFail($id);
 
-        return view('soilTests.displayOne', ['title' => 'Soil test page', 'test' => $test]);
+        $purchase = Purchase::where('user_id', $userId)->where('soil_test_id', $id)->get();
+
+        return view('soilTests.displayOne', ['title' => 'Soil test page', 'test' => $test, 'purchase' => $purchase]);
+    }
+
+    public function success()
+    {
+
+        return view('checkout.success', ['title' => 'Success page']);
+    }
+
+    public function failed()
+    {
+
+        return view('checkout.failed', ['title' => 'Failed page']);
+    }
+
+    public function prodceedToPay($id, Request $request)
+    {
+
+        // dd($id);
+        $request->session()->put('soilTestId', $id);
+
+        $total = $request->total;
+        $request->session()->put('totalAmount', $total);
+
+        return redirect('/soil-test/checkout');
     }
 
     public function storePurchase($userId, $addressId, $cardNumber, $amount, $paymentMethod, $status, $orderStatus, $soilTestId)
@@ -119,15 +150,11 @@ class SoilTestController extends Controller
         $purchase->soil_test_id = $soilTestId;
 
         $purchase->save();
+
     }
-
-
-
 
     public function createCheckout(Request $request)
     {
-
-        // dd($request->session()->get('totalAmount'));
 
         $id = $request->session()->get('loggedUser');
         $totalAmount = $request->session()->get('totalAmount');
@@ -145,13 +172,11 @@ class SoilTestController extends Controller
         }
     }
 
-
-
-
     public function makeTransaction(Request $request)
     {
 
         $id = $request->session()->get('loggedUser');
+        $soilTest = Soil_test::where('user_id', $id)->latest('created_at')->first();
 
         $user = User::findOrFail($id);
 
@@ -163,7 +188,7 @@ class SoilTestController extends Controller
 
         $soilTestId = $request->session()->get('soilTestId');
 
-        dd($soilTestId);
+        // ddd($address);
 
         $totalAmount = $request->session()->get('totalAmount');
 
@@ -198,7 +223,7 @@ class SoilTestController extends Controller
         //logic for cod transactions
         if ($request->payment_method == "cod") {
 
-            $this->storePurchase($id, $addressId, 0, $totalAmount, "cod", "pending", "ordered", $soilTestId);
+            $this->storePurchase($id, $addressId, 0, $totalAmount, "cod", "pending", "ordered", $soilTest->id);
 
             $request->session()->forget('soilTestId');
             $request->session()->forget('totalAmount');
@@ -271,7 +296,7 @@ class SoilTestController extends Controller
 
                 if ($charge['status'] == 'succeeded') {
 
-                    $this->storePurchase($id, $addressId, $cardNumber, $totalAmount, "card", "succesful", "ordered", $soilTestId);
+                    $this->storePurchase($id, $addressId, $cardNumber, $totalAmount, "card", "succesful", "ordered", $soilTest->id);
 
                     $request->session()->forget('soilTestId');
                     $request->session()->forget('totalAmount');
@@ -280,7 +305,7 @@ class SoilTestController extends Controller
                 } else {
                     session()->flash('stripe_error', 'Error in transaction!');
 
-                    $this->storePurchase($id, $addressId, $cardNumber, $totalAmount, "card", "failed", "failed", $soilTestId);
+                    $this->storePurchase($id, $addressId, $cardNumber, $totalAmount, "card", "failed", "failed", $soilTest->id);
 
                     $request->session()->forget('soilTestId');
                     $request->session()->forget('totalAmount');
@@ -294,30 +319,6 @@ class SoilTestController extends Controller
                 return redirect('/checkout/failed');
             }
         }
-    }
-
-    
-    public function success()
-    {
-
-        return view('checkout.success', ['title' => 'Success page']);
-    }
-
-    public function failed()
-    {
-
-        return view('checkout.failed', ['title' => 'Failed page']);
-    }
-
-    public function prodceedToPay($id, Request $request)
-    {
-
-        // dd($id);
-        $request->session()->put('soilTestId', $id);
-        $total = $request->total;
-        $request->session()->put('totalAmount', $total);
-
-        return redirect('/soil-test/checkout');
     }
 
 }

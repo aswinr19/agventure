@@ -49,37 +49,23 @@ img .d-block.w-100 {
     border-bottom:1px solid black;
     outline: none;
 }
-#list-elements {
+
+#list-elements{
     text-decoration: none;
     color: black;
     flex: 1;
     border-radius: 7px;
-    font-width: 17px;
+    font-size: 17px;
     padding: 8px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* .footer{
+.footer{
     padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     
-}    */
+} 
     </style>
     </head>
 
@@ -153,7 +139,7 @@ img .d-block.w-100 {
     @yield('content')
     <footer class="footer">
       
-       <!-- <span class="footer-content">&copy;Agventure</span> -->
+       <span class="footer-content">&copy;Agventure</span>
      
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
