@@ -67,6 +67,7 @@ img .d-block.w-100 {
     justify-content: center;
     align-items: center;
     background-color: #b2b2b2;
+    bottom: 0px;
 } 
     </style>
     </head>

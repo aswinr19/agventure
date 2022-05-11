@@ -74,9 +74,6 @@
 <form action="/checkout" method="POST">
 @csrf
 
-<!-- @if(Session::get('success'))
-<input type="hidden" name="auction_id" value="{{ Session::get('auctionId') }}">
-@endif -->
 
 <h4>Select address</h4> <br>
     @foreach($addresses as $address)
@@ -98,7 +95,7 @@
 <input  type="radio" name="payment_method" value="card" onclick="displayPaymentForm()">Credit/Debit/ATM Card<br>
 <input  type="radio" name="payment_method" value="cod" onclick="hidePaymentForm()">COD<br>
 <div id="payment" style="display:none">
-
+<!-- 
 
 <h5>Add Payment Details</h5>
 <label for="card_number">Card Number</label> <br>
@@ -129,7 +126,7 @@
         {{ $message }}
     
         @enderror</span> <br>
-</div>
+</div> -->
 <input type="submit" value="PROCEED" name="submit">
 </form>
 

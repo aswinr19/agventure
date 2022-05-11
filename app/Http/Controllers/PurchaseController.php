@@ -182,7 +182,7 @@ class PurchaseController extends Controller
                     
                 ]);
 
-                // dd($charge);
+                dd($charge);
 
                 if ($charge['status'] == 'succeeded') {
 

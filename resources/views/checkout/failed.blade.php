@@ -2,11 +2,11 @@
 @section('content')
 <h2>
     Failed!
-
+    </h2>
     <p>
         <a href="/">
             Go to home page
         </a>
     </p>
-</h2>
+
 @endsection
