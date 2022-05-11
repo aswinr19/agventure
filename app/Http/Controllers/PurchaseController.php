@@ -84,6 +84,7 @@ class PurchaseController extends Controller
                 'selected_address' => 'required',
             ]);
         } else if ($request->payment_method == "card") {
+
             $request->validate([
 
                 'card_number' => 'required',
@@ -177,9 +178,8 @@ class PurchaseController extends Controller
                     'currency' => 'inr',
                     'amount' => $totalAmount + 60,
                     'description' => 'Payment for order no : ',
-                    'payment_method_types' => [
-                        'card',
-                    ],
+                    'payment_method_types' => ['card'],
+                    
                 ]);
 
                 // dd($charge);

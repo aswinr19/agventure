@@ -1,6 +1,8 @@
 @extends('layouts.layout')
 @section('content')
 <h2>Auctions</h2>
+
+@if( $auctions->count() > 0)
 <table>
     <tr>
         <th>Item Name</th>
@@ -84,4 +86,7 @@
 
     @endforeach
 </table>
+@else
+<p>No auctions yet. Please check back later.</p>
+@endif
 @endsection

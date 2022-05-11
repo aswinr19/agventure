@@ -17,6 +17,8 @@ class isLoggedIn
     public function handle(Request $request, Closure $next)
     {
         if(!$request->session()->get('loggedUser')){
+
+         
             return redirect('/auth/signin');
 
         }

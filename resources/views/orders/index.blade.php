@@ -1,6 +1,7 @@
 @extends('layouts.adminLayout')
 @section('content')
 <h2>Orders</h2>
+@if($orders->count()> 0)
 @foreach($orders as $order)
 <div>
 
@@ -18,4 +19,7 @@
 
 </div>
 @endforeach
+@else
+<p>No guidelines yet. Please check back later.</p>
+@endif
 @endsection

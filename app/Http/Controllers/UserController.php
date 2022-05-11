@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -91,8 +91,12 @@ class UserController extends Controller
                         //if the password is correct store the user id in session  and
                         // redirect to corresponding home page
                         $request->session()->put('loggedUser',$userInfo->id);
+
+                        
                         if($userInfo->role=='user'){
-                             return redirect('/');
+
+                          return redirect('/');
+                            
                             
                         }
                         else{

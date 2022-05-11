@@ -1,6 +1,7 @@
 @extends('layouts.adminLayout')
 @section('content')
 <h2>Guidelines</h2>
+@if($guidelines->count() > 0)
 <table>
     <tr>
         <th>Desease Name</th>
@@ -21,4 +22,7 @@
 </tr>
 @endforeach
 </table>
+@else
+<p>No guidelines yet. Please check back later.</p>
+@endif
 @endsection
