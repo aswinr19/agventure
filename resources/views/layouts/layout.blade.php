@@ -61,14 +61,14 @@ img .d-block.w-100 {
     padding: 8px;
 }
 
-.footer{
+/* .footer{
     padding: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #b2b2b2;
     bottom: 0px;
-} 
+}  */
 .errormsg{
     color: red;
 }
@@ -148,7 +148,7 @@ img .d-block.w-100 {
     @yield('content')
     <footer class="footer">
       
-       <span class="footer-content">&copy;Agventure</span>
+       <!-- <span class="footer-content">&copy;Agventure</span> -->
      
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>

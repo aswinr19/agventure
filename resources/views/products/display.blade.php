@@ -37,8 +37,9 @@
 <span class="label-price">/500g</span>
 </p> -->
 </div>
-<div class="short-desc ellipsis-text" ><p>{{ $product->description }}</p></div>
-
+<!-- <div class="short-desc ellipsis-text" ><p>{{ $product->description }}</p></div> -->
+<div class="short-desc ellipsis-text" ><p>{{ \Illuminate\Support\Str::limit($product->description, 150, $end='...') }}
+</p></div> 
 </div>
     </p>
   </div>
