@@ -179,7 +179,7 @@ class AuctionController extends Controller
 
         $request->validate([
 
-            'amount' => 'required',
+            'amount' => 'required|',
             'agree' => 'required'
         ]);
 
@@ -203,7 +203,7 @@ class AuctionController extends Controller
 
        
 
-        return redirect('/auctions/'. $request->auction_id );
+        return redirect('/auctions/'. $request->auction_id )->back()->with('success', 'Succesfully placed bid!');;
     }
 
 

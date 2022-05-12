@@ -2,7 +2,7 @@
 
 @section('content')
 <h2>Cart Items</h2>
-<table>
+
 @php
 $total = 0 ;
 @endphp
@@ -28,7 +28,7 @@ $total += ($item->machine->price) * $item->count;
 @endphp
 @endif
 @endforeach
-</table>
+<p>Total Amount: {{ $total }}</p>
 @if($cartItems->count()>0)
 <form action="/cart/proceed-to-buy" method="POST">
 @csrf

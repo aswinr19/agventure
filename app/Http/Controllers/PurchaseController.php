@@ -23,6 +23,7 @@ class PurchaseController extends Controller
 
         $id = $request->session()->get('loggedUser');
         $totalAmount = $request->session()->get('totalAmount');
+        $cartItems = Cart::latest()->where('user_id', $id)->get();
 
         $addresses = Address::latest()
             ->where('user_id', $id)->get();
@@ -32,7 +33,7 @@ class PurchaseController extends Controller
 
         if ($totalAmount) {
 
-            return view('checkout.index', ['title' => 'Checkout page', 'addresses' => $addresses, 'paymentDetails' => $paymentDetails]);
+            return view('checkout.index', ['title' => 'Checkout page', 'addresses' => $addresses, 'paymentDetails' => $paymentDetails,'cartItems'=>$cartItems]);
         } else {
             return redirect('/');
         }

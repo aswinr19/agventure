@@ -31,20 +31,20 @@ class CartController extends Controller
 
         $exists = false;
 
-        foreach ($cartItems as $item) {
+        // foreach ($cartItems as $item) {
 
-            if ($item->machine_id == $request->machine_id or $item->product_id == $request->product_id) {
+        //     if ($item->machine_id == $request->machine_id or $item->product_id == $request->product_id) {
 
-                $ci = Cart::findOrFail($item->id);
+        //         $ci = Cart::findOrFail($item->id);
 
-                if ($ci->count > 0) {
+        //         if ($ci->count > 0) {
 
-                    $ci->count = $ci->count + 1;
-                    $ci->save();
-                    $exists = true;
-                }
-            }
-        }
+        //             $ci->count = $ci->count + 1;
+        //             $ci->save();
+        //             $exists = true;
+        //         }
+        //     }
+        // }
 
         if (!$exists) {
 

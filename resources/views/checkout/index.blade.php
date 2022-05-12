@@ -2,10 +2,44 @@
 
 @section('content')
 <h2>Checkout</h2>
-
+@php
+$total = 0 ;
+@endphp
 <div>
-
-
+  <br> <br>
+@if($cartItems)
+<h3>Purchase Summary</h3>
+<br>
+@foreach($cartItems as $item)
+@if($item->product_id)
+<span> {{ $item->product->name }} <span> {{ $item->product->price }} 
+<img src="{{ asset('images/'. $item->product->image)}}" alt="{{ $item->product->image }} " height="20px"> 
+{{$item->count}}
+<a href="cart/delete-cart-item/{{$item->id}}">Delete</a> <br>
+</span>
+<br>
+@php
+$total += ($item->product->price) * $item->count;
+@endphp
+@endif
+@if($item->machine_id)
+<span> {{ $item->machine->name }} 
+<img src="{{ asset('images/'. $item->machine->image)}}" alt="{{ $item->machine->image }} " height="20px"> 
+{{$item->count}}
+<a href="cart/delete-cart-item/{{$item->id}}">Delete</a> <br>
+</span>
+ <br>
+@php
+$total += ($item->machine->price) * $item->count;
+@endphp
+@endif
+@endforeach
+<br>
+<p>Total Amount: {{ $total }} + delivery charges</p>
+</div>
+@endif
+<br> <br>
+<div>
 <h5> Add New Address<button onclick="toggleAdressForm()"> + </button></h5>
 <div id="address" style="display:none">
 <form action="/checkout/create-address" method="POST">

@@ -32,9 +32,12 @@ $auction->status}}<br>
     @error('agree'){{ $message }}@enderror <br> 
     <input type="submit" name="submit" value="Enter Auction">
 </form>
+@if(Session::get('success'))
+<span class="successmsg">{{ Session::get('success')  }}</span>  
+@endif
 @if(Session::get('fail'))
-        {{ Session::get('fail')  }}
-    @endif
+<span class="errormsg">{{ Session::get('fail')  }}</span>
+ @endif
 
 
 

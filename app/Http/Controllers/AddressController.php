@@ -13,8 +13,8 @@ class AddressController extends Controller
 
         // dd('hellow');
         $request->validate([
-            'name' => 'required',
-            'phone' => 'required',
+            'name' => 'required|min:2',
+            'phone' => 'required|digits:10',
             'house_name' => 'required',
             'street' => 'required',
             'pincode' => 'required',
