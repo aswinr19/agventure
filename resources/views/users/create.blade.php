@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 @section('content')
 
-
+<br>
 <div class="container col-4 shadow-none p-3 mb-5 bg-light rounded"  style="top: 14px;">
 <!-- <form>
 
@@ -11,10 +11,12 @@
     
 
   <div class="text-center"><strong style="color:green">Registraion</strong></div>
-  
+
+  <span class="successmsg">
   @if(Session::get('success'))
     {{ Session::get('success') }}
     @endif
+    </span>
     <span class="errormsg">
     @if(Session::get('fail'))
     {{ Session::get('fail') }}
@@ -68,16 +70,14 @@
         <option class="form-control" value="user">User</option>
         <option class="form-control" value="farmer">Farmer</option>
     </select>
-
-    <!-- <span class="errormsg">@error('password') {{ $message }} @enderror</span> -->
+    <span class="errormsg">@error('role') {{ $message }} @enderror</span>
   </div>
        
-
-        
+    
   <button type="submit" class="btn btn-success btn-block "name="submit">Signup</button> <br>
    <div class="text-center"> <a style="text-decoration: underline;"href="/auth/signin">Or Login </a></div>
 </form>
 </div>
 
-<div class="space" style="margin: 217px;"></div>
+<!-- <div class="space" style="margin: 217px;"></div> -->
 @endsection

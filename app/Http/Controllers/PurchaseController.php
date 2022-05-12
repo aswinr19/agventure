@@ -81,16 +81,17 @@ class PurchaseController extends Controller
 
         if ($request->payment_method == "cod") {
             $request->validate([
+                
                 'selected_address' => 'required',
             ]);
         } else if ($request->payment_method == "card") {
 
             $request->validate([
 
-                'card_number' => 'required',
-                'expiry_month' => 'required',
-                'expiry_year' => 'required',
-                'cvv' => 'required',
+                'card_number' => 'required|digits:16',
+                'expiry_month' => 'required|digits:2',
+                'expiry_year' => 'required|digits:4',
+                'cvv' => 'required|digits:3',
                 'selected_address' => 'required',
 
             ]);

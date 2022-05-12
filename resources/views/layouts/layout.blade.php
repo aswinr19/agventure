@@ -62,13 +62,19 @@ img .d-block.w-100 {
 }
 
 .footer{
-    padding: 20px;
+    padding: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #b2b2b2;
     bottom: 0px;
 } 
+.errormsg{
+    color: red;
+}
+.successmsg{
+    color: green;
+}
     </style>
     </head>
 

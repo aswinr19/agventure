@@ -77,13 +77,15 @@
 $total = 1200 ;
 @endphp
 
+@if($soilTests)
 <form action="/soil-test/proceed-to-pay/{{ $soilTests->id }}" method="POST">
     @csrf
-<p>Amount : 1200</p>
+<p>Amount : 1200 + tax</p>
 <input type="checkbox" name="agree" > Agree to terms and conditions <br>
 @error('agree'){{ $message }}@enderror <br>
 <input type="hidden" name="total" value="{{ $total }}">
 <input type="submit" value="submit" name="submit">
 </form>
-
+@else
+@endif
 @endsection

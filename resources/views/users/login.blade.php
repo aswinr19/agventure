@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 @section('content')
 
-
+<br> 
 <div class="container col-4 shadow-none p-3 mb-5 bg-light rounded"  style="top: 67px;">
 <form method="POST" action="/auth/signin">
   @csrf
@@ -39,5 +39,5 @@
 </form>
 </div>
 <div class="space" style="margin: 217px;"></div>
-
+<br><br> <br>
 @endsection
