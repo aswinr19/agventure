@@ -13,13 +13,13 @@ class AddressController extends Controller
 
         // dd('hellow');
         $request->validate([
-            'name' => 'required|min:2',
+            'name' => 'required|min:2|max:30|alpha',
             'phone' => 'required|digits:10',
-            'house_name' => 'required',
-            'street' => 'required',
-            'pincode' => 'required',
-            'district' => 'required',
-            'state' => 'required'
+            'house_name' => 'required|min:2|max:200',
+            'street' => 'required|min:2|max:200',
+            'pincode' => 'required|min:6|max:8',
+            'district' => 'required|min:2|max:30',
+            'state' => 'requiredmin:2|max:30'
         ]);
 
         $address = new Address();

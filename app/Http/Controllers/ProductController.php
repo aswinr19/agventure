@@ -41,15 +41,15 @@ class ProductController extends Controller
 
         $request->validate([
 
-            'product_name' => 'required|min:2',
-            'product_description' => 'required',
-            'product_price' => 'required',
+            'product_name' => 'required|min:2|alpha_dash',
+            'product_description' => 'required|min:10|max:250|alpha_dash',
+            'product_price' => 'required|numeric|digits_between:2,4',
             'category' => 'required',
-            'quantity' => 'required',
+            'quantity' => 'required|numeric|digits_between:2,4',
             // 'product_image' => 'required|max:5048',
-            'suitable_crops' => 'required',
-            'recommended_crops' => 'required',
-            'composition' => 'required',
+            'suitable_crops' => 'required|min:10|max:1000',
+            'recommended_crops' => 'required|min:10|max:1000',
+            'composition' => 'required|min:2|max:255',
             'product_image' => 'required|mimes:jpg,png,jpeg|max:5048',
 
         ]);
@@ -88,15 +88,15 @@ class ProductController extends Controller
 
         $request->validate([
 
-            'product_name' => 'required|min:2',
-            'product_description' => 'required',
-            'product_price' => 'required',
+            'product_name' => 'required|min:2|alpha_dash',
+            'product_description' => 'required|min:10|max:250|alpha_dash',
+            'product_price' => 'required|numeric|digits_between:2,4',
             'category' => 'required',
-            'quantity' => 'required',
+            'quantity' => 'required|numeric|digits_between:2,4',
             // 'product_image' => 'required|max:5048',
-            'suitable_crops' => 'required',
-            'recommended_crops' => 'required',
-            'composition' => 'required',
+            'suitable_crops' => 'required|min:10|max:1000',
+            'recommended_crops' => 'required|min:10|max:1000',
+            'composition' => 'required|min:2|max:255',
             // 'product_image' => 'required|mimes:jpg,png,jpeg|max:5048',
 
         ]);

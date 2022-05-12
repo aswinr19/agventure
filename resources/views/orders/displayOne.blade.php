@@ -1,5 +1,6 @@
 @extends('layouts.layout')
-@extends('section')
+@section('content')
+<h2>Order</h2>
 <p>
 @foreach($order->products as $product)
 {{ $product->name}}

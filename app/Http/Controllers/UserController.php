@@ -36,8 +36,8 @@ class UserController extends Controller
 
         $validatedData = $request->validate([
 
-            'first_name'=>'required|min:2|max:20',
-            'last_name'=>'required|max:20',
+            'first_name'=>'required|min:2|max:20|alpha',
+            'last_name'=>'required|min:2|max:20|alpha',
             'email'=>'required|email|unique:users',
             'phone'=>'required|digits:10|unique:users',
             'password'=>'required|min:6|max:14',
@@ -115,6 +115,13 @@ class UserController extends Controller
     }
 
     public function change(Request $request){
+
+        $request->validate([
+        'name'=>'required|min:2|max:20|alpha',
+        'email'=>'required|email|unique:users',
+        'phone'=>'required|digits:10|unique:users',
+        'password'=>'required|min:6|max:14',
+    ]);
 
 
               $id = $request->session()->get('loggedUser');
