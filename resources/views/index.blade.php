@@ -78,11 +78,24 @@
 <div class="row" style="padding: 29px;">
   -->
    <!-- ------------------- -->
-   <!-- @if ($products->count())
+   @if ($products->count())
 
-    @foreach($products as $product) -->
+    @foreach($products as $product) 
    
-  <!-- <div class="col-sm-3" style="padding: 18px 30px 11px 45px;">
+    <!-- <div class="container" style="display:grid">
+  <div class="row">
+    <div class="col-sm">
+
+    <div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="{{ asset('images/'. $product->image) }}"" alt="{{ $product->name }} "  style="height:159px;">
+  <div class="card-body">
+    <p class="card-text">{{ \Illuminate\Support\Str::limit($product->description, 150, $end='...') }}</p>
+  </div>
+</div> -->
+
+
+<!-- 
+
   <div class="card" style="width: 15rem;">
   <img class="card-img-top" src="{{ asset('images/'. $product->image) }}"" alt="{{ $product->name }}" style="height:159px;"alt="Card image cap">
   <div class="card-body" style="padding:.8rem">
@@ -104,31 +117,39 @@
 <span class="label-price">/500g</span>
 </p>
 </div>
-<div class="short-desc ellipsis-text">{{ $product->description }}</div>
+<div class="short-desc ellipsis-text">{{ \Illuminate\Support\Str::limit($product->description, 150, $end='...') }}</div>
 
 </div>
     </p>
   </div>
 </div>
-  </div> -->
-  <!-- @endforeach
+</div>
+  </div>
+</div> -->
+  @endforeach
    
-   @else
+  @else
        <p>No products yet. Please check back later.</p>
-   @endif -->
+   @endif
 <br> <br> <br> <br>
 <div class="img container"><img src="{{ asset('sammy-man-gardener-digging-up-a-carrot.png')}}" alt="plant image" height="350px"></div>
-<p class=" text container">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod expedita commodi fugiat. Cum quae placeat iusto dolores nostrum veritatis aspernatur pariatur sequi nulla, quidem ea incidunt optio atque fugiat asperiores!</p>
+<p class=" text container">
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus magnam iure tenetur! Deserunt, eos blanditiis. Accusantium alias rem officia eos, sapiente, voluptatem aspernatur sunt deserunt maiores iste numquam quod magnam?
+  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod expedita commodi fugiat. Cum quae placeat iusto dolores nostrum veritatis aspernatur pariatur sequi nulla, quidem ea incidunt optio atque fugiat asperiores!</p>
 </div>
 <br> 
 <div class="img container" ><img src="{{ asset('sammy-man-and-woman-shopping.png')}}" alt="plant image" height="350px"></div>
-<p class=" text container">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem, libero voluptate. Quisquam iure reiciendis placeat quibusdam commodi assumenda dolorem amet vel ipsam. Minima possimus nostrum eligendi est neque voluptatem repudiandae!</p>
+<p class=" text container">
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla officia praesentium cupiditate recusandae fugit aspernatur officiis deserunt dolores reiciendis suscipit quae ut odio soluta consequuntur consectetur sit distinctio, sed porro!  
+Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem, libero voluptate. Quisquam iure reiciendis placeat quibusdam commodi assumenda dolorem amet vel ipsam. Minima possimus nostrum eligendi est neque voluptatem repudiandae!</p>
 </div>
 <br>
 <div class="container-sm"></div>
  <div class="img container-sm" ><img src="{{ asset('sammy-plant.png')}}" alt="plant image" height="350px"></div>
- <p class=" text container">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur vero incidunt debitis sunt consequatur nulla impedit ratione ea quibusdam delectus non, placeat in magni quaerat ab nobis, aperiam nostrum enim.</p>
+ <p class=" text container">
+ Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi voluptate esse omnis minus magnam nihil perferendis voluptatum eaque soluta quae, nemo obcaecati modi, molestiae ratione iusto. Ipsum cum nostrum neque?  
+ Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur vero incidunt debitis sunt consequatur nulla impedit ratione ea quibusdam delectus non, placeat in magni quaerat ab nobis, aperiam nostrum enim.</p>
 </div>
-<br>
+<br> <br> <br>
 
 @endsection

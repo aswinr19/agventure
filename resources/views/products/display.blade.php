@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
 <center style="padding: 18px 0px 0px 0px;">
-<br> 
+<br>
   <h2> Products</h2>
   <br>
 </center>
@@ -39,14 +39,14 @@
 </div>
 <!-- <div class="short-desc ellipsis-text" ><p>{{ $product->description }}</p></div> -->
 <div class="short-desc ellipsis-text" ><p>{{ \Illuminate\Support\Str::limit($product->description, 150, $end='...') }}
-</p></div> 
+</p></div>
 </div>
     </p>
   </div>
 </div>
 </div>
     @endforeach
-   
+
 @else
 <center style="padding: 18px 0px 0px 0px;">
     <p>No products yet. Please check back later.</p>

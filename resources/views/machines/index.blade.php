@@ -39,7 +39,7 @@
 @endforeach
 </table>
 @else
-<p>No products yet. Please check back later.</p>
+<p>No machines yet. Please check back later.</p>
 <br><br>
 <a href="/admin/create-machine">Add New Machine</a>
 @endif

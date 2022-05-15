@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Item;
 use App\Models\Auction;
+use App\Models\Item;
 use App\Models\Participation;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
 class AuctionController extends Controller
 {
-
 
     public function index(Request $request)
     {
@@ -29,17 +28,12 @@ class AuctionController extends Controller
         return view('auctions.index', ['title' => 'Auctions page', 'auctions' => $auctions]);
     }
 
-
-
-
     public function show($id)
     {
 
         $auction = Auction::findOrfail($id);
         return view('auctions.show', ['title' => 'Auction page', 'auction' => $auction]);
     }
-
-
 
     public function create(Request $request)
     {
@@ -50,16 +44,12 @@ class AuctionController extends Controller
         return view('auctions.create', ['title' => 'Create auction page', 'item' => $item]);
     }
 
-
-
-
-
     public function store(Request $request)
     {
 
         $request->validate([
-            'starting_price' => 'required',
-            'duration' => 'required'
+            'starting_price' => 'required|min:2|max:6|numeric',
+            'duration' => 'required',
         ]);
         $auction = new Auction();
         $auction->user_id = $request->session()->get('loggedUser');
@@ -71,35 +61,29 @@ class AuctionController extends Controller
         return redirect('/farmer/auctions');
     }
 
-
-
     public function update($id)
     {
         $auction = Auction::findOrFail($id);
         return view('auctions.update', ['title' => 'Update auction Page', 'auction' => $auction]);
     }
 
-
-
     public function change(Request $request)
     {
 
         $request->validate([
-            'starting_price' => 'required',
+            'starting_price' => 'required|min:2|max:6|numeric',
             'duration' => 'required',
-            'status' => ' required'
+            'status' => ' required',
         ]);
         $auction = Auction::findOrFail($request->id);
         // $auction->duration = Carbon::createFromFormat('H',$request->duration)->format('H:i:s');
         $auction->duration = $request->duration;
-        $auction->starting_amount  = $request->starting_price;
+        $auction->starting_amount = $request->starting_price;
         $auction->status = $request->status;
         $auction->save();
 
         return redirect('/farmer/auctions');
     }
-
-
 
     public function destroy($id)
     {
@@ -108,8 +92,6 @@ class AuctionController extends Controller
         $auction->delete();
         return redirect('/farmer/auctions');
     }
-
-
 
     public function display()
     {
@@ -121,20 +103,16 @@ class AuctionController extends Controller
         return view('auctions.display', ['title' => 'Auctions page', 'auctions' => $auctions]);
     }
 
-
-
     public function displayOne($id, Request $request)
     {
 
         $auction = Auction::findOrFail($id);
 
-            return view('auctions.displayOne', ['title' => 'Auction page', 'auction' => $auction]);
+        return view('auctions.displayOne', ['title' => 'Auction page', 'auction' => $auction]);
     }
-
 
     public function indexAdmin()
     {
-
 
         $auctions = Auction::all();
 
@@ -153,11 +131,15 @@ class AuctionController extends Controller
     {
 
         $auction = Auction::findOrFail($id);
-        $duration = $auction->duration;
-        $auction->status = "approved";
-        $auction->started_at = Carbon::now();
-        $auction->ending_at = Carbon::now()->addHours($duration);
-        $auction->save();
+
+        if ($auction->status = "pending") {
+
+            $duration = $auction->duration;
+            $auction->status = "approved";
+            $auction->started_at = Carbon::now();
+            $auction->ending_at = Carbon::now()->addHours($duration);
+            $auction->save();
+        }
 
         return redirect('/admin/auctions');
     }
@@ -166,26 +148,25 @@ class AuctionController extends Controller
     {
 
         $auction = Auction::findOrFail($id);
-        $auction->status = "rejected";
-        $auction->save();
-
+        if ($auction->status = "pending") {
+            $auction->status = "rejected";
+            $auction->save();
+        }
         return redirect('/admin/auctions');
     }
 
     public function startBid(Request $request)
     {
-        
-      
 
         $request->validate([
 
-            'amount' => 'required|',
-            'agree' => 'required'
+            'amount' => 'required|min:2|max:6|numeric',
+            'agree' => 'required',
         ]);
 
         $auction = Auction::findOrFail($request->auction_id);
 
-        if($request->amount > $auction->starting_amount){
+        if ($request->amount > $auction->starting_amount) {
 
             $bid = new Participation();
 
@@ -194,30 +175,23 @@ class AuctionController extends Controller
             $bid->bid = $request->amount;
             $bid->status = "ongoing";
             $bid->save();
-    
+
+        } else {
+
+            return back()->with('fail', 'Please enter a bid amount greater than that of starting amount!');
         }
-        else{
 
-            return back()->with('fail','Please enter a bid amount greater than that of starting amount!');
-        }
-
-       
-
-        return redirect('/auctions/'. $request->auction_id )->back()->with('success', 'Succesfully placed bid!');;
+        return back()->with('success', 'Succesfully placed bid!');
     }
-
-
-
 
     public function updateBid(Request $request, $id)
     {
-
 
         $request->validate([
             'bid' => 'required',
         ]);
 
-        $bid  = Participation::latest()
+        $bid = Participation::latest()
             ->where('auction_id', $id)
             ->get();
 
@@ -227,13 +201,10 @@ class AuctionController extends Controller
         return redirect('/auction/{{ $id }}');
     }
 
-
-
-
     public function deleteBid($id)
     {
 
-        $bid  = Participation::latest()
+        $bid = Participation::latest()
             ->where('auction_id', $id)
             ->get();
 
@@ -241,8 +212,6 @@ class AuctionController extends Controller
 
         return redirect('/auction/{{ $id }}');
     }
-
-
 
     public function auctionComplete($id)
     {
@@ -267,37 +236,35 @@ class AuctionController extends Controller
     {
         $auction = Auction::findOrFail($id);
 
-        $bids = Participation::where('auction_id',$id)->get();
+        $bids = Participation::where('auction_id', $id)->get();
 
         // dd($bids);
 
-        return view('auctions.result',['title'=>'Auction reslut page','bids'=>$bids,'auction'=>$auction]);
+        return view('auctions.result', ['title' => 'Auction reslut page', 'bids' => $bids, 'auction' => $auction]);
     }
 
-
-    public function userResult(Request $request){
+    public function userResult(Request $request)
+    {
 
         $id = $request->session()->get('loggedUser');
 
-        $bids = Participation::where('user_id',$id)->get();
+        $bids = Participation::where('user_id', $id)->get();
 
-        return view('auctions.userResult',['title'=>'Auctions results page','bids'=>$bids]);
+        return view('auctions.userResult', ['title' => 'Auctions results page', 'bids' => $bids]);
     }
-
-
 
     public function approveBid($id)
     {
 
         $bid = Participation::findOrFail($id);
-        
+
         $this->rejectBid($bid->auction_id);
 
-        $bid->status =  "approved";
+        $bid->status = "approved";
 
         $bid->save();
 
-        return redirect('farmer/auction/results/'.$bid->auction_id);
+        return redirect('farmer/auction/results/' . $bid->auction_id);
     }
 
     public function rejectBid($id)
@@ -312,12 +279,11 @@ class AuctionController extends Controller
         }
     }
 
-
-    public function prodceedToBuy($id,Request $request)
+    public function prodceedToBuy($id, Request $request)
     {
-        $request->session()->put('auctionId',$id);
+        $request->session()->put('auctionId', $id);
         $total = $request->total;
-        $request->session()->put('totalAmount',$total);
+        $request->session()->put('totalAmount', $total);
 
         return redirect('/checkout');
     }

@@ -8,10 +8,12 @@
     <span> {{ $machine->name }}</span> <br>
     </a>
     <span> ₹ {{ $machine->price }}</span> <br>
-    <span>{{ $machine->description }}</span> <br>
+    <span> {{ \Illuminate\Support\Str::limit($machine->description , 150, $end='...') }}</span> <br>
+
+   
     @endforeach
 @else
-    <p>No products yet. Please check back later.</p>
+    <p>No machines yet. Please check back later.</p>
 @endif
 
 @endsection
