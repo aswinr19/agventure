@@ -24,7 +24,7 @@
 
 class Fetch {
   async getCurrent(input) {
-    const myKey = "39a9a737b07b4b703e3d1cd1e231eedc";
+    const myKey = "";
 
     //make request to url
 
