@@ -1,6 +1,6 @@
 # Agventure
 
-## Installation
+## Getting Started
 
 First clone this repository, install the dependencies, and setup your .env file.
 
