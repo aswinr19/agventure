@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-Assuming you've composer installed [ if not click here ](https://getcomposer.org/doc/00-intro.md)
+Assuming you've composer installed [ if not click here ](https://getcomposer.org/doc/00-intro.md) ,
 First clone this repository, install the dependencies, and setup your .env file.
 
 ```
