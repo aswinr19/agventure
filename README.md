@@ -6,7 +6,7 @@ Assuming you've got composer installed [ if not click here ](https://getcomposer
 First clone this repository, install the dependencies, and setup your .env file.
 
 ```
-git clone git@github.com:aswinr19/Agventure.git
+git clone https://github.com/aswinr19/Agventure.git
 cd Agventure
 composer install
 cp .env.example .env
