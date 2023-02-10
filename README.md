@@ -19,7 +19,7 @@ php artisan db
 create database dbname
 ```
 
-And run the initial migrations.
+And run the initial migrations..
 
 ```
 php artisan migrate
